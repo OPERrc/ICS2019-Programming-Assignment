@@ -17,7 +17,7 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  */
 
 typedef struct {
-    struct {
+    union {
 	  uint32_t _32;
       uint16_t _16;
       uint8_t _8[2];
@@ -29,9 +29,14 @@ typedef struct {
    * in PA2 able to directly access these registers.
    */
   union {
-    rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
-	uint16_t ax, cx, dx, bx, sp, bp, si, di;
-	uint8_t al, cl, dl, bl, ah, ch, dh, bh;
+    rtlreg_t eax;
+	rtlreg_t ecx;
+    rtlreg_t edx; 
+	rtlreg_t ebx; 
+	rtlreg_t esp; 
+	rtlreg_t ebp;
+    rtlreg_t esi;
+	rtlreg_t edi;
   };
 
   vaddr_t pc;
