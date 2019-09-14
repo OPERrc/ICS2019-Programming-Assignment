@@ -149,7 +149,7 @@ static int cmd_x(char *args) {
   // Get the first argument N
   char *N = strtok(args, " ");
   if (N == NULL) {
-    printf("Lack of arguments! Need 2 arguments: 'N', 'EXPR'.");
+    printf("Lack of arguments! Need 2 arguments: 'N', 'EXPR'.\n");
 	return 0;
   }
   
@@ -157,7 +157,7 @@ static int cmd_x(char *args) {
   args = NULL;
   char *EXPR = strtok(args, " ");
   if (EXPR == NULL) {
-    printf("Lack of arguments! Need 2 arguments: 'N', 'EXPR'.");
+    printf("Lack of arguments! Need 2 arguments: 'N', 'EXPR'.\n");
 	return 0;
   }
 
@@ -165,7 +165,7 @@ static int cmd_x(char *args) {
   args = NULL;
   char *EMPTY = strtok(args, " ");
   if (EMPTY != NULL) {
-    printf("Too many arguments! Need 2 arguments: 'N', 'EXPR'.");
+    printf("Too many arguments! Need 2 arguments: 'N', 'EXPR'.\n");
 	return 0;
   }
 
@@ -177,7 +177,7 @@ static int cmd_x(char *args) {
 	  point++;
 	}
     else {
-	  printf("Arguments input error! The first argument 'N' should be a non-negative integer!");
+	  printf("Arguments input error! The first argument 'N' should be a non-negative integer!\n");
 	  return 0;
 	}	
   }
@@ -204,7 +204,7 @@ static int cmd_x(char *args) {
 	  point++;
 	}
 	else {
-	  printf("Arguments input error! The second argument should be an expression!");
+	  printf("Arguments input error! The second argument should be an expression!\n");
 	  return 0;
 	}
   }
