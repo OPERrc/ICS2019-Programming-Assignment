@@ -10,6 +10,7 @@
 
 void cpu_exec(uint64_t);
 void isa_reg_display(void);
+uint32_t paddr_read(paddr_t, int);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -42,6 +43,8 @@ static int cmd_q(char *args) {
 static int cmd_si(char *args);
 
 static int cmd_info(char *args);
+
+static int cmd_x(char *args);
 // End of Insert part
 
 static int cmd_help(char *args);
@@ -57,6 +60,7 @@ static struct {
   // Insert part
   { "si", "With an argument [N]. Let the program run N steps then stop. If N is not given it is set to default value '1'", cmd_si },
   { "info", "With an argument 'r' or 'w'. 'r' print the register information, 'w' print the watchpoint information.", cmd_info},
+  { "x", "", cmd_x},
   // End of Insert part
 
   /* TODO: Add more commands */
@@ -89,18 +93,18 @@ static int cmd_help(char *args) {
 }
 
 // Insert part
+inline bool is_num(char ch) {
+  if (ch >= '0' && ch <= '9')
+	return true;
+  else
+	return false;
+}
+
 static int cmd_si(char *args) {
   if (args == NULL)
     cpu_exec(1);
   else {
 	uint64_t num = 0, point = 0;
-
-	inline bool is_num(char ch) {
-	  if (ch >= '0' && ch <= '9')
-	    return true;
-	  else
-	    return false;
-	}
 
 	while (args[point]) {
 	  if (is_num(args[point]))
@@ -139,6 +143,48 @@ static int cmd_info(char *args) {
 	printf("Arguments input error! Need only an 'r' or 'w' argument.\n");
     return 0;
   }
+}
+
+static int cmd_x(char *args) {
+  // Get the first argument N
+  char *N = strtok(args, " ");
+  if (N == NULL) {
+    printf("Lack of arguments! Need 2 arguments: 'N', 'EXPR'.");
+	return 0;
+  }
+  
+  // Get the second argument EXPR
+  args = NULL;
+  char *EXPR = strtok(args, " ");
+  if (EXPR == NULL) {
+    printf("Lack of arguments! Need 2 arguments: 'N', 'EXPR'.");
+	return 0;
+  }
+
+  // Get the remaining string
+  args = NULL;
+  char *EMPTY = strtok(args, " ");
+  if (EMPTY != NULL) {
+    printf("Too many arguments! Need 2 arguments: 'N', 'EXPR'.");
+	return 0;
+  }
+
+  // Get the number from N
+  int point = 0, num = 0;
+  while (N[point]) {
+    if (is_num(N[point]))
+	  num = num * 10 + N[point] - '0';
+    else {
+	  printf("Arguments input error! The first argument 'N' should be a non-negative integer!");
+	  return 0;
+	}	
+  }
+
+  // Get the address from EXPR, the result of EXPR should be a 16bit integer
+  int expr = 0; // Here should be the funciton to calculate EXPR 
+  paddr_read(expr, num);
+  
+  return 0;
 }
 // End of Insert part
 
