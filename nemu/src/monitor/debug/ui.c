@@ -2,12 +2,14 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
+// #include ""
 
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+void isa_reg_display(void);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -38,6 +40,8 @@ static int cmd_q(char *args) {
 
 // Insert part
 static int cmd_si(char *args);
+
+static int cmd_info(char *args);
 // End of Insert part
 
 static int cmd_help(char *args);
@@ -51,7 +55,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   // Insert part
-  { "si", "Let the program run N steps then stop, if N is not given it is set to default value 1", cmd_si },
+  { "si", "With an argument [N]. Let the program run N steps then stop. If N is not given it is set to default value '1'", cmd_si },
+  { "info", "With an argument 'r or 'w'. 'r' print the registers' information, 'w' print the watchpoints' information.", cmd_info},
   // End of Insert part
 
   /* TODO: Add more commands */
@@ -83,6 +88,7 @@ static int cmd_help(char *args) {
   return 0;
 }
 
+// Insert part
 static int cmd_si(char *args) {
   if (args == NULL)
     cpu_exec(1);
@@ -115,6 +121,26 @@ static int cmd_si(char *args) {
   }
   return 0; 
 }
+
+static int cmd_info(char *args) {
+  if (args == NULL) {
+    printf("Lack of arguments! Need an 'r' or 'w' argument.\n");
+	return 0;
+  }
+  else {
+    if (strcmp(args, "r") == 0) {
+	  isa_reg_display();
+	  return 0;
+	}	
+	if (strcmp(args, "w") == 0) {
+	  // Insert watchpoint code here
+	  return 0;
+	}
+	printf("Arguments input error! Need only an 'r' or 'w' argument.\n");
+    return 0;
+  }
+}
+// End of Insert part
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
