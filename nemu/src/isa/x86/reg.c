@@ -41,6 +41,13 @@ void reg_test() {
 }
 
 void isa_reg_display() {
+  // Insert part
+  int point = 0;
+  while (regsl[point]) {
+    printf("%s  %x", regsl[point], reg_l(point));
+    point = point + 1;
+  }
+  // End of Insert part
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {
