@@ -87,7 +87,8 @@ static int cmd_si(char *args){
   if (args == NULL)
     cpu_exec(1);
   else {
-	cpu_exec(1);
+	uint64_t num = 1;
+	cpu_exec(num);
   }
   return 0; 
 }
