@@ -58,9 +58,9 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   // Insert part
-  { "si", "With an argument [N]. Let the program run N steps then stop. If N is not given it is set to default value '1'", cmd_si },
-  { "info", "With an argument 'r' or 'w'. 'r' print the register information, 'w' print the watchpoint information.", cmd_info},
-  { "x", "", cmd_x},
+  { "si", "With 1 argument [N]. Let the program run N steps then stop. If N is not given it is set to default value '1'.", cmd_si },
+  { "info", "With 1 argument 'r' or 'w'. 'r' print the register information, 'w' print the watchpoint information.", cmd_info},
+  { "x", "With 2 arguments 'N' and 'EXPR'. From the address of 'EXPR', print continuous 'N' lines of 4 bytes.", cmd_x},
   // End of Insert part
 
   /* TODO: Add more commands */
