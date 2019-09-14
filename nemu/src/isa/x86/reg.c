@@ -44,13 +44,13 @@ void isa_reg_display() {
   // Insert part
   int NUM = 8;
   for (int i=0; i<NUM; i++)
-    printf("%s  %d\n", regsl[i], reg_l(i));
+    printf("%6s  %d\n", regsl[i], reg_l(i));
 
   for (int i=0; i<NUM; i++)
-	printf("%s  %d\n", regsw[i], reg_w(i));
+	printf("%6s  %d\n", regsw[i], reg_w(i));
 
   for (int i=0; i<NUM; i++)
-	printf("%s  %d\n", regsb[i], reg_b(i));
+	printf("%6s  %d\n", regsb[i], reg_b(i));
   // End of Insert part
 }
 
