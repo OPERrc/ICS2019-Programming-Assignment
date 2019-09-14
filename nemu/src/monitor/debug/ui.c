@@ -36,6 +36,13 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+// Insert part
+static int cmd_si(char *args) {
+  cpu_exec(1);
+  return 0;
+}
+// End of Insert part
+
 static int cmd_help(char *args);
 
 static struct {
@@ -46,6 +53,9 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  // Insert part
+  { "si [N]", "Let the program run N steps then stop, if N is not given it is set to default value 1", cmd_si },
+  // End of Insert part
 
   /* TODO: Add more commands */
 
