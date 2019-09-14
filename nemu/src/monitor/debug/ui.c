@@ -37,10 +37,7 @@ static int cmd_q(char *args) {
 }
 
 // Insert part
-static int cmd_si(char *args) {
-  cpu_exec(1);
-  return 0;
-}
+static int cmd_si(char *args);
 // End of Insert part
 
 static int cmd_help(char *args);
@@ -54,7 +51,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   // Insert part
-  { "si [N]", "Let the program run N steps then stop, if N is not given it is set to default value 1", cmd_si },
+  { "si", "Let the program run N steps then stop, if N is not given it is set to default value 1", cmd_si },
   // End of Insert part
 
   /* TODO: Add more commands */
@@ -84,6 +81,15 @@ static int cmd_help(char *args) {
     printf("Unknown command '%s'\n", arg);
   }
   return 0;
+}
+
+static int cmd_si(char *args){
+  if (args == NULL)
+    cpu_exec(1);
+  else {
+	cpu_exec(1);
+  }
+  return 0; 
 }
 
 void ui_mainloop(int is_batch_mode) {
