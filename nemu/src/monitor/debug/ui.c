@@ -83,11 +83,34 @@ static int cmd_help(char *args) {
   return 0;
 }
 
-static int cmd_si(char *args){
+static int cmd_si(char *args) {
   if (args == NULL)
     cpu_exec(1);
   else {
-	uint64_t num = 1;
+	uint64_t num = 0, point = 0;
+
+	inline bool is_num(char ch) {
+	  if (ch >= '0' && ch <= '9')
+	    return true;
+	  else
+	    return false;
+	}
+
+	while (args[point]) {
+	  if (is_num(args[point]))
+	    num = num * 10 + args[point] - '0';
+	  else
+	    if (args[point] == ' ') {
+		  printf("Too many arguments! Need only 1.");
+		  return 0;
+		}
+		else {
+		  printf("Arguments input error! Need 1 non-negative integer.");
+		  return 0;
+		}
+	  point = point + 1;
+	}
+
 	cpu_exec(num);
   }
   return 0; 
