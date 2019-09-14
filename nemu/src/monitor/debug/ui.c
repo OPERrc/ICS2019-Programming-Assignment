@@ -183,8 +183,9 @@ static int cmd_x(char *args) {
   }
 
   // Get the address from EXPR, the result of EXPR should be a 16bit integer
-  int expr = 0; // Here should be the funciton to calculate EXPR 
-  printf("%d\n", paddr_read(expr, num));
+  int expr = 0; // Here should be the funciton to calculate EXPR
+  for (int i=0; i<num; i++)
+    printf("%d\n", paddr_read(expr+i, 4));
   
   return 0;
 }
