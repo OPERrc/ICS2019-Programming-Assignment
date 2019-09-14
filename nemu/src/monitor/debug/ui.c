@@ -172,8 +172,10 @@ static int cmd_x(char *args) {
   // Get the number from N
   int point = 0, num = 0;
   while (N[point]) {
-    if (is_num(N[point]))
+    if (is_num(N[point])) {
 	  num = num * 10 + N[point] - '0';
+	  point++;
+	}
     else {
 	  printf("Arguments input error! The first argument 'N' should be a non-negative integer!");
 	  return 0;
