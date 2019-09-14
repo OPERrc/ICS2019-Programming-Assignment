@@ -210,7 +210,7 @@ static int cmd_x(char *args) {
   }
 
   for (int i=0; i<num; i++)
-    printf("0x%-12x: 0x%x\n", expr+i, paddr_read(expr+i, 3));   
+    printf("0x%-12x: 0x%x\n", expr+i, paddr_read(expr+i, 1));   
   
   return 0;
 }
