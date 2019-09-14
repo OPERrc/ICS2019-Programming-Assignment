@@ -101,22 +101,24 @@ inline bool is_num(char ch) {
 }
 
 static int cmd_si(char *args) {
-  if (args == NULL)
+  char *numstr = strtok(args, " ");
+  args = NULL;
+  char *EMPTY = strtok(args, " ");
+  if (numstr == NULL)
     cpu_exec(1);
+  else if (EMPTY != NULL) {
+    printf("Too many arguments! Need only 1 non-negative integer.\n");
+	return 0;
+  }
   else {
 	uint64_t num = 0, point = 0;
 
-	while (args[point]) {
-	  if (is_num(args[point]))
-	    num = num * 10 + args[point] - '0';
-	  else
-	    if (args[point] == ' ') {
-		  printf("Too many arguments! Need only 1 non-negative integer.\n");
-		  return 0;
-		}
-		else {
-		  printf("Arguments input error! Need 1 non-negative integer.\n");
-		  return 0;
+	while (numstr[point]) {
+	  if (is_num(numstr[point]))
+	    num = num * 10 + numstr[point] - '0';
+	  else {
+		printf("Arguments input error! Need 1 non-negative integer.\n");
+		return 0;
 		}
 	  point = point + 1;
 	}
@@ -127,16 +129,17 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-  if (args == NULL) {
+  char *op = strtok(args, " ");
+  if (op == NULL) {
     printf("Lack of arguments! Need an 'r' or 'w' argument.\n");
 	return 0;
   }
   else {
-    if (strcmp(args, "r") == 0) {
+    if (strcmp(op, "r") == 0) {
 	  isa_reg_display();
 	  return 0;
 	}	
-	if (strcmp(args, "w") == 0) {
+	if (strcmp(op, "w") == 0) {
 	  // Insert watchpoint code here
 	  return 0;
 	}
