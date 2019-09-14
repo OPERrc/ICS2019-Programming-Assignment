@@ -131,10 +131,16 @@ static int cmd_si(char *args) {
 static int cmd_info(char *args) {
   char *op = strtok(args, " ");
   if (op == NULL) {
-    printf("Lack of arguments! Need an 'r' or 'w' argument.\n");
+    printf("Lack of arguments! Need 1 'r' or 'w' argument.\n");
 	return 0;
   }
   else {
+	args = NULL;
+	char *EMPTY = strtok(args, " ");
+	if (EMPTY != NULL) {
+	  printf("Too many arguments! Need 1 'r' or 'w' argument.\n");
+	  return 0;
+	}
     if (strcmp(op, "r") == 0) {
 	  isa_reg_display();
 	  return 0;
@@ -143,7 +149,7 @@ static int cmd_info(char *args) {
 	  // Insert watchpoint code here
 	  return 0;
 	}
-	printf("Arguments input error! Need only an 'r' or 'w' argument.\n");
+	printf("Arguments input error! Need 1 'r' or 'w' argument.\n");
     return 0;
   }
 }
