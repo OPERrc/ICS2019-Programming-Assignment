@@ -101,11 +101,11 @@ static int cmd_si(char *args) {
 	    num = num * 10 + args[point] - '0';
 	  else
 	    if (args[point] == ' ') {
-		  printf("Too many arguments! Need only 1.");
+		  printf("Too many arguments! Need only 1.\n");
 		  return 0;
 		}
 		else {
-		  printf("Arguments input error! Need 1 non-negative integer.");
+		  printf("Arguments input error! Need 1 non-negative integer.\n");
 		  return 0;
 		}
 	  point = point + 1;
