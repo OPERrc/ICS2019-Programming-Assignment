@@ -101,7 +101,7 @@ static int cmd_si(char *args) {
 	    num = num * 10 + args[point] - '0';
 	  else
 	    if (args[point] == ' ') {
-		  printf("Too many arguments! Need only 1.\n");
+		  printf("Too many arguments! Need only 1 non-negative integer.\n");
 		  return 0;
 		}
 		else {
