@@ -98,6 +98,7 @@ static bool make_token(char *e) {
 						tokens[nr_token].type = TK_NUM;
 						break;
 					};
+					case TK_NOTYPE: break;
 					default: tokens[nr_token].type = rules[i].token_type;	
         }
         nr_token++;
