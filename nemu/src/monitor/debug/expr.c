@@ -150,6 +150,8 @@ inline int priority(int type) {
 		case '*': return 2;
 		case '/': return 2;
 		case TK_NUM: return 3;
+		case '(': return 3;
+		case ')': return 3;
 		default: assert(0);
 	}
 }
