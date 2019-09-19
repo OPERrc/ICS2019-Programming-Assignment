@@ -91,12 +91,14 @@ static bool make_token(char *e) {
 						for (int j = start; j < position; j++) {
 							if ((j - start) > 32)
 								assert(0);
-							tokens[i].str[j-start] = e[j];
+							tokens[nr_token].str[j-start] = e[j];
 						}
-						tokens[i].type = TK_NUM;
+						if (substr_len < 32)
+							tokens[nr_token].str[position] = '\0';
+						tokens[nr_token].type = TK_NUM;
 						break;
 					};
-					default: tokens[i].type = rules[i].token_type;	
+					default: tokens[nr_token].type = rules[i].token_type;	
         }
 
         break;
@@ -112,6 +114,87 @@ static bool make_token(char *e) {
   return true;
 }
 
+// Insert part
+bool checkparentheses(int left, int right) {
+	if (tokens[left].type != '(')
+		return false;
+	if (tokens[right].type != ')')
+		return false;
+
+	int num_l = 1;
+	bool flag = true;
+	for (int i = left+1; i <= right-1; i++) {
+		if (num_l == 0)
+			flag = false;
+		if (num_l < 0)
+			assert(0);
+		if (tokens[i].type == '(')
+			num_l++;
+		if (tokens[i].type == ')')
+			num_l--;
+	}
+	
+	if (num_l > 1)
+		assert(0);
+
+	return flag;
+}
+
+inline int priority(int type) {
+	switch (type) {
+		case '+': case '-': return 1;
+		case '*': case '/': return 2;
+		case TK_NUM: return 3;
+		default: assert(0);
+	}
+}
+
+int find_majority_token_position(int left, int right) {
+	int min_priority = priority(tokens[left].type);
+	int point = left;
+	for (int i = left+1; i <= right; i++) {
+		int cur_priority = priority(tokens[i].type);
+		if (cur_priority <= min_priority) {
+		  min_priority = cur_priority;
+			point = i;
+		}
+  }
+	return point;
+}
+
+uint32_t eval(int left, int right) {
+	if (left > right) 
+		assert(0);
+
+	else if (left == right) {
+		uint32_t num = 0;
+		int point = 0;
+		while(point < 32 && tokens[left].str[point]) {
+			num = num * 10 + tokens[left].str[point] - '0';
+			point++;
+		}
+		return num;
+	}
+	
+	else if (checkparentheses(left, right) == true) 
+		return eval(left+1, right-1);
+
+	else {
+		int op = find_majority_token_position(left, right);
+		uint32_t val1 = eval(left, op-1);
+		uint32_t val2 = eval(op+1, right);
+
+		switch (tokens[op].type) {
+			case '+': return val1 + val2;
+			case '-': return val1 - val2;
+			case '*': return val1 * val2;
+			case '/': return val1 / val2;
+			default: assert(0);
+		}
+	}
+}
+// End of Insert part
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -119,7 +202,7 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  return eval(0, nr_token);
 
   return 0;
 }
