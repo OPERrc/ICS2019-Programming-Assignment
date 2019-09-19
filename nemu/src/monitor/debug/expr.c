@@ -150,8 +150,6 @@ inline int priority(int type) {
 		case '*': return 2;
 		case '/': return 2;
 		case TK_NUM: return 3;
-		case '(': return 3;
-		case ')': return 3;
 		default: assert(0);
 	}
 }
@@ -159,12 +157,21 @@ inline int priority(int type) {
 int find_majority_token_position(int left, int right) {
 	int min_priority = priority(tokens[left].type);
 	int point = left;
+	int in_parentheses = 0;
 	for (int i = left+1; i <= right; i++) {
-		int cur_priority = priority(tokens[i].type);
-		if (cur_priority <= min_priority) {
-		  min_priority = cur_priority;
-			point = i;
+		if (tokens[i].type == '(') 
+			in_parentheses++;
+
+		if (in_parentheses == 0) {
+			int cur_priority = priority(tokens[i].type);
+			if (cur_priority <= min_priority) {
+		  	min_priority = cur_priority;
+				point = i;
+			}
 		}
+		
+		if (tokens[i].type == ')')
+			in_parentheses--;
   }
 	return point;
 }
