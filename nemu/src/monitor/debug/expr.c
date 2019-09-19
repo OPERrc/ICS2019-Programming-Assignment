@@ -96,12 +96,14 @@ static bool make_token(char *e) {
 						if (substr_len < 32)
 							tokens[nr_token].str[position] = '\0';
 						tokens[nr_token].type = TK_NUM;
+						nr_token++;
 						break;
 					};
 					case TK_NOTYPE: break;
-					default: tokens[nr_token].type = rules[i].token_type;	
+					default: 
+						tokens[nr_token].type = rules[i].token_type;
+					  nr_token++;	
         }
-        nr_token++;
         break;
       }
     }
