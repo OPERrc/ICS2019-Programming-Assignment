@@ -7,8 +7,41 @@
 
 // this should be enough
 static char buf[65536];
+static int point = 0;
+
+static inline void gen_num() {
+	int rand = choose(10);
+	buf[point] = rand + '0';
+	point++;
+	buf[point] = '\0';
+}
+
+static inline void gen(char ch) {
+	buf[point] = ch;
+	point++;
+	buf[point] = '\0';
+}
+
+static inline void gen_rand_op() {
+	int rand = choose(4);
+	char op;
+	switch (rand) {
+		case 0: op = '+'; break;
+		case 1: op = '-'; break;
+		case 2: op = '*'; break;
+		default: op = '/'; break;
+	}
+	buf[point] = op;
+	point++;
+	buf[point] = '\0';
+}
+
 static inline void gen_rand_expr() {
-  buf[0] = '\0';
+	switch (choose(3)) {
+		case 0: gen_num(); break;
+		case 1: gen('('); gen_rand_expr(); gen(')'); break;
+		default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+	}
 }
 
 static char code_buf[65536];

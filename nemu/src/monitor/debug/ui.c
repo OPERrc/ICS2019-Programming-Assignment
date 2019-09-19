@@ -10,6 +10,7 @@
 void cpu_exec(uint64_t);
 void isa_reg_display(void);
 uint32_t paddr_read(paddr_t, int);
+uint32_t expr(char *, bool *);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -44,6 +45,8 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 
 static int cmd_x(char *args);
+
+static int cmd_p(char *args);
 // End of Insert part
 
 static int cmd_help(char *args);
@@ -60,7 +63,8 @@ static struct {
   { "si", "With 1 argument [N]. Let the program run N steps then stop. If N is not given it is set to default value '1'.", cmd_si },
   { "info", "With 1 argument 'r' or 'w'. 'r' print the register information, 'w' print the watchpoint information.", cmd_info},
   { "x", "With 2 arguments 'N' and 'EXPR'. From the address of 'EXPR', print continuous 'N' lines of 4 bytes.", cmd_x},
-  // End of Insert part
+	{"p", "With 1 argument [EXPR]. Calculate the value of the [EXPR].", cmd_p},
+	// End of Insert part
 
   /* TODO: Add more commands */
 
@@ -221,6 +225,20 @@ static int cmd_x(char *args) {
     printf("0x%-12x: 0x%x\n", expr+i, paddr_read(expr+i, 1));   
   
   return 0;
+}
+
+static int cmd_p(char *args) {
+	bool flag = true;
+	bool *success = &flag;
+	uint32_t result = expr(args, success);
+	if (!*success) {
+		printf("EXPR input error!\n");
+		return 0;
+	}
+	else {
+	  printf("%d\n", result);
+	  return 0;
+	}
 }
 // End of Insert part
 
