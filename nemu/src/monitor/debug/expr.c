@@ -155,10 +155,10 @@ inline int priority(int type) {
 }
 
 int find_majority_token_position(int left, int right) {
-	int min_priority = priority(tokens[left].type);
+	int min_priority = 1000;
 	int point = left;
 	int in_parentheses = 0;
-	for (int i = left+1; i <= right; i++) {
+	for (int i = left; i <= right; i++) {
 		if (tokens[i].type == '(') 
 			in_parentheses++;
 
