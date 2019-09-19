@@ -29,7 +29,7 @@ static struct rule {
 	{"\\/", '/'},         // division
 	{"\\(", '('},         // left parentheses
 	{"\\)", ')'},         // right parentheses
-	{"[0-9]", TK_NUM},    // decimal number
+	{"[0-9]+", TK_NUM},   // decimal number
   {"==", TK_EQ}         // equal
 };
 
@@ -86,7 +86,14 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+					case TK_NUM: {
+						int start = position - substr_len;
+						for (int j = start; j < position; j++)
+							tokens[i].str[j-start] = e[j];
+						tokens[i].type = TK_NUM;
+						break;
+					};
+					default: tokens[i].type = rules[i].token_type;	
         }
 
         break;
