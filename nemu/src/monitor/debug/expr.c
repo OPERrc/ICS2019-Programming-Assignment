@@ -145,8 +145,10 @@ bool checkparentheses(int left, int right) {
 
 inline int priority(int type) {
 	switch (type) {
-		case '+': case '-': return 1;
-		case '*': case '/': return 2;
+		case '+': return 1;
+		case '-': return 1;
+		case '*': return 2;
+		case '/': return 2;
 		case TK_NUM: return 3;
 		default: assert(0);
 	}
