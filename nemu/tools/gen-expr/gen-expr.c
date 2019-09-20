@@ -9,11 +9,22 @@
 static char buf[65536];
 static int point = 0;
 
+uint32_t choose(uint32_t n) {
+	return rand() % n;
+}
+
 static inline void gen_num() {
-	int rand = choose(10);
-	buf[point] = rand + '0';
-	point++;
-	buf[point] = '\0';
+	uint32_t iter = choose(3);
+	for (int i = 0; i <= iter; i++) {
+		uint32_t num;
+		if (i == 0)
+			num = choose(9) + 1;
+		else
+			num = choose(10);
+		buf[point] = num + '0';
+		point++;
+		buf[point] = '\0';
+	}
 }
 
 static inline void gen(char ch) {
@@ -23,9 +34,8 @@ static inline void gen(char ch) {
 }
 
 static inline void gen_rand_op() {
-	int rand = choose(4);
 	char op;
-	switch (rand) {
+	switch (choose(4)) {
 		case 0: op = '+'; break;
 		case 1: op = '-'; break;
 		case 2: op = '*'; break;
@@ -36,15 +46,25 @@ static inline void gen_rand_op() {
 	buf[point] = '\0';
 }
 
-static inline void gen_rand_expr() {
-	switch (choose(3)) {
-		case 0: gen_num(); break;
-		case 1: gen('('); gen_rand_expr(); gen(')'); break;
-		default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+static inline void gen_rand_space() {
+	if (choose(2)) {
+		buf[point] = ' ';
+		point++;
+		buf[point] = '\0';
 	}
 }
 
-static char code_buf[65536];
+static inline void gen_rand_expr() {
+	switch (choose(3)) {
+		case 0: gen_num(); break;
+		case 1: gen('('); gen_rand_space(); gen_rand_expr(); gen_rand_space(); gen(')'); break;
+		default: gen_rand_expr(); gen_rand_space(); gen_rand_op(); gen_rand_space(); gen_rand_expr(); break;
+	}
+	if (point >= 65536)
+		assert(0);
+}
+
+static char code_buf[66536];
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
@@ -62,7 +82,9 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
-    gen_rand_expr();
+    buf[0] = '\0';
+		point = 0;
+		gen_rand_expr();
 
     sprintf(code_buf, code_format, buf);
 
@@ -77,11 +99,12 @@ int main(int argc, char *argv[]) {
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
 
-    int result;
+    int result = -1;
     fscanf(fp, "%d", &result);
     pclose(fp);
-
-    printf("%u %s\n", result, buf);
+		
+		if (result >= 0)
+    	printf("%u %s\n", result, buf);
   }
   return 0;
 }
