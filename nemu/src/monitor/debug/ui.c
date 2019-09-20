@@ -195,10 +195,16 @@ static int cmd_x(char *args) {
   }
 
   // Get the address from EXPR, the result of EXPR should be a 16bit integer
-  paddr_t expr = cmd_p(EXPR);
+  bool flag = true;
+	bool *success = &flag;
+	paddr_t result = expr(EXPR, success);
+	if (!success) {
+		printf("The second argument [EXPR] input error!\n");
+		return 0;
+	}
 
   for (int i=0; i<num; i++)
-    printf("0x%-12x: 0x%x\n", expr+i, paddr_read(expr+i, 1));   
+    printf("0x%-12x: 0x%x\n", result+i, paddr_read(result+i, 1));   
   
   return 0;
 }
