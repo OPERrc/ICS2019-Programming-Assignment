@@ -44,7 +44,7 @@ void value_test() {
 			printf(", correct! current line %d\n", total);
 		else {
 			printf(", wrong! current line %d\n", total);
-			//assert(0);
+			assert(0);
 		}
 		fgets(line_read, 1024, fp);
 	}
