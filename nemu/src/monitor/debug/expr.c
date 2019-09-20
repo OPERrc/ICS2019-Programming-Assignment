@@ -102,6 +102,7 @@ static bool make_token(char *e) {
 					case TK_NOTYPE: break;
 					default: 
 						tokens[nr_token].type = rules[i].token_type;
+						tokens[nr_token].str[0] = '\0';
 					  nr_token++;	
         }
         break;
