@@ -50,10 +50,10 @@ static struct rule {
 	{"!=", TK_NOEQ},        // not equal
 	{"&&", TK_AND},         // and
 	{"[|]+", TK_OR},        // or
-	{"<", TK_LESS},         // less
 	{"<=", TK_LESSEQ},      // less or equal
-	{">", TK_MORE},         // more
+	{"<", TK_LESS},         // less
 	{">=", TK_MOREEQ},      // more or equal
+	{">", TK_MORE},         // more
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
