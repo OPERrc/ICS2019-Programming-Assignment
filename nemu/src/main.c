@@ -28,6 +28,11 @@ void value_test() {
     uint32_t key = str2num(num);
 
 		char *EXPR = line_read + strlen(num) + 1;
+		int point = 0;
+		while (EXPR[point] != '\n')
+			point++;
+		EXPR[point] = '\0';
+
 		bool flag = true;
 		bool *success = &flag;
 		uint32_t answer = expr(EXPR, success);
