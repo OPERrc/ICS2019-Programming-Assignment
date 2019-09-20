@@ -14,7 +14,7 @@ uint32_t choose(uint32_t n) {
 }
 
 static inline void gen_num() {
-	uint32_t iter = choose(3);
+	uint32_t iter = choose(2);
 	for (int i = 0; i <= iter; i++) {
 		uint32_t num;
 		if (i == 0)
