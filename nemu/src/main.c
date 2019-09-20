@@ -25,7 +25,7 @@ void value_test() {
   char *line_read = line;
 	fgets(line_read, 1024, fp);
 
-	while (fp != NULL) {
+	for (int i = 1; i <= 100; i++) {
 		char *num = strtok(line_read, " ");
     uint32_t key = str2num(num);
 

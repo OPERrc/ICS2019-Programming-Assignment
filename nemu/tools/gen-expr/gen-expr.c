@@ -7,7 +7,7 @@
 
 // this should be enough
 static char buf[65536];
-static int point = 0;
+static unsigned point = 0;
 
 uint32_t choose(uint32_t n) {
 	return rand() % n;
@@ -105,6 +105,8 @@ int main(int argc, char *argv[]) {
 		
 		if (result >= 0)
     	printf("%u %s\n", result, buf);
+		else
+			i--;
   }
   return 0;
 }
