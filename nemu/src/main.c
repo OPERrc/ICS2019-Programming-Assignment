@@ -19,7 +19,7 @@ uint32_t str2num(char *num) {
 }
 
 void value_test() {
-	FILE *fp = fopen("~ics2019/nemu/tools/gen-expr/input", "r");
+	FILE *fp = fopen("~/ics2019/nemu/tools/gen-expr/input", "r");
 	assert(fp != NULL);
   char *line_read = readline("");
 	while (line_read != NULL) {
