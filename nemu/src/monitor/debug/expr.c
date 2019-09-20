@@ -295,6 +295,8 @@ uint32_t eval(int left, int right) {
 	else {
 		int op = find_majority_token_position(left, right);
 		uint32_t val1 = eval(left, op-1);
+		if (tokens[op].type == DEREF)
+			return paddr_read(val1, 1);
 		uint32_t val2 = eval(op+1, right);
 
 		switch (tokens[op].type) {
