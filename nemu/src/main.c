@@ -27,8 +27,7 @@ void value_test() {
 		char *num = strtok(line_read, " ");
     uint32_t key = str2num(num);
 
-		line_read = NULL;
-		char *EXPR = strtok(line_read, " ");
+		char *EXPR = line_read;
 		bool flag = true;
 		bool *success = &flag;
 		uint32_t answer = expr(EXPR, success);
