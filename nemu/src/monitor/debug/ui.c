@@ -195,31 +195,7 @@ static int cmd_x(char *args) {
   }
 
   // Get the address from EXPR, the result of EXPR should be a 16bit integer
-  // EXPR = function(EXPR); // Here should be the funciton to calculate EXPR
-  paddr_t expr = 0;
-  point = 2;
-  
-  inline bool is_a2f(char ch) {
-    if (ch >= 'a' && ch <='f')
-	  return true;
-	return false;
-  }
-
-  while (EXPR[point]) {
-    if (is_num(EXPR[point])) {
-	  expr = expr * 16 + EXPR[point] - '0';
-	  point++;
-	}
-	else
-	if (is_a2f(EXPR[point])) {
-	  expr = expr * 16 + 10 + EXPR[point] - 'a';
-	  point++;
-	}
-	else {
-	  printf("Arguments input error! The second argument should be an expression!\n");
-	  return 0;
-	}
-  }
+  paddr_t expr = cmd_p(EXPR);
 
   for (int i=0; i<num; i++)
     printf("0x%-12x: 0x%x\n", expr+i, paddr_read(expr+i, 1));   
