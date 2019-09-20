@@ -16,6 +16,11 @@ enum {
  	TK_EQ,
 	TK_NOEQ,
 	TK_AND,
+	TK_OR,
+	TK_LESS,
+	TK_LESSEQ,
+	TK_MORE,
+	TK_MOREEQ,
 	DEREF,
 
   /* TODO: Add more token types */
@@ -44,6 +49,11 @@ static struct rule {
   {"==", TK_EQ},          // equal
 	{"!=", TK_NOEQ},        // not equal
 	{"&&", TK_AND},         // and
+	{"||", TK_OR},          // or
+	{"<", TK_LESS},         // less
+	{"<=", TK_LESSEQ},      // less or equal
+	{">", TK_MORE},         // more
+	{">=", TK_MOREEQ},      // more or equal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -194,12 +204,21 @@ inline int priority(int type) {
 		case TK_EQ: return 1;
 		case TK_NOEQ: return 1;
 		case TK_AND: return 1;
+		case TK_OR: return 1;
+		case TK_LESS: return 1;
+		case TK_LESSEQ: return 1;
+		case TK_MORE: return 1;
+	  case TK_MOREEQ: return 1;
+
 		case '+': return 2;
 		case '-': return 2;
+
 		case '*': return 3;
 		case '/': return 3;
+
 		case DEREF: return 10;
-		case TK_REG: return 10;
+
+		case TK_REG: return 100;
 		case TK_NUM: return 100;
 		case TK_HEXNUM: return 100;
 
@@ -286,6 +305,11 @@ uint32_t eval(int left, int right) {
 			case TK_EQ: return val1 == val2;
 		  case TK_NOEQ: return val1 != val2;
 			case TK_AND: return val1 && val2;
+			case TK_OR: return val1 || val2;
+			case TK_LESS: return val1 < val2;
+			case TK_LESSEQ: return val1 <= val2;
+			case TK_MORE: return val1 > val2;
+			case TK_MOREEQ: return val1 >= val2;
 			default: assert(0);
 		}
 	}
