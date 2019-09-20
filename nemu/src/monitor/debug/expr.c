@@ -252,7 +252,7 @@ uint32_t eval(int left, int right) {
 					if ('0' <= ch && ch <= '9')
 						num = num * 16 + ch - '0';
 					else
-						num = num * 16 + ch - 'a';
+						num = num * 16 + ch - 'a' + 10;
 					point++;
 					ch = tokens[left].str[point];
 				}				
