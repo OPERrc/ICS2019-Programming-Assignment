@@ -17,7 +17,7 @@ uint32_t str2num(char *num) {
 }
 
 void value_test() {
-	static int total = 0, correct = 0;
+	static int total = 0;
 	FILE *fp = fopen("tools/gen-expr/input", "r");
 	assert(fp != NULL);
 
@@ -39,13 +39,12 @@ void value_test() {
 		uint32_t answer = expr(EXPR, success);
 		printf("key = %d, answer = %d", key, answer);
 		total++;
-		if (key == answer) {
-			correct++;
-			printf(", correct! current correctness: %d / %d\n", correct, total);
+		if (key == answer)
+			printf(", correct! current line %d\n", total);
+		else {
+			printf(", wrong! current line %d\n", total);
+			assert(0);
 		}
-		else
-			printf(", wrong! current correctness: %d / %d\n", correct, total);
-
 		fgets(line_read, 1024, fp);
 	}
 	fclose(fp);
