@@ -324,8 +324,17 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
 	
+	inline bool DEREF_type(int type) {
+		if (type != TK_NUM)
+		if (type != TK_HEXNUM)
+		if (type != TK_REG)
+		if (type != ')')
+			return true;
+		return false;
+	}
+
 	for (int i = 0; i < nr_token; i++)
-		if (tokens[i].type == '*' && (i == 0 || ((tokens[i-1].type != TK_NUM) && (tokens[i-1].type != TK_HEXNUM) && (tokens[i-1].type != TK_REG))))
+		if (tokens[i].type == '*' && (i == 0 || DEREF_type(tokens[i-1].type)))
 			tokens[i].type = DEREF;
 
   return eval(0, nr_token-1);
