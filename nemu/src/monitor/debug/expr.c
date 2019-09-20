@@ -93,7 +93,7 @@ static bool make_token(char *e) {
 								assert(0);
 							tokens[nr_token].str[j-start] = e[j];
 						}
-						for (int j = position; j < 32; j++)
+						for (int j = substr_len; j < 32; j++)
 							tokens[nr_token].str[j] = '\0';
 						tokens[nr_token].type = TK_NUM;
 						nr_token++;
