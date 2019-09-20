@@ -19,7 +19,9 @@ uint32_t str2num(char *num) {
 void value_test() {
 	FILE *fp = fopen("tools/gen-expr/input", "r");
 	assert(fp != NULL);
-  char *line_read = NULL;
+
+	char line[1024];
+  char *line_read = line;
 	fgets(line_read, 1024, fp);
 	while (line_read != NULL) {
 		char *num = strtok(line_read, " ");
