@@ -1,5 +1,3 @@
-#include <readline/readline.h>
-#include <readline/history.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,7 +19,8 @@ uint32_t str2num(char *num) {
 void value_test() {
 	FILE *fp = fopen("tools/gen-expr/input", "r");
 	assert(fp != NULL);
-  char *line_read = readline("");
+  char *line_read = NULL;
+	fgets(line_read, 1024, fp);
 	while (line_read != NULL) {
 		char *num = strtok(line_read, " ");
     uint32_t key = str2num(num);
@@ -37,7 +36,7 @@ void value_test() {
 		else
 			printf("  wrong!\n");
 
-		line_read = readline("");
+		fgets(line_read, 1024, fp);
 	}
 	fclose(fp);
 }
