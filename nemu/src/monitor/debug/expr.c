@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <regex.h>
 
+uint32_t isa_reg_str2val(const char *, bool *);
+
 enum {
   TK_NOTYPE = 256,
  	TK_REG,
@@ -189,11 +191,18 @@ bool checkparentheses(int left, int right) {
 
 inline int priority(int type) {
 	switch (type) {
-		case '+': return 1;
-		case '-': return 1;
-		case '*': return 2;
-		case '/': return 2;
-		case TK_NUM: return 3;
+		case TK_EQ: return 1;
+		case TK_NOEQ: return 1;
+		case TK_AND: return 1;
+		case '+': return 2;
+		case '-': return 2;
+		case '*': return 3;
+		case '/': return 3;
+		case DEREF: return 10;
+		case TK_REG: return 10;
+		case TK_NUM: return 100;
+		case TK_HEXNUM: return 100;
+
 		default: assert(0);
 	}
 }
@@ -225,13 +234,40 @@ uint32_t eval(int left, int right) {
 		assert(0);
 
 	else if (left == right) {
-		uint32_t num = 0;
-		int point = 0;
-		while(point < 32 && tokens[left].str[point]) {
-			num = num * 10 + tokens[left].str[point] - '0';
-			point++;
+		switch (tokens[left].type) {
+			case TK_NUM: {
+				uint32_t num = 0;
+				int point = 0;
+				while (point < 32 && tokens[left].str[point]) {
+					num = num * 10 + tokens[left].str[point] - '0';
+					point++;
+				}
+				return num;
+			}
+			case TK_HEXNUM: {
+				uint32_t num = 0;
+				int point = 0;
+				char ch = tokens[left].str[point];
+				while (point < 32 && ch) {
+					if ('0' <= ch && ch <= '9')
+						num = num * 16 + ch - '0';
+					else
+						num = num * 16 + ch - 'a';
+					point++;
+					ch = tokens[left].str[point];
+				}				
+				return num;
+			}
+			case TK_REG: {
+				bool flag = true;
+				bool *success = &flag;
+				uint32_t value = isa_reg_str2val(tokens[left].str, success);	
+				if (*success)
+					return value;
+				else assert(0);
+			}
+			default: assert(0);
 		}
-		return num;
 	}
 	
 	else if (checkparentheses(left, right) == true) 
@@ -247,6 +283,9 @@ uint32_t eval(int left, int right) {
 			case '-': return val1 - val2;
 			case '*': return val1 * val2;
 			case '/': return val1 / val2;
+			case TK_EQ: return val1 == val2;
+		  case TK_NOEQ: return val1 != val2;
+			case TK_AND: return val1 && val2;
 			default: assert(0);
 		}
 	}

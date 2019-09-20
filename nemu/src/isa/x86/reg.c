@@ -1,6 +1,7 @@
 #include "nemu.h"
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
@@ -55,5 +56,13 @@ void isa_reg_display() {
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {
-  return 0;
+  for (int i = 0; i < 8; i++)
+		if (strcmp(regsl[i], s) == 0)
+			return reg_l(i);
+		else if (strcmp(regsw[i], s) == 0)
+			return reg_w(i);
+		else if (strcmp(regsb[i], s) == 0)
+			return reg_b(i);
+	*success = false;
+	return 0;
 }
