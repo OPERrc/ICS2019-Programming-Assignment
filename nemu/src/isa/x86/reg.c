@@ -63,6 +63,8 @@ uint32_t isa_reg_str2val(const char *s, bool *success) {
 			return reg_w(i);
 		else if (strcmp(regsb[i], s) == 0)
 			return reg_b(i);
+	if (strcmp("pc", s) == 0)
+		return cpu.pc;
 	*success = false;
 	return 0;
 }
