@@ -14,6 +14,7 @@ enum {
  	TK_EQ,
 	TK_NOEQ,
 	TK_AND,
+	DEREF,
 
   /* TODO: Add more token types */
 
@@ -103,17 +104,49 @@ static bool make_token(char *e) {
 								assert(0);
 							tokens[nr_token].str[j-start] = e[j];
 						}
+
 						for (int j = substr_len; j < 32; j++)
 							tokens[nr_token].str[j] = '\0';
 						tokens[nr_token].type = TK_NUM;
 						nr_token++;
+
 						break;
 					};
+
 					case TK_NOTYPE: break;
-					default: 
+					
+					case TK_REG: {
+						int start = position - substr_len + 1;
+						for (int j = start; j < position; j++)
+							tokens[nr_token].str[j-start] = e[j];
+						tokens[nr_token].str[substr_len-1] = '\0';
+						tokens[nr_token].type = TK_REG;
+						nr_token++;
+
+						break;
+					}
+
+					case TK_HEXNUM: {
+					  int start = position - substr_len + 2;
+						for (int j = start; j < position; j++) {
+							if ((j - start) > 32)
+								assert(0);
+							tokens[nr_token].str[j-start] = e[j];
+						}
+
+						for (int j = substr_len-2; j < 32; j++)
+							tokens[nr_token].str[j] = '\0';
+						tokens[nr_token].type = TK_HEXNUM;
+						nr_token++;
+
+						break;
+					}
+
+					default: { 
 						tokens[nr_token].type = rules[i].token_type;
 						tokens[nr_token].str[0] = '\0';
-					  nr_token++;	
+					  nr_token++;
+					};	
         }
         break;
       }
