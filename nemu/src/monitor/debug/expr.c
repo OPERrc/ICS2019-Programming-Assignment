@@ -21,7 +21,7 @@ enum {
 	TK_LESSEQ,
 	TK_MORE,
 	TK_MOREEQ,
-	DEREF,
+	TK_DEREF,
 
   /* TODO: Add more token types */
 
@@ -216,7 +216,7 @@ inline int priority(int type) {
 		case '*': return 3;
 		case '/': return 3;
 
-		case DEREF: return 10;
+		case TK_DEREF: return 10;
 
 		case TK_REG: return 100;
 		case TK_NUM: return 100;
@@ -248,7 +248,7 @@ int find_majority_token_position(int left, int right) {
 	return point;
 }
 
-uint32_t eval(int left, int right) {
+int eval(int left, int right) {
 	if (left > right) 
 		assert(0);
 
@@ -280,7 +280,7 @@ uint32_t eval(int left, int right) {
 			case TK_REG: {
 				bool flag = true;
 				bool *success = &flag;
-				uint32_t value = isa_reg_str2val(tokens[left].str, success);	
+				int value = isa_reg_str2val(tokens[left].str, success);	
 				if (*success)
 					return value;
 				else assert(0);
@@ -295,7 +295,7 @@ uint32_t eval(int left, int right) {
 	else {
 		int op = find_majority_token_position(left, right);
 		uint32_t val2 = eval(op+1, right);
-		if (tokens[op].type == DEREF)
+		if (tokens[op].type == TK_DEREF)
 			return paddr_read(val2, 1);
 		uint32_t val1 = eval(left, op-1);
 
@@ -318,7 +318,7 @@ uint32_t eval(int left, int right) {
 }
 // End of Insert part
 
-uint32_t expr(char *e, bool *success) {
+int expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -337,7 +337,7 @@ uint32_t expr(char *e, bool *success) {
 
 	for (int i = 0; i < nr_token; i++)
 		if (tokens[i].type == '*' && (i == 0 || DEREF_type(tokens[i-1].type)))
-			tokens[i].type = DEREF;
+			tokens[i].type = TK_DEREF;
 
   return eval(0, nr_token-1);
 
