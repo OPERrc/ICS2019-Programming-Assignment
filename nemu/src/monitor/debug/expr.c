@@ -280,7 +280,7 @@ int eval(int left, int right) {
 			case TK_REG: {
 				bool flag = true;
 				bool *success = &flag;
-				int value = isa_reg_str2val(tokens[left].str, success);	
+				uint32_t value = isa_reg_str2val(tokens[left].str, success);	
 				if (*success)
 					return value;
 				else assert(0);
@@ -294,10 +294,10 @@ int eval(int left, int right) {
 
 	else {
 		int op = find_majority_token_position(left, right);
-		uint32_t val2 = eval(op+1, right);
+		int val2 = eval(op+1, right);
 		if (tokens[op].type == TK_DEREF)
 			return paddr_read(val2, 1);
-		uint32_t val1 = eval(left, op-1);
+		int val1 = eval(left, op-1);
 
 		switch (tokens[op].type) {
 			case '+': return val1 + val2;
