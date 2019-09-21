@@ -9,19 +9,19 @@
 uint32_t isa_reg_str2val(const char *, bool *);
 
 enum {
-  TK_NOTYPE = 256,
- 	TK_REG,
-	TK_HEXNUM,
-	TK_NUM,
- 	TK_EQ,
-	TK_NOEQ,
-	TK_AND,
-	TK_OR,
-	TK_LESS,
-	TK_LESSEQ,
-	TK_MORE,
-	TK_MOREEQ,
-	TK_DEREF,
+  TK_NOTYPE = 256,    // e.g.  " "
+ 	TK_REG,             // e.g.  $eax
+	TK_HEXNUM,          // e.g.  0x100000
+	TK_NUM,             // e.g.  1234
+ 	TK_EQ,              // e.g.  ==
+	TK_NOEQ,            // e.g.  !=
+	TK_AND,             // e.g.  &&
+	TK_OR,              // e.g.  ||
+	TK_LESS,            // e.g.  <
+	TK_LESSEQ,          // e.g.  <=
+	TK_MORE,            // e.g.  >
+	TK_MOREEQ,          // e.g.  >=
+	TK_DEREF,           // e.g.  *$pc
 
   /* TODO: Add more token types */
 
@@ -110,6 +110,7 @@ static bool make_token(char *e) {
         
         switch (rules[i].token_type) {
 					case TK_NUM: {
+						// e.g. 1234
 						int start = position - substr_len;
 						for (int j = start; j < position; j++) {
 							if ((j - start) > 32)
@@ -128,9 +129,11 @@ static bool make_token(char *e) {
 					case TK_NOTYPE: break;
 					
 					case TK_REG: {
+						// e.g. $eax
 						int start = position - substr_len + 1;
 						for (int j = start; j < position; j++)
 							tokens[nr_token].str[j-start] = e[j];
+
 						tokens[nr_token].str[substr_len-1] = '\0';
 						tokens[nr_token].type = TK_REG;
 						nr_token++;
@@ -139,6 +142,7 @@ static bool make_token(char *e) {
 					}
 
 					case TK_HEXNUM: {
+						// e.g. 0x100000
 					  int start = position - substr_len + 2;
 						for (int j = start; j < position; j++) {
 							if ((j - start) > 32)
@@ -154,7 +158,8 @@ static bool make_token(char *e) {
 						break;
 					}
 
-					default: { 
+					default: {
+						// other types 
 						tokens[nr_token].type = rules[i].token_type;
 						tokens[nr_token].str[0] = '\0';
 					  nr_token++;
@@ -175,6 +180,7 @@ static bool make_token(char *e) {
 
 // Insert part
 bool checkparentheses(int left, int right) {
+	// basic conditions
 	if (tokens[left].type != '(')
 		return false;
 	if (tokens[right].type != ')')
@@ -184,8 +190,10 @@ bool checkparentheses(int left, int right) {
 	bool flag = true;
 	for (int i = left+1; i <= right-1; i++) {
 		if (num_l == 0)
+			// not wrong, but don't cover the whole EXPR
 			flag = false;
 		if (num_l < 0)
+			// right parentheses overflows
 			assert(0);
 		if (tokens[i].type == '(')
 			num_l++;
@@ -194,12 +202,14 @@ bool checkparentheses(int left, int right) {
 	}
 	
 	if (num_l > 1)
+		// left parentheses overflows
 		assert(0);
 
 	return flag;
 }
 
 inline int priority(int type) {
+	// token priority table
 	switch (type) {
 		case TK_EQ: return 1;
 		case TK_NOEQ: return 1;
@@ -235,6 +245,7 @@ int find_majority_token_position(int left, int right) {
 			in_parentheses++;
 
 		if (in_parentheses == 0) {
+			// out of parentheses
 			int cur_priority = priority(tokens[i].type);
 			if (cur_priority <= min_priority) {
 		  	min_priority = cur_priority;
@@ -254,7 +265,9 @@ int eval(int left, int right) {
 
 	else if (left == right) {
 		switch (tokens[left].type) {
+			// num only: decimal, heximal, reg
 			case TK_NUM: {
+				// e.g. 1234
 				uint32_t num = 0;
 				int point = 0;
 				while (point < 32 && tokens[left].str[point]) {
@@ -264,6 +277,7 @@ int eval(int left, int right) {
 				return num;
 			}
 			case TK_HEXNUM: {
+				// e.g. 1f
 				uint32_t num = 0;
 				int point = 0;
 				char ch = tokens[left].str[point];
@@ -278,6 +292,7 @@ int eval(int left, int right) {
 				return num;
 			}
 			case TK_REG: {
+				// e.g. eax
 				bool flag = true;
 				bool *success = &flag;
 				uint32_t value = isa_reg_str2val(tokens[left].str, success);	
@@ -296,6 +311,7 @@ int eval(int left, int right) {
 		int op = find_majority_token_position(left, right);
 		int val2 = eval(op+1, right);
 		if (tokens[op].type == TK_DEREF)
+			// *0x100000
 			return paddr_read(val2, 1);
 		int val1 = eval(left, op-1);
 
@@ -327,6 +343,7 @@ int expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
 	
 	inline bool DEREF_type(int type) {
+		// DEREF condition
 		if (type != TK_NUM)
 		if (type != TK_HEXNUM)
 		if (type != TK_REG)
