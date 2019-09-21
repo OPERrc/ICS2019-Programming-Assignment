@@ -18,7 +18,7 @@ uint32_t str2num(char *num) {
 
 void value_test() {
 	static int total = 0;
-	FILE *fp = fopen("tools/gen-expr/input_test", "r");
+	FILE *fp = fopen("tools/gen-expr/input", "r");
 	assert(fp != NULL);
 
 	char line[1024];
