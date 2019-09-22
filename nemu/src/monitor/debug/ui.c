@@ -286,7 +286,7 @@ static int cmd_d(char *args) {
 	}
 	else
 	for (WP *p = watchpoints; p->next != NULL; p = p->next)
-		if (p->NO == num) {	
+		if (p->next->NO == num) {	
 			WP *q = p->next;
 			p->next = p->next->next;
 			free_wp(q);
