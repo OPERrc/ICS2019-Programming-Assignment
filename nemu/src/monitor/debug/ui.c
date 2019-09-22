@@ -159,6 +159,10 @@ static int cmd_info(char *args) {
 	  return 0;
 	}	
 	if (strcmp(op, "w") == 0) {
+		if (wp_head == NULL) {
+			printf("No watchpoints currently.\n");
+			return 0;
+		}
 		printf("Num     Type          What\n");
 		for (WP *p = wp_head; p != NULL; p = p->next)
 			printf("%-8dwatchpoints   %s\n", p->NO, p->EXPR);
