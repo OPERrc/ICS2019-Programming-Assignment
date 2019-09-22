@@ -11,6 +11,8 @@ void cpu_exec(uint64_t);
 void isa_reg_display(void);
 uint32_t paddr_read(paddr_t, int);
 uint32_t expr(char *, bool *);
+WP *new_wp();
+void free_wp(WP *wp);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -47,6 +49,12 @@ static int cmd_info(char *args);
 static int cmd_x(char *args);
 
 static int cmd_p(char *args);
+
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
+static WP *watchpoints = NULL;
 // End of Insert part
 
 static int cmd_help(char *args);
@@ -63,7 +71,9 @@ static struct {
   { "si", "With 1 argument [N]. Let the program run N steps then stop. If N is not given it is set to default value '1'.", cmd_si },
   { "info", "With 1 argument 'r' or 'w'. 'r' print the register information, 'w' print the watchpoint information.", cmd_info},
   { "x", "With 2 arguments 'N' and 'EXPR'. From the address of 'EXPR', print continuous 'N' lines of 4 bytes.", cmd_x},
-	{"p", "With 1 argument [EXPR]. Calculate the value of the [EXPR].", cmd_p},
+	{ "p", "With 1 argument [EXPR]. Calculate the value of the [EXPR].", cmd_p},
+	{ "w", "With 1 argument [EXPR]. Watch the value of the [EXPR]. If the value changes, suspend the program.",  cmd_w},
+	{ "d", "With 1 argument [N]. Delete the NO [N] watch point.", cmd_d},
 	// End of Insert part
 
   /* TODO: Add more commands */
@@ -221,6 +231,69 @@ static int cmd_p(char *args) {
 	  printf("%d\n", result);
 	  return 0;
 	}
+} 
+
+static int cmd_w(char *args) {
+	WP *p = new_wp();
+	p->EXPR = args;
+	bool flag = true;
+	bool *success = &flag;
+	p->value = expr(p->EXPR, success);
+	if (*success)
+		printf("Watchpoint %d created: %s", p->NO, p->EXPR);
+	else {
+		printf("Argument [EXPR] input error!");
+		return 0;
+	}
+
+	p->next = watchpoints;
+	watchpoints = p;
+	return 0;
+}
+
+static int cmd_d(char *args) {
+	char *N = strtok(args, " ");
+	if (N == NULL) {
+		printf("Lack of arguments! Need 1 argument [N].\n");
+		return 0;
+	}
+	
+	args = NULL;
+	char *EMPTY = strtok(args, " ");
+	if (EMPTY != NULL) {
+		printf("Too many arguments! Need only 1 argument [N].\n");
+		return 0;
+	}
+
+	int point = 0;
+	uint32_t num = 0;
+	while (N[point])
+		if (is_num(N[point])) {
+			num = num * 10 + N[point] - '0';
+			point++;
+		}
+		else {
+			printf("Arguments input error! [N] should be an integer!\n");
+			return 0;
+		}
+	
+	if (watchpoints->NO == num) {
+	  WP *q = watchpoints;
+		watchpoints = watchpoints->next;
+		free_wp(q);
+		return 0;
+	}
+	else
+	for (WP *p = watchpoints; p->next != NULL; p = p->next)
+		if (p->NO == num) {	
+			WP *q = p->next;
+			p->next = p->next->next;
+			free_wp(q);
+			return 0;
+		}
+
+	printf("Watchpoint %d is currently free.\n", num);
+	return 0;
 }
 // End of Insert part
 
