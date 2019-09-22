@@ -159,7 +159,9 @@ static int cmd_info(char *args) {
 	  return 0;
 	}	
 	if (strcmp(op, "w") == 0) {
-	  // Insert watchpoint code here
+		printf("Num     Type          What\n");
+		for (WP *p = wp_head; p != NULL; p = p->next)
+			printf("%-8dwatchpoints   %s\n", p->NO, p->EXPR);
 	  return 0;
 	}
 	printf("Arguments input error! Need 1 'r' or 'w' argument.\n");
