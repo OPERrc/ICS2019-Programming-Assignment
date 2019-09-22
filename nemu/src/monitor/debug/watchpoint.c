@@ -46,9 +46,10 @@ void free_wp(WP *wp) {
 		free_ = p;
 		return;
 	}
-	WP *p;
+	WP *p = head;
 	for (p = head; p->next != NULL; p = p->next)
 		if (p->next->NO == wp->NO) {
+			printf("%d\n", wp->NO);
 			WP *tmp = p->next;
 			p->next = p->next->next;
 			tmp->EXPR = '\0';
