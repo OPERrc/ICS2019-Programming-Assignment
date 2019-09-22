@@ -58,10 +58,10 @@ void value_test() {
 
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
+	value_test();
   int is_batch_mode = init_monitor(argc, argv);
 	
 	/* Test expr() function */
-	value_test();
 
   /* Receive commands from user. */
   ui_mainloop(is_batch_mode);
