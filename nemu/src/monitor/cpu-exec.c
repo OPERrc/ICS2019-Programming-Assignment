@@ -1,6 +1,8 @@
 #include "nemu.h"
 #include "monitor/monitor.h"
 #include "monitor/watchpoint.h"
+#include "../src/monitor/debug/ui.c"
+#include "../src/monitor/debug/watchpoint.c"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -57,8 +59,31 @@ void cpu_exec(uint64_t n) {
               "we do not record more instruction trace beyond this point.\n"
               "To capture more trace, you can modify the LOG_MAX macro in %s\n\n", __FILE__);
   }
-
+		
     /* TODO: check watchpoints here. */
+	uint32_t change_NO[NR_WP][2], total = 0;
+	for (WP *p = wp_head; p != NULL; p = p->next) {
+		bool flag = true;
+		bool *success = &flag;
+		uint32_t value = expr(p->EXPR, success);
+		if (!*success)
+			assert(0);	
+		if (value != p->value) {
+			change_NO[total][0] = p->NO;
+			change_NO[total][1] = p->value;
+			p->value = value;
+			total++;
+		}
+		else
+			change_NO[0][0] = 0;
+	}
+	if (total > 0) {
+		for (int i = 0; i < total; i++)
+			for (WP *p = wp_head; p != NULL; p = p->next)
+				if (p->NO == change_NO[i][0])
+					printf("Watchpoint %s\nOld value: %d\nNew value: %d\n\n", p->EXPR, change_NO[i][1], p->value);
+		nemu_state.state = NEMU_STOP;	
+	}
 
 #endif
 
