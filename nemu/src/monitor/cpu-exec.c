@@ -2,7 +2,6 @@
 #include "monitor/monitor.h"
 #include "monitor/watchpoint.h"
 #include "../src/monitor/debug/ui.c"
-#include "../src/monitor/debug/watchpoint.c"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -61,7 +60,7 @@ void cpu_exec(uint64_t n) {
   }
 		
     /* TODO: check watchpoints here. */
-	uint32_t change_NO[NR_WP][2], total = 0;
+	uint32_t change_NO[32][2], total = 0;
 	for (WP *p = wp_head; p != NULL; p = p->next) {
 		bool flag = true;
 		bool *success = &flag;
