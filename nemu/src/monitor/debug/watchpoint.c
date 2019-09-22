@@ -35,32 +35,11 @@ WP *new_wp() {
 }
 
 void free_wp(WP *wp) {
-	if (wp == NULL || head == NULL)
+	if (wp == NULL)
 		assert(0);
-	if (head->NO == wp->NO) {
-		WP *p = head;
-		head = head->next;
-		p->EXPR = '\0';
-		p->value = 0;
-		p->next = free_;
-		free_ = p;
-		return;
-	}
-	WP *p = head;
-	for (p = head; p->next != NULL; p = p->next) {
-		printf("%d\n", p->next->NO);
-		if (p->next->NO == wp->NO) {
-			WP *tmp = p->next;
-			p->next = p->next->next;
-			tmp->EXPR = '\0';
-			tmp->value = 0;
-			tmp->next = free_;
-			free_ = tmp;
-			return;
-		}
-	}
-
-	if (p->next == NULL)
-		assert(0);
+	wp->next = free_;
+	free_ = wp;
+	wp->EXPR = '\0';
+	wp->value = 0;
 }
 

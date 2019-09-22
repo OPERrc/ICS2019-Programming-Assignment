@@ -54,7 +54,7 @@ static int cmd_w(char *args);
 
 static int cmd_d(char *args);
 
-static WP *watchpoints = NULL;
+static WP *wp_head = NULL;
 // End of Insert part
 
 static int cmd_help(char *args);
@@ -246,8 +246,8 @@ static int cmd_w(char *args) {
 		return 0;
 	}
 
-	p->next = watchpoints;
-	watchpoints = p;
+	p->next = wp_head;
+	wp_head = p;
 	return 0;
 }
 
@@ -277,15 +277,15 @@ static int cmd_d(char *args) {
 			return 0;
 		}
 	
-	if (watchpoints->NO == num) {
-	  WP *q = watchpoints;
-		watchpoints = watchpoints->next;
+	if (wp_head->NO == num) {
+	  WP *q = wp_head;
+		wp_head = wp_head->next;
 		printf("Watchpoint %d (%s) deleted.\n", q->NO, q->EXPR);
 		free_wp(q);
 		return 0;
 	}
 	else
-	for (WP *p = watchpoints; p->next != NULL; p = p->next)
+	for (WP *p = wp_head; p->next != NULL; p = p->next)
 		if (p->next->NO == num) {	
 			WP *q = p->next;
 			p->next = p->next->next;
