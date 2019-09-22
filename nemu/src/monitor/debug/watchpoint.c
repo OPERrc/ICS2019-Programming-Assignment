@@ -35,6 +35,8 @@ WP *new_wp() {
 }
 
 void free_wp(WP *wp) {
+	if (wp == NULL || head == NULL)
+		assert(0);
 	if (head->NO == wp->NO) {
 		WP *p = head;
 		head = head->next;
@@ -54,5 +56,6 @@ void free_wp(WP *wp) {
 			free_ = tmp;
 			return;
 		}
+	assert(0);
 }
 

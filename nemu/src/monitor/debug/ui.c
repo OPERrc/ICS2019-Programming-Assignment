@@ -240,7 +240,7 @@ static int cmd_w(char *args) {
 	bool *success = &flag;
 	p->value = expr(p->EXPR, success);
 	if (*success)
-		printf("Watchpoint %d created: %s\n", p->NO, p->EXPR);
+		printf("Watchpoint %d (%s) created.\n", p->NO, p->EXPR);
 	else {
 		printf("Argument [EXPR] input error!\n");
 		return 0;
@@ -280,8 +280,8 @@ static int cmd_d(char *args) {
 	if (watchpoints->NO == num) {
 	  WP *q = watchpoints;
 		watchpoints = watchpoints->next;
+		printf("Watchpoint %d (%s) deleted.\n", num, q->EXPR);
 		free_wp(q);
-		printf("Watchpoint %d deleted.\n", num);
 		return 0;
 	}
 	else
@@ -289,8 +289,8 @@ static int cmd_d(char *args) {
 		if (p->next->NO == num) {	
 			WP *q = p->next;
 			p->next = p->next->next;
+			printf("Watchpoint %d (%s) deleted.\n", num, q->EXPR);
 			free_wp(q);
-			printf("Watchpoint %d deleted.\n", num);
 			return 0;
 		}
 
