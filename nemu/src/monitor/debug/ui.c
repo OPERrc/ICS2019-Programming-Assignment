@@ -241,7 +241,7 @@ static int cmd_p(char *args) {
 
 static int cmd_w(char *args) {
 	WP *p = new_wp();
-	strcpy(p->EXPR, args);
+	p->EXPR = args;
 	bool flag = true;
 	bool *success = &flag;
 	p->value = expr(p->EXPR, success);
