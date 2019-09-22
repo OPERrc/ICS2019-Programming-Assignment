@@ -28,7 +28,7 @@ WP *new_wp() {
 	WP *p = free_;
   free_ = free_->next;
 	p->next = head;
-	p->EXPR = '\0';
+	p->EXPR[0] = '\0';
 	p->value = 0;
 	head = p;
 	return p;
@@ -39,7 +39,7 @@ void free_wp(WP *wp) {
 		assert(0);
 	wp->next = free_;
 	free_ = wp;
-	wp->EXPR = '\0';
+	wp->EXPR[0] = '\0';
 	wp->value = 0;
 }
 
