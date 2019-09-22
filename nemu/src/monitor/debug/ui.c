@@ -280,7 +280,7 @@ static int cmd_d(char *args) {
 	if (watchpoints->NO == num) {
 	  WP *q = watchpoints;
 		watchpoints = watchpoints->next;
-		printf("Watchpoint %d (%s) deleted.\n", num, q->EXPR);
+		printf("Watchpoint %d (%s) deleted.\n", q->NO, q->EXPR);
 		free_wp(q);
 		return 0;
 	}
@@ -289,7 +289,7 @@ static int cmd_d(char *args) {
 		if (p->next->NO == num) {	
 			WP *q = p->next;
 			p->next = p->next->next;
-			printf("Watchpoint %d (%s) deleted.\n", num, q->EXPR);
+			printf("Watchpoint %d (%s) deleted.\n", q->NO, q->EXPR);
 			free_wp(q);
 			return 0;
 		}
