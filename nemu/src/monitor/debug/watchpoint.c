@@ -44,6 +44,7 @@ void free_wp(WP *wp) {
 		p->value = 0;
 		p->next = free_;
 		free_ = p;
+		return;
 	}
 	else
 	for (WP *p = head; p->next != NULL; p = p->next)
