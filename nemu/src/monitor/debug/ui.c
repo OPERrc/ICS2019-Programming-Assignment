@@ -240,20 +240,21 @@ static int cmd_p(char *args) {
 } 
 
 static int cmd_w(char *args) {
-	WP *p = new_wp();
-	strcpy(p->EXPR, args);
 	bool flag = true;
 	bool *success = &flag;
-	p->value = expr(p->EXPR, success);
-	if (*success)
+	uint32_t value = expr(args, success);
+	if (*success) {
+		WP *p = new_wp();
+		strcpy(p->EXPR, args);
+		p->value = value;
+		p->next = wp_head;
+		wp_head = p;
 		printf("Watchpoint %d (%s) created.\n", p->NO, p->EXPR);
+	}
 	else {
 		printf("Argument [EXPR] input error!\n");
 		return 0;
 	}
-
-	p->next = wp_head;
-	wp_head = p;
 	return 0;
 }
 
