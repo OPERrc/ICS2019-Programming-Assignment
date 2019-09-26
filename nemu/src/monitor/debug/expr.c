@@ -313,7 +313,7 @@ int eval(int left, int right) {
 		if (tokens[op].type == TK_DEREF) {
 			// *0x100000
 			int index = op;
-			while (index-1 >= 0 && tokens[index-1].type == TK_DEREF)
+			while (index-1 >= left && tokens[index-1].type == TK_DEREF)
 				index--;
 			int val2 = eval(index+1, right);
 			return paddr_read(val2, 1);
