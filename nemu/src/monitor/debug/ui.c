@@ -106,6 +106,11 @@ static int cmd_help(char *args) {
 }
 
 // Insert part
+WP *get_wp_head() {
+	return wp_head;
+}
+
+
 inline bool is_num(char ch) {
   if (ch >= '0' && ch <= '9')
 	return true;
