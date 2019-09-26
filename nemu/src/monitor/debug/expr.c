@@ -211,20 +211,21 @@ bool checkparentheses(int left, int right) {
 inline int priority(int type) {
 	// token priority table
 	switch (type) {
-		case TK_EQ: return 1;
-		case TK_NOEQ: return 1;
 		case TK_AND: return 1;
 		case TK_OR: return 1;
-		case TK_LESS: return 1;
-		case TK_LESSEQ: return 1;
-		case TK_MORE: return 1;
-	  case TK_MOREEQ: return 1;
 
-		case '+': return 2;
-		case '-': return 2;
+	  case TK_EQ: return 2;
+		case TK_NOEQ: return 2;
+		case TK_LESS: return 2;
+		case TK_LESSEQ: return 2;
+		case TK_MORE: return 2;
+	  case TK_MOREEQ: return 2;
 
-		case '*': return 3;
-		case '/': return 3;
+		case '+': return 3;
+		case '-': return 3;
+
+		case '*': return 4;
+		case '/': return 4;
 
 		case TK_DEREF: return 10;
 
@@ -309,10 +310,15 @@ int eval(int left, int right) {
 
 	else {
 		int op = find_majority_token_position(left, right);
-		int val2 = eval(op+1, right);
-		if (tokens[op].type == TK_DEREF)
+		if (tokens[op].type == TK_DEREF) {
 			// *0x100000
+			int DEREF_index = op - 1;
+			while (tokens[DEREF_index].type == TK_DEREF)
+				DEREF_index--;
+			int val2 = eval(DEREF_index+2, right);
 			return paddr_read(val2, 1);
+		}
+		int val2 = eval(op+1, right);
 		int val1 = eval(left, op-1);
 
 		switch (tokens[op].type) {
