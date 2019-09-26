@@ -2,7 +2,7 @@
 #include "monitor/monitor.h"
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
-#include "../src/monitor/debug/ui.c"
+#include "../src/monitor/debug/watchpoint.c"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
