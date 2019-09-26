@@ -312,10 +312,10 @@ int eval(int left, int right) {
 		int op = find_majority_token_position(left, right);
 		if (tokens[op].type == TK_DEREF) {
 			// *0x100000
-			int DEREF_index = op - 1;
-			while (tokens[DEREF_index].type == TK_DEREF)
-				DEREF_index--;
-			int val2 = eval(DEREF_index+2, right);
+			int index = op - 1;
+			while (index >= 0 && tokens[index].type == TK_DEREF)
+				index--;
+			int val2 = eval(index+2, right);
 			return paddr_read(val2, 1);
 		}
 		int val2 = eval(op+1, right);
