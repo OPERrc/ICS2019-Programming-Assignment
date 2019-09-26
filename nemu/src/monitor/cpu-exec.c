@@ -84,7 +84,8 @@ void cpu_exec(uint64_t n) {
 			for (WP *p = wp_head; p != NULL; p = p->next)
 				if (p->NO == change_NO[i][0])
 					printf("Watchpoint %s\nOld value: %d\nNew value: %d\n\n", p->EXPR, change_NO[i][1], p->value);
-		nemu_state.state = NEMU_STOP;	
+		nemu_state.state = NEMU_STOP;
+		return;	
 	}
 
 #endif
