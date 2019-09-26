@@ -2,7 +2,6 @@
 #include "monitor/monitor.h"
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
-// #include "../src/monitor/debug/watchpoint.c"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -14,6 +13,7 @@
 /* restrict the size of log file */
 #define LOG_MAX (1024 * 1024)
 
+WP *get_wp_head();
 NEMUState nemu_state = {.state = NEMU_STOP};
 
 void interpret_rtl_exit(int state, vaddr_t halt_pc, uint32_t halt_ret) {
@@ -23,7 +23,6 @@ void interpret_rtl_exit(int state, vaddr_t halt_pc, uint32_t halt_ret) {
 vaddr_t exec_once(void);
 void difftest_step(vaddr_t ori_pc, vaddr_t next_pc);
 void asm_print(vaddr_t ori_pc, int instr_len, bool print_flag);
-WP *get_wp_head();
 
 static uint64_t g_nr_guest_instr = 0;
 
@@ -83,9 +82,8 @@ void cpu_exec(uint64_t n) {
 		for (int i = 0; i < total; i++)
 			for (WP *p = wp_head; p != NULL; p = p->next)
 				if (p->NO == change_NO[i][0])
-					printf("Watchpoint %s\nOld value: %d\nNew value: %d\n\n", p->EXPR, change_NO[i][1], p->value);
-		nemu_state.state = NEMU_STOP;
-		return;	
+					printf("Watchpoint %s\nOld value = %d\nNew value = %d\n\n", p->EXPR, change_NO[i][1], p->value);
+		nemu_state.state = NEMU_STOP;	
 	}
 
 #endif
