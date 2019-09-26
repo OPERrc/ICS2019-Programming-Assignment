@@ -55,6 +55,8 @@ static int cmd_w(char *args);
 static int cmd_d(char *args);
 
 static WP *wp_head = NULL;
+
+bool check_wp();
 // End of Insert part
 
 static int cmd_help(char *args);
@@ -70,7 +72,7 @@ static struct {
   // Insert part
   { "si", "With 1 argument [N]. Let the program run N steps then stop. If N is not given it is set to default value '1'.", cmd_si },
   { "info", "With 1 argument 'r' or 'w'. 'r' print the register information, 'w' print the watchpoint information.", cmd_info},
-  { "x", "With 2 arguments 'N' and 'EXPR'. From the address of 'EXPR', print continuous 'N' lines of 4 bytes.", cmd_x},
+  { "x", "With 2 arguments [N] and [EXPR]. From the address of [EXPR], print continuous [N] lines of 4 bytes.", cmd_x},
 	{ "p", "With 1 argument [EXPR]. Calculate the value of the [EXPR].", cmd_p},
 	{ "w", "With 1 argument [EXPR]. Watch the value of the [EXPR]. If the value changes, suspend the program.",  cmd_w},
 	{ "d", "With 1 argument [N]. Delete the NO [N] watch point.", cmd_d},
@@ -106,8 +108,23 @@ static int cmd_help(char *args) {
 }
 
 // Insert part
-WP *get_wp_head() {
-	return wp_head;
+bool check_wp() {
+	bool change = false;
+	for (WP *p = wp_head; p != NULL; p = p->next) {
+		bool flag = true;
+		bool *success = &flag;
+		uint32_t value = expr(p->EXPR, success);
+		if (!*success)
+			assert(0);
+		if (value != p->value) {
+			printf("Watchpoint %d: %s\n", p->NO, p->EXPR);
+			printf("Old value = %d\n", p->value);
+			printf("New value = %d\n", value);
+			p->value = value;
+			change = true;
+		}
+	}
+	return change;
 }
 
 
