@@ -61,7 +61,7 @@ void cpu_exec(uint64_t n) {
   }
 		
     /* TODO: check watchpoints here. */
-	if (!check_wp()) {
+	if (check_wp()) {
 		nemu_state.state = NEMU_STOP;
 		printf("wp changed.\n");
 	}
