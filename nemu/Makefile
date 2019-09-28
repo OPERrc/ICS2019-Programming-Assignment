@@ -86,4 +86,7 @@ clean:
 	$(MAKE) -C tools/qemu-diff clean
 
 count:
-	expr `find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*
+	find -name '*.[ch]' | xargs cat | tr -s '\n' | wc -l
+count2:
+	find -name '*.[ch]' | xargs cat | grep -v '^$$' | wc -l
+
