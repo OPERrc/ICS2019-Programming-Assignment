@@ -84,3 +84,7 @@ clean:
 	-rm -rf $(BUILD_DIR)
 	$(MAKE) -C tools/gen-expr clean
 	$(MAKE) -C tools/qemu-diff clean
+
+count:
+	$(MAKE) expr `git checkout pa1 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*` - `git checkout pa0 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*` && git checkout pa1
+
