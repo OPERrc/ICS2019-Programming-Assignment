@@ -86,5 +86,5 @@ clean:
 	$(MAKE) -C tools/qemu-diff clean
 
 count:
-	expr `git checkout pa1 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*` - `git checkout pa0 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*` && git checkout pa1
+	expr `git checkout pa1 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*` - `git checkout pa0 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*`| grep -o [0-9]* && git checkout pa1
 
