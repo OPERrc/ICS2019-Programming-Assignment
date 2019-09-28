@@ -55,7 +55,7 @@ $(OBJ_DIR)/%.o: src/%.c
 
 # Some convenient rules
 
-.PHONY: app run gdb clean run-env $(QEMU_SO)
+.PHONY: app run gdb clean run-env count$(QEMU_SO)
 app: $(BINARY)
 
 override ARGS ?= -l $(BUILD_DIR)/nemu-log.txt
@@ -85,6 +85,6 @@ clean:
 	$(MAKE) -C tools/gen-expr clean
 	$(MAKE) -C tools/qemu-diff clean
 
+TASK ?= pa1
 count:
-	expr `git checkout pa1 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*` - `git checkout pa0 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*`| grep -o [0-9]* && git checkout pa1
-
+	expr `git checkout $(TASK) && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*` - `git checkout pa0 && find -name *.[ch] | xargs wc -l | tail -n 1 | grep -o [0-9]*`| grep -o [0-9]* && git checkout $(TASK)
