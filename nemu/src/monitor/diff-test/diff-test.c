@@ -23,7 +23,7 @@ void difftest_skip_ref() {
 	// already write some memory, and the incoming instruction in NEMU
 	// will load that memory, we will encounter false negative. But such
 	// situation is infrequent.
-	skip_dut+_nr_instr = 0;
+	skip_dut_nr_instr = 0;
 }
 
 // this is used to deal with instruction packing in QEMU.
