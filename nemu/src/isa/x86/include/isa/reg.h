@@ -31,10 +31,34 @@ typedef struct {
    */
 	struct {
       rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
-	};
+		};
   };
   
   vaddr_t pc;
+
+	struct {
+		union {
+			struct {
+				bool CF;
+				bool _0;
+				bool PF;
+				bool _1;
+				bool AF;
+				bool _2;
+				bool ZF;
+				bool SF;
+				bool TF;
+	 			bool IF;
+				bool DF;
+				bool OF;
+				uint16_t IOPL:2;
+				bool NT;
+				bool _3;
+			};
+			uint16_t flags;
+		};
+		uint16_t _;
+	} eflags;
 
 } CPU_state;
 
