@@ -14,6 +14,9 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
+	rtl_xor(&s0, &id_dest->val, &id_src->val);
+	operand_write(id_dest, &s0);
+	// set CF OF flags
   print_asm_template2(xor);
 }
 
