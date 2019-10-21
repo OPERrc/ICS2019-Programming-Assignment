@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
   int is_batch_mode = init_monitor(argc, argv);
 	
 	/* Test expr() function */
-	value_test();
+	// value_test();
 
   /* Receive commands from user. */
   // is_batch_mode = false;
