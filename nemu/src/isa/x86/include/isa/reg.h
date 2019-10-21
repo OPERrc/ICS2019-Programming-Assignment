@@ -60,6 +60,8 @@ typedef struct {
 		uint16_t _;
 	} eflags;
 
+	uint32_t cs, ss, ds, es, fs, gs;
+
 } CPU_state;
 
 static inline int check_reg_index(int index) {
