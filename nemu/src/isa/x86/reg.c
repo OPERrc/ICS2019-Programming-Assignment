@@ -46,13 +46,15 @@ void isa_reg_display() {
   int NUM = 8;
   for (int i=0; i<NUM; i++)
     printf("%-6s 0x%-12x %d\n", regsl[i], reg_l(i), reg_l(i));
-
+	
+	/*
   for (int i=0; i<NUM; i++)
 	printf("%-6s 0x%-12x %d\n", regsw[i], reg_w(i), reg_w(i));
 
   for (int i=0; i<NUM; i++)
 	printf("%-6s 0x%-12x %d\n", regsb[i], reg_b(i), reg_b(i));
   // End of Insert part
+	*/
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {
