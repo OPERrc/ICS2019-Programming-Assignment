@@ -35,30 +35,27 @@ typedef struct {
   };
   
   vaddr_t pc;
-
-	struct {
-		union {
-			struct {
-				bool CF;
-				bool _0;
-				bool PF;
-				bool _1;
-				bool AF;
-				bool _2;
-				bool ZF;
-				bool SF;
-				bool TF;
-	 			bool IF;
-				bool DF;
-				bool OF;
-				uint16_t IOPL:2;
-				bool NT;
-				bool _3;
-			};
-			uint16_t flags;
+	union {
+		struct {
+			uint32_t CF :1;
+			uint32_t _0 :1;
+			uint32_t PF :1;
+			uint32_t _1 :1;
+			uint32_t AF :1;
+			uint32_t _2 :1;
+			uint32_t ZF :1;
+			uint32_t SF :1;
+			uint32_t TF :1;
+	 		uint32_t IF :1;
+			uint32_t DF :1;
+			uint32_t OF :1;
+			uint32_t IOPL :2;
+			uint32_t NT :1;
+			uint32_t _3 :1;
+			uint32_t _4 :16;
 		};
-		uint16_t _;
-	} eflags;
+		uint32_t eflags;
+	};
 
 	uint32_t cs, ss, ds, es, fs, gs;
 
