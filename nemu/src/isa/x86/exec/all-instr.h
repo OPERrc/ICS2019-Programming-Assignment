@@ -2,6 +2,7 @@
 
 // arith.c
 make_EHelper(sub);
+make_EHelper(add);
 
 // control.c
 make_EHelper(call);
