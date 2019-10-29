@@ -3,39 +3,39 @@
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
 	if (ref_r->eax != cpu.eax) { 
-		Log("cpu.eax wrong! Should be 0x%x!\n", ref_r->eax);
+		printf("cpu.eax wrong! Should be 0x%x!\n", ref_r->eax);
 		return false;
 	}
 	if (ref_r->ecx != cpu.ecx) { 
-		Log("cpu.ecx wrong! Should be 0x%x!\n", ref_r->ecx);
+		printf("cpu.ecx wrong! Should be 0x%x!\n", ref_r->ecx);
 		return false;
 	}
 	if (ref_r->edx != cpu.edx) { 
-		Log("cpu.edx wrong! Should be 0x%x!\n", ref_r->edx);
+		printf("cpu.edx wrong! Should be 0x%x!\n", ref_r->edx);
 		return false;
 	}
 	if (ref_r->ebx != cpu.ebx) { 
-		Log("cpu.ebx wrong! Should be 0x%x!\n", ref_r->ebx);
+		printf("cpu.ebx wrong! Should be 0x%x!\n", ref_r->ebx);
 		return false;
 	}
 	if (ref_r->esp != cpu.esp) { 
-		Log("cpu.esp wrong! Should be 0x%x!\n", ref_r->esp);
+		printf("cpu.esp wrong! Should be 0x%x!\n", ref_r->esp);
 		return false;
 	}
 	if (ref_r->ebp != cpu.ebp) { 
-		Log("cpu.ebp wrong! Should be 0x%x!\n", ref_r->ebp);
+		printf("cpu.ebp wrong! Should be 0x%x!\n", ref_r->ebp);
 		return false;
 	}
 	if (ref_r->esi != cpu.esi) { 
-		Log("cpu.esi wrong! Should be 0x%x!\n", ref_r->esi);
+		printf("cpu.esi wrong! Should be 0x%x!\n", ref_r->esi);
 		return false;
 	}
 	if (ref_r->edi != cpu.edi) { 
-		Log("cpu.edi wrong! Should be 0x%x!\n", ref_r->edi);
+		printf("cpu.edi wrong! Should be 0x%x!\n", ref_r->edi);
 		return false;
 	}
 	if (ref_r->pc != cpu.pc) { 
-		Log("cpu.pc wrong! Should be 0x%x!\n", ref_r->pc);
+		printf("cpu.pc wrong! Should be 0x%x!\n", ref_r->pc);
 		return false;
 	}
 	if (ref_r->pc == pc) return false;
