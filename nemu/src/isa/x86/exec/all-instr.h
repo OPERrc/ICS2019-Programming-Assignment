@@ -1,8 +1,8 @@
 #include "cpu/exec.h"
 
 // arith.c
-make_EHelper(sub);
-make_EHelper(add);
+make_EHelper(sub); // eflags TODO()
+make_EHelper(add); // eflags TODO()
 
 // control.c
 make_EHelper(call);
@@ -14,8 +14,8 @@ make_EHelper(push);
 make_EHelper(lea);
 
 // logic.c
-make_EHelper(xor);
-make_EHelper(and);
+make_EHelper(xor); // eflags TODO()
+make_EHelper(and); // eflags TODO()
 
 make_EHelper(operand_size);
 
