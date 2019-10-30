@@ -27,6 +27,7 @@ make_EHelper(setcc); // eflags TODO()
 make_EHelper(test); // eflags TODO()
 make_EHelper(or); // eflags TODO()
 make_EHelper(sar); // eflags TODO()
+make_EHelper(shl); // eflags TODO()
 
 make_EHelper(operand_size);
 
