@@ -52,11 +52,11 @@ make_EHelper(cltd) {
   else {
     if (cpu.eax < 0) {
       rtl_li(&s0, 0xffffffff);
-      rtl_sr(R_EDX, &s0, 2);
+      rtl_sr(R_EDX, &s0, 4);
     }
     else {
       rtl_li(&s0, 0);
-      rtl_sr(R_EDX, &s0, 2);
+      rtl_sr(R_EDX, &s0, 4);
     }
   }
 
