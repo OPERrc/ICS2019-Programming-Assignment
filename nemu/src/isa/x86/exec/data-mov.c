@@ -6,12 +6,8 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  if (id_dest->width == 4)
-	  rtl_push(&id_dest->val);
-  else if (id_dest->width == 1) {
-    rtl_sext(&s0, &id_dest->val, 4);
-    rtl_push(&s0);
-  }
+  rtl_sext(&s0, &id_dest->val, id_dest->width);
+  rtl_push(&s0);
   print_asm_template1(push);
 }
 
