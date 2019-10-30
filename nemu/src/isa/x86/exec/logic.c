@@ -2,7 +2,20 @@
 #include "cc.h"
 
 make_EHelper(test) {
-  TODO();
+  /*
+  TEST computes the bit-wise logical AND of its two operands. 
+  Each bit of the result is 1 if both of the corresponding bits of the operands are 1; 
+  otherwise, each bit is 0. 
+  The result of the operation is discarded and only the flags are modified. 
+  */
+ 
+  rtl_and(&s0, &id_dest->val, &id_src->val);
+  // set ZF SF flags
+  rtl_update_ZFSF(&s0, id_dest->width);
+  // set CF OF flags
+  rtl_li(&s1, 0);
+  rtl_set_CF(&s1);
+  rtl_set_OF(&s1);
 
   print_asm_template2(test);
 }
