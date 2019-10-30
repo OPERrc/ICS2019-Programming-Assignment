@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 	// value_test();
 
   /* Receive commands from user. */
-  is_batch_mode = false;
+  // is_batch_mode = false;
   ui_mainloop(is_batch_mode);
 
   return 0;
