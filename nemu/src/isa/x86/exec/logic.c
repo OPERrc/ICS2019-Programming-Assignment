@@ -62,6 +62,7 @@ make_EHelper(setcc) {
   uint32_t cc = decinfo.opcode & 0xf;
 
   rtl_setcc(&s0, cc);
+  printf("setcc: s0 = %d", s0);
   operand_write(id_dest, &s0);
 
   print_asm("set%s %s", get_cc_name(cc), id_dest->str);
