@@ -46,6 +46,8 @@ void isa_reg_display() {
   int NUM = 8;
   for (int i=0; i<NUM; i++)
     printf("%-6s 0x%-12x %d\n", regsl[i], reg_l(i), reg_l(i));
+  printf("pc     0x%-12x %d\n", cpu.pc, cpu.pc);
+  printf("CF = %d, ZF = %d, SF = %d, IF = %d, OF = %d\n", cpu.CF, cpu.ZF, cpu.SF, cpu.IF, cpu.OF);
 	
 	/*
   for (int i=0; i<NUM; i++)
