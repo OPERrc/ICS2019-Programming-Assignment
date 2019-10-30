@@ -24,6 +24,7 @@ make_EHelper(leave);
 make_EHelper(movzx);
 make_EHelper(pop);
 make_EHelper(cltd);
+make_EHelper(movsx);
 
 // logic.c
 make_EHelper(xor); // eflags TODO()
