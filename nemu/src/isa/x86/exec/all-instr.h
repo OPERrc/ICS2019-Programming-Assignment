@@ -9,6 +9,7 @@ make_EHelper(adc); // eflags TODO()
 make_EHelper(dec); // eflags TODO()
 make_EHelper(imul2);
 make_EHelper(idiv);
+make_EHelper(imul1);
 
 // control.c
 make_EHelper(call);
