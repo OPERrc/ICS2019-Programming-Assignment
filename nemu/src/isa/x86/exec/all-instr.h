@@ -5,6 +5,7 @@ make_EHelper(sub); // eflags TODO()
 make_EHelper(add); // eflags TODO()
 make_EHelper(cmp); // eflags TODO()
 make_EHelper(inc); // eflags TODO()
+make_EHelper(adc); // eflags TODO()
 
 // control.c
 make_EHelper(call);
