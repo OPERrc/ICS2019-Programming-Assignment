@@ -31,7 +31,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   checkregs_edi();
   checkregs_pc();
 
-  Log("original pc is 0x%x\n", pc);
+  Log("original pc is 0x%x.\n", pc);
   /*
 	if (ref_r->eax != cpu.eax) { 
 		printf("cpu.eax wrong! Should be 0x%x!\n", ref_r->eax);

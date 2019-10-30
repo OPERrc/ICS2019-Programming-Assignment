@@ -3,7 +3,7 @@
 // arith.c
 make_EHelper(sub); // eflags TODO()
 make_EHelper(add); // eflags TODO()
-make_EHelper(cmp); // eflags relate to sub
+make_EHelper(cmp); // eflags TODO()
 
 // control.c
 make_EHelper(call);
@@ -14,12 +14,13 @@ make_EHelper(jcc);
 make_EHelper(mov);
 make_EHelper(push);
 make_EHelper(lea);
+make_EHelper(leave);
 
 // logic.c
 make_EHelper(xor); // eflags TODO()
 make_EHelper(and); // eflags TODO()
-make_EHelper(setcc);
-make_EHelper(test);
+make_EHelper(setcc); // eflags TODO()
+make_EHelper(test); // eflags TODO()
 
 make_EHelper(operand_size);
 
