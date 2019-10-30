@@ -48,7 +48,7 @@ make_EHelper(cmp) {
   // update CF
   rtl_is_sub_carry(&s1, &s0, &id_dest->val);
   rtl_set_CF(&s1);
-  Log("ZF = %d, OF = %d, CF = %d, SF = %d\n", cpu.ZF, cpu.OF, cpu.CF, cpu.SF);
+  // Log("ZF = %d, OF = %d, CF = %d, SF = %d\n", cpu.ZF, cpu.OF, cpu.CF, cpu.SF);
 
   print_asm_template2(cmp);
 }
