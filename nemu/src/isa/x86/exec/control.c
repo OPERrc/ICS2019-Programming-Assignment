@@ -45,7 +45,8 @@ make_EHelper(ret_imm) {
 }
 
 make_EHelper(call_rm) {
-  TODO();
+  rtl_push(&decinfo.seq_pc);
+  rtl_jr(&id_dest->val);
 
   print_asm("call *%s", id_dest->str);
 }
