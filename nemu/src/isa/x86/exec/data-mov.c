@@ -29,6 +29,7 @@ make_EHelper(popa) {
 }
 
 make_EHelper(leave) {
+  Log("ebp = 0x%x\n", cpu.ebp);
   rtl_lm(&cpu.esp, &cpu.ebp, 4);
   rtl_pop(&cpu.ebp);
 
