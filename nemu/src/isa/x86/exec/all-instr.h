@@ -8,6 +8,7 @@ make_EHelper(cmp); // eflags relate to sub
 // control.c
 make_EHelper(call);
 make_EHelper(ret);
+make_EHelper(jcc);
 
 // data-mov.c
 make_EHelper(mov);
