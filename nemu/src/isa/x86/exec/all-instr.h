@@ -17,6 +17,7 @@ make_EHelper(lea);
 // logic.c
 make_EHelper(xor); // eflags TODO()
 make_EHelper(and); // eflags TODO()
+make_EHelper(setcc);
 
 make_EHelper(operand_size);
 
