@@ -3,6 +3,7 @@
 // arith.c
 make_EHelper(sub); // eflags TODO()
 make_EHelper(add); // eflags TODO()
+make_EHelper(cmp); // eflags relate to sub
 
 // control.c
 make_EHelper(call);
