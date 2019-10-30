@@ -38,6 +38,7 @@ make_EHelper(sub) {
 
 make_EHelper(cmp) {
   rtl_sub(&s0, &id_dest->val, &id_src->val);
+  Log("id_dest->val = 0x%x, id_src->val = 0x%x\n", id_dest->val, id_src->val);
 
   rtl_update_ZFSF(&s0, id_dest->width);
 
