@@ -3,46 +3,69 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 size_t strlen(const char *s) {
-  return 0;
+  size_t len = 0;
+  while (s[len])
+    len++;
+  return len;
 }
 
 char *strcpy(char* dst,const char* src) {
-  return NULL;
+  size_t i = 0;
+  while (src[i]) {
+    dst[i] = src[i];
+    i++;
+  }
+  dst[i] = '\0';
+  return dst;
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
+  // TODO();
   return NULL;
 }
 
 char* strcat(char* dst, const char* src) {
-  return NULL;
+  size_t len = strlen(dst), i = 0;
+  while (src[i]) {
+    dst[len + i] = src[i];
+    i++;
+  }
+  dst[len + i] = '\0';
+  return dst;
 }
 
 int strcmp(const char* s1, const char* s2) {
-  int i = 0;
+  size_t i = 0;
   while (s1[i] && s2[i] && s1[i] == s2[i])
     i++;
   return s1[i] - s2[i];
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
+  // TODO();
   return 0;
 }
 
 void* memset(void* v,int c,size_t n) {
-  return NULL;
+  char *str = (char *)v;
+  while (n--)
+    *str = c;
+  return v;
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
+  // TODO();
   return NULL;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
-  while (n-- && s1 != s2) {
-    s1++;
-    s2++;
+  const char *str1 = (char *)s1;
+  const char *str2 = (char *)s2;
+  while (str1 && str2 && str1 == str2 && n--) {
+    str1++;
+    str2++;
   }
-  return s1 - s2;
+  return (int)(*str1 - *str2);
 }
 
 #endif
