@@ -40,7 +40,7 @@ make_EHelper(leave) {
 
 make_EHelper(cltd) {
   if (decinfo.isa.is_operand_size_16) {
-    if (cpu.gpr[R_AX]._16 < 0) {
+    if (cpu.gpr[R_AX]._16 >> 15 == 1) {
       rtl_li(&s0, 0xffff);
       rtl_sr(R_DX, &s0, 2);
     }
@@ -50,7 +50,7 @@ make_EHelper(cltd) {
     }
   }
   else {
-    if (cpu.eax < 0) {
+    if (cpu.eax >> 31 == 1) {
       rtl_li(&s0, 0xffffffff);
       rtl_sr(R_EDX, &s0, 4);
     }
