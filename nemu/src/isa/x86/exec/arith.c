@@ -5,6 +5,7 @@ make_EHelper(add) {
   operand_write(id_dest, &s0);
   // eflags TODO();
   rtl_update_ZFSF(&s0, id_dest->width);
+  printf("add: ZF = %d, SF = %d\n", cpu.ZF, cpu.SF);
   print_asm_template2(add);
 }
 
@@ -13,6 +14,7 @@ make_EHelper(sub) {
 	operand_write(id_dest, &s0);
 	// eflags TODO();
   rtl_update_ZFSF(&s0, id_dest->width);
+  printf("sub: ZF = %d, SF = %d\n", cpu.ZF, cpu.SF);
   print_asm_template2(sub);
 }
 
@@ -20,6 +22,7 @@ make_EHelper(cmp) {
   rtl_sub(&s0, &id_dest->val, &id_src->val);
 
   rtl_update_ZFSF(&s0, id_dest->width);
+  printf("cmp: ZF = %d, SF = %d\n", cpu.ZF, cpu.SF);
 
   print_asm_template2(cmp);
 }
