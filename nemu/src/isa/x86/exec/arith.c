@@ -5,6 +5,15 @@ make_EHelper(add) {
   operand_write(id_dest, &s0);
   // eflags TODO();
   rtl_update_ZFSF(&s0, id_dest->width);
+
+  // update OF
+  rtl_is_add_overflow(&s1, &s0, &id_dest->val, &id_src->val, id_dest->width);
+  rtl_set_OF(&s1);
+
+  // update CF
+  rtl_is_add_carry(&s1, &s0, &id_dest->val);
+  rtl_set_CF(&s1);
+
   // Log("add: ZF = %d, SF = %d\n", cpu.ZF, cpu.SF);
   print_asm_template2(add);
 }
