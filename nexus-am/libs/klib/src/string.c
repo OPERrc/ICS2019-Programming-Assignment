@@ -19,7 +19,10 @@ char* strcat(char* dst, const char* src) {
 }
 
 int strcmp(const char* s1, const char* s2) {
-  return 0;
+  int i = 0;
+  while (s1[i] && s2[i] && s1[i] == s2[i])
+    i++;
+  return s1[i] - s2[i];
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
@@ -35,7 +38,11 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
-  return 0;
+  while (n-- && s1 != s2) {
+    s1++;
+    s2++;
+  }
+  return s1 - s2;
 }
 
 #endif
