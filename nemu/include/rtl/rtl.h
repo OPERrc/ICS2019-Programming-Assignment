@@ -141,7 +141,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
     switch(width) {
       case 1: *dest = *src1 | 0xffffff00; break;
       case 2: *dest = *src1 | 0xffff0000; break;
-      default: *dest = *src1; 
+      default: *dest = *src1;
     }
   else
     *dest = *src1;
