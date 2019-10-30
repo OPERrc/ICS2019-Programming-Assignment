@@ -137,7 +137,16 @@ static inline void rtl_not(rtlreg_t *dest, const rtlreg_t* src1) {
 
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
-  if (width == 1) {
+  if (*src1 >> (width * 8 - 1) == 1)
+    switch(width) {
+      case 1: *dest = *src1 | 0xffffff00; break;
+      case 2: *dest = *src1 | 0xffff0000; break;
+      default: *dest = *src1; 
+    }
+  else
+    *dest = *src1;
+  
+  /*if (width == 1) {
     if (*src1 >> 7 == 1)
       *dest = *src1 | 0xffffff00;
     else
@@ -150,7 +159,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
       *dest = *src1 & 0x0000ffff;
   }
   else
-    *dest = *src1;
+    *dest = *src1;*/
 }
 
 static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
