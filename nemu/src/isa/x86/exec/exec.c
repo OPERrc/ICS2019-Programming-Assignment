@@ -27,7 +27,7 @@ make_group(gp1,
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EX(shl), EXW(shr, 1), EMPTY, EX(sar))
+    EXW(shl, 1), EXW(shr, 1), EMPTY, EXW(sar, 1))
 
 /* 0xf6, 0xf7 */
 make_group(gp3,
