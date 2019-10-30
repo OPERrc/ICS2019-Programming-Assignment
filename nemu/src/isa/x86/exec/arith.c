@@ -4,6 +4,7 @@ make_EHelper(add) {
   rtl_add(&s0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &s0);
   // eflags TODO();
+  rtl_update_ZFSF(&s0, id_dest->width);
   print_asm_template2(add);
 }
 
