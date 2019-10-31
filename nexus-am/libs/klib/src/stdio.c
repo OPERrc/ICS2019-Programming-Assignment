@@ -31,13 +31,13 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
 int sprintf(char *out, const char *fmt, ...) {
   va_list args;
-  int d;
-  // stri = 0, fmti = 0;
-  char *str = NULL, *tmp = out;
+  char a[1000];
+  char *str = a;
+  char *tmp = out;
 
   va_start(args, fmt);
   int flag = 0;
-  while (*fmt != '\0') {
+  while (*fmt) {
     if (*fmt != '%' && !flag) {
       *tmp++ = *fmt;
       fmt++;
@@ -48,7 +48,7 @@ int sprintf(char *out, const char *fmt, ...) {
     switch (*fmt) {
       case 's':
         str = va_arg(args, char *);
-        while (*str != '\0') {
+        while (*str) {
           *tmp++ = *str;
           str++;
         }
@@ -56,9 +56,8 @@ int sprintf(char *out, const char *fmt, ...) {
         break;
       
       case 'd':
-        d = va_arg(args, int);
-        str = itoa(d, str, 10);
-        while (*str != '\0') {
+        str = itoa(va_arg(args, int), str, 10);
+        while (*str) {
           *tmp++ = *str;
           str++;
         }
