@@ -61,24 +61,6 @@ int sprintf(char *out, const char *fmt, ...) {
       
       case 'd':
         d = va_arg(args, int);
-        /*int radix = 10;
-        char index[] = "0123456789abcdef";
-        int len = 0;
-        while (d > 0) {
-          str[len] = index[d % radix];
-          d /= radix;
-          len++;
-        }
-        str[len] = '\0';
-        for (int i = 0; i < len / 2; i++) {
-          char tmp = str[i];
-          // _putc(str[i]);
-          str[i] = str[len - 1 - i];
-          str[len - 1 - i] = tmp;
-        }*/
-        /*
-        for (int i = 0; i < len; i++) _putc(str[i]);
-        _putc(' ');*/
         str = itoa(d, str, 10);
         while (*str) {
           // _putc(*str);
