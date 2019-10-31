@@ -48,3 +48,6 @@ make_EHelper(operand_size);
 make_EHelper(nop);
 make_EHelper(inv);
 make_EHelper(nemu_trap);
+
+// system.c
+make_EHelper(out);
