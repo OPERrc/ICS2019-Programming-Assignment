@@ -45,7 +45,11 @@ int sprintf(char *out, const char *fmt, ...) {
       case 's':
         if (flag) {
           str = va_arg(ap, char *);
-          out = strcat(out, str);
+          // out = strcat(out, str);
+          while (*str) {
+            *out++ = *str;
+            str++;
+          }
           flag = 0;
           break;
         }
@@ -56,7 +60,11 @@ int sprintf(char *out, const char *fmt, ...) {
       case 'd':
         if (flag) {
           d = va_arg(ap, int);
-          out = strcat(out, itoa(d, str, 10));
+          str = itoa(d, str, 10);
+          while (*str) {
+            *out++ = *str;
+            str++;
+          }
           flag = 0;
           break;
         }
