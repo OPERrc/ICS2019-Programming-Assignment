@@ -4,22 +4,20 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 char *itoa(int value, char *str, int radix) {
-        //int radix = 10;
-        char index[] = "0123456789abcdef";
-        int len = 0;
-        while (value > 0) {
-          str[len] = index[value % radix];
-          value /= radix;
-          len++;
-        }
-        str[len] = '\0';
-        for (int i = 0; i < len / 2; i++) {
-          char tmp = str[i];
-          // _putc(str[i]);
-          str[i] = str[len - 1 - i];
-          str[len - 1 - i] = tmp;
-        }
-        return str;
+  char index[] = "0123456789abcdef";
+  int len = 0;
+  while (value > 0) {
+    str[len] = index[value % radix];
+    value /= radix;
+    len++;
+  }
+  str[len] = '\0';
+  for (int i = 0; i < len / 2; i++) {
+    char tmp = str[i];
+    str[i] = str[len - 1 - i];
+    str[len - 1 - i] = tmp;
+  }
+  return str;
 }
 
 int printf(const char *fmt, ...) {
@@ -40,7 +38,6 @@ int sprintf(char *out, const char *fmt, ...) {
   va_start(args, fmt);
   int flag = 0;
   while (*fmt) {
-    // _putc(*fmt);
     if (*fmt != '%' && !flag) {
       *tmp++ = *fmt;
       fmt++;
@@ -52,7 +49,6 @@ int sprintf(char *out, const char *fmt, ...) {
       case 's':
         str = va_arg(args, char *);
         while (*str) {
-          // _putc(*str);
           *tmp++ = *str;
           str++;
         }
@@ -63,7 +59,6 @@ int sprintf(char *out, const char *fmt, ...) {
         d = va_arg(args, int);
         str = itoa(d, str, 10);
         while (*str) {
-          // _putc(*str);
           *tmp++ = *str;
           str++;
         }
