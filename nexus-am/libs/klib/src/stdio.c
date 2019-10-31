@@ -56,21 +56,16 @@ int sprintf(char *out, const char *fmt, ...) {
         break;
       
       case 'd':
-        if (flag) {
-          d = va_arg(args, int);
-          str = itoa(d, str, 10);
-          while (*str) {
-            *tmp++ = *str;
-            str++;
-          }
-          flag = 0;
-          break;
+        d = va_arg(args, int);
+        str = itoa(d, str, 10);
+        while (*str) {
+          *tmp++ = *str;
+          str++;
         }
-        else {
-          *tmp++ = *fmt;
-          break;
-        }
-      default: *tmp++ = *fmt;
+        flag = 0;
+        break;
+
+      default: break;
     }
     fmt++;
   }
