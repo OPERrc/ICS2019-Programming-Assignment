@@ -48,7 +48,7 @@ int sprintf(char *out, const char *fmt, ...) {
     switch (*fmt) {
       case 's':
         str = va_arg(args, char *);
-        while (*str) {
+        while (*str != '\0') {
           *tmp++ = *str;
           str++;
         }
@@ -58,7 +58,7 @@ int sprintf(char *out, const char *fmt, ...) {
       case 'd':
         d = va_arg(args, int);
         str = itoa(d, str, 10);
-        while (*str) {
+        while (*str != '\0') {
           *tmp++ = *str;
           str++;
         }
