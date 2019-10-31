@@ -36,7 +36,7 @@ char* strcat(char* dst, const char* src) {
   size_t i = 0;
   while (src[i]) {
     *str++ = src[i++];
-    i++;
+    
   }
   *str = '\0';
   return dst;
