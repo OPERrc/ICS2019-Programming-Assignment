@@ -37,7 +37,7 @@ int sprintf(char *out, const char *fmt, ...) {
   va_start(ap, fmt);
   int flag = 0;
   while (*fmt) {
-    switch (*fmt++) {
+    switch (*fmt) {
       case '%': 
         flag = 1;
         break;
@@ -65,6 +65,7 @@ int sprintf(char *out, const char *fmt, ...) {
         }
       default: out[i++] = *fmt;
     }
+    fmt++;
   }
   va_end(ap);
 
