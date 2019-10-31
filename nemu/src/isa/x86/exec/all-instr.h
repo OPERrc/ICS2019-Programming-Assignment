@@ -43,6 +43,7 @@ make_EHelper(sar); // eflags TODO()
 make_EHelper(shl); // eflags TODO()
 make_EHelper(not);
 make_EHelper(shr);
+make_EHelper(rol);
 
 make_EHelper(operand_size);
 
