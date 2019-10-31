@@ -12,6 +12,7 @@ make_EHelper(idiv);
 make_EHelper(imul1);
 make_EHelper(mul);
 make_EHelper(sbb);
+make_EHelper(div);
 
 // control.c
 make_EHelper(call);
