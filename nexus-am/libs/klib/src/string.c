@@ -2,6 +2,11 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+void TODO() {
+  printf("Please inplement me!!!\n");
+  assert(0);
+}
+
 size_t strlen(const char *s) {
   size_t len = 0;
   while (s[len])
@@ -20,7 +25,7 @@ char *strcpy(char* dst,const char* src) {
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
-  // TODO();
+  TODO();
   return NULL;
 }
 
@@ -42,7 +47,7 @@ int strcmp(const char* s1, const char* s2) {
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
-  // TODO();
+  TODO();
   return 0;
 }
 
@@ -54,7 +59,7 @@ void* memset(void* v,int c,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-  // TODO();
+  TODO();
   return NULL;
 }
 
