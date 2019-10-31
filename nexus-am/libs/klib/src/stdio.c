@@ -37,6 +37,7 @@ int sprintf(char *out, const char *fmt, ...) {
   va_start(ap, fmt);
   int flag = 0;
   while (*fmt) {
+    printf("%c", *fmt);
     switch (*fmt++) {
       case '%': 
         flag = 1;
