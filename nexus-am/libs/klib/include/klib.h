@@ -55,14 +55,13 @@ char* strtok(char* s,const char* delim);
 char *strstr(const char *, const char *);
 const char *strchr(const char *s, int c);
 
-// char *itoa(int value, char *str, int radix);
-
 // stdlib.h
 int atoi(const char* nptr);
 int abs(int x);
 unsigned long time();
 void srand(unsigned int seed);
 int rand();
+char *itoa(int value, char *str, int radix);
 
 // stdio.h
 int printf(const char* fmt, ...);
