@@ -33,9 +33,10 @@ char* strcat(char* dst, const char* src) {
   char *str = dst;
   while (*str)
     str++;
-  while (*src) {
-    *str++ = *src;
-    src++;
+  size_t i = 0;
+  while (src[i]) {
+    *str++ = src[i];
+    i++;
   }
   *str = '\0';
   return str;
