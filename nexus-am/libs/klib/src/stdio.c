@@ -3,6 +3,25 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+char *itoa(int value, char *str, int radix) {
+        //int radix = 10;
+        char index[] = "0123456789abcdef";
+        int len = 0;
+        while (value > 0) {
+          str[len] = index[value % radix];
+          value /= radix;
+          len++;
+        }
+        str[len] = '\0';
+        for (int i = 0; i < len / 2; i++) {
+          char tmp = str[i];
+          // _putc(str[i]);
+          str[i] = str[len - 1 - i];
+          str[len - 1 - i] = tmp;
+        }
+        return str;
+}
+
 int printf(const char *fmt, ...) {
   return 0;
 }
