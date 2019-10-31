@@ -34,11 +34,10 @@ char* strcat(char* dst, const char* src) {
   while (*str)
     str++;
   size_t i = 0;
-  while (src[i]) {
+  while (src[i]) 
     *str++ = src[i++];
-    
-  }
-  *str = '\0';
+
+  //*str = '\0';
   return dst;
 }
 
