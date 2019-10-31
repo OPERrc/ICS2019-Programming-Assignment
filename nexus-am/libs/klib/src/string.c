@@ -39,7 +39,7 @@ char* strcat(char* dst, const char* src) {
     i++;
   }
   *str = '\0';
-  return str;
+  return dst;
 }
 
 int strcmp(const char* s1, const char* s2) {
