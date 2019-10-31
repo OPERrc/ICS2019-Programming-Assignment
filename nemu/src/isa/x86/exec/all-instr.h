@@ -32,6 +32,7 @@ make_EHelper(movzx);
 make_EHelper(pop);
 make_EHelper(cltd);
 make_EHelper(movsx);
+make_EHelper(cwtl);
 
 // logic.c
 make_EHelper(xor); // eflags TODO()
