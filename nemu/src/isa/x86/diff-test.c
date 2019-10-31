@@ -20,11 +20,11 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   make_isa_checkregs(esi);
   make_isa_checkregs(edi);
   make_isa_checkregs(pc);
-  make_isa_checkregs(ZF);
+  /*make_isa_checkregs(ZF);
   make_isa_checkregs(CF);
   make_isa_checkregs(OF);
   make_isa_checkregs(SF);
-  make_isa_checkregs(IF);
+  make_isa_checkregs(IF);*/
 
   checkregs_eax();
   checkregs_ecx();
@@ -35,11 +35,11 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   checkregs_esi();
   checkregs_edi();
   checkregs_pc();
-  checkregs_ZF();
+  /*checkregs_ZF();
   checkregs_CF();
   checkregs_OF();
   checkregs_SF();
-  checkregs_IF();
+  checkregs_IF();*/
   
   if (!flag)
     Log("original pc is 0x%x.\n", pc);
