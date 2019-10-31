@@ -67,6 +67,7 @@ int sprintf(char *out, const char *fmt, ...) {
       default: out[i++] = *fmt;
     }
   }
+  out[i] = '\0';
   va_end(ap);
 
   return 0;
