@@ -27,11 +27,11 @@ make_group(gp1,
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EXW(shl, 1), EXW(shr, 1), EX(div), EXW(sar, 1))
+    EXW(shl, 1), EXW(shr, 1), EMPTY, EXW(sar, 1))
 
 /* 0xf6, 0xf7 */
 make_group(gp3,
-    IDEXW(test_I, test, 1), EMPTY, EX(not), EMPTY,
+    IDEXW(test_I, test, 1), EMPTY, EX(not), EX(neg),
     EX(mul), EX(imul1), EX(div), EX(idiv))
 
 /* 0xfe */

@@ -13,6 +13,7 @@ make_EHelper(imul1);
 make_EHelper(mul);
 make_EHelper(sbb);
 make_EHelper(div);
+make_EHelper(neg);
 
 // control.c
 make_EHelper(call);
