@@ -33,7 +33,6 @@ int sprintf(char *out, const char *fmt, ...) {
   va_list ap;
   int d, i = 0;
   char *str = NULL;
-  out[0] = '\0';
 
   va_start(ap, fmt);
   int flag = 0;
@@ -67,7 +66,6 @@ int sprintf(char *out, const char *fmt, ...) {
       default: out[i++] = *fmt;
     }
   }
-  out[i] = '\0';
   va_end(ap);
 
   return 0;
