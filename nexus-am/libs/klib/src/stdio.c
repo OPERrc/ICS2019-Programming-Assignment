@@ -3,16 +3,19 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+
 char *itoa(int value, char *str, int radix) {
   assert(radix > 16);
-  char index[] = "0123456789abcdef";
+  char index[16] = "0123456789abcdef";
   int len = 0;
+  _putc('x');
   while (value > 0) {
     str[len] = index[value % radix];
     value /= radix;
+    _putc(str[len]);
     len++;
   }
-  str[len] = '\0';
+  //str[len] = '\0';
   for (int i = 0; i <= len / 2; i++){
     char tmp = str[i];
     str[i] = str[len - 1 - i];
@@ -34,10 +37,12 @@ int sprintf(char *out, const char *fmt, ...) {
   char a[1000];
   char *str = a;
   char *tmp = out;
+  int d;
 
   va_start(args, fmt);
   int flag = 0;
   while (*fmt) {
+    // _putc(*fmt);
     if (*fmt != '%' && !flag) {
       *tmp++ = *fmt;
       fmt++;
@@ -49,6 +54,7 @@ int sprintf(char *out, const char *fmt, ...) {
       case 's':
         str = va_arg(args, char *);
         while (*str) {
+          // _putc(*str);
           *tmp++ = *str;
           str++;
         }
@@ -56,8 +62,28 @@ int sprintf(char *out, const char *fmt, ...) {
         break;
       
       case 'd':
-        str = itoa(va_arg(args, int), str, 10);
+        // _putc('x');
+        d = va_arg(args, int);
+        //assert(radix > 16);
+        char index[16] = "0123456789abcdef";
+        int len = 0;
+        // _putc('x');
+        while (d > 0) {
+          str[len] = index[d % 10];
+          d /= 10;
+          // _putc(str[len]);
+          len++;
+        }
+        //str[len] = '\0';
+        for (int i = 0; i <= len / 2; i++){
+          char tmp = str[i];
+          str[i] = str[len - 1 - i];
+          str[len - 1 - i] = tmp;
+        }
+      
+        // _putc('x');
         while (*str) {
+          // _putc(*str);
           *tmp++ = *str;
           str++;
         }
