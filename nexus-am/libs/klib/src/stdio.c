@@ -50,8 +50,7 @@ int sprintf(char *out, const char *fmt, ...) {
           break;
         }
         else {
-          *str = *fmt;
-          out = strcat(out, str);
+          *out++ = *fmt;
           break;
         }
       case 'd':
@@ -62,12 +61,10 @@ int sprintf(char *out, const char *fmt, ...) {
           break;
         }
         else {
-                    *str = *fmt;
-          out = strcat(out, str);
+          *out++ = *fmt;
           break;
         }
-      default:           *str = *fmt;
-          out = strcat(out, str);
+      default: *out++ = *fmt;
     }
     fmt++;
   }
