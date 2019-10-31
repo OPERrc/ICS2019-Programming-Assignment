@@ -33,7 +33,7 @@ int sprintf(char *out, const char *fmt, ...) {
   va_list ap;
   int d;
   // stri = 0, fmti = 0;
-  char *str = NULL;
+  char *str = NULL, *tmp = out;
 
   va_start(ap, fmt);
   int flag = 0;
@@ -47,14 +47,14 @@ int sprintf(char *out, const char *fmt, ...) {
           str = va_arg(ap, char *);
           // out = strcat(out, str);
           while (*str) {
-            *out++ = *str;
+            *tmp++ = *str;
             str++;
           }
           flag = 0;
           break;
         }
         else {
-          *out++ = *fmt;
+          *tmp++ = *fmt;
           break;
         }
       case 'd':
@@ -62,17 +62,17 @@ int sprintf(char *out, const char *fmt, ...) {
           d = va_arg(ap, int);
           str = itoa(d, str, 10);
           while (*str) {
-            *out++ = *str;
+            *tmp++ = *str;
             str++;
           }
           flag = 0;
           break;
         }
         else {
-          *out++ = *fmt;
+          *tmp++ = *fmt;
           break;
         }
-      default: *out++ = *fmt;
+      default: *tmp++ = *fmt;
     }
     fmt++;
   }
