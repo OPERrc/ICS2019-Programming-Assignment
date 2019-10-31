@@ -31,10 +31,13 @@ char* strncpy(char* dst, const char* src, size_t n) {
 
 char* strcat(char* dst, const char* src) {
   char *str = dst;
-  while (*str++);
+  while (*str)
+    str++;
   size_t i = 0;
-  while (src[i])
+  while (src[i]) {
     *str++ = src[i++];
+    i++;
+  }
   *str = '\0';
   return dst;
 }
