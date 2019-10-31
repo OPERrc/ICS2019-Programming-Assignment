@@ -42,7 +42,13 @@ void pio_write_w(ioaddr_t, uint32_t);
 void pio_write_b(ioaddr_t, uint32_t);
 
 make_EHelper(in) {
-  TODO();
+  switch (id_src->width) {
+    case 4: s0 = pio_read_l(id_src->val); break;
+    case 2: s0 = pio_read_w(id_src->val); break;
+    case 1: s0 = pio_read_b(id_src->val); break;
+    default: assert(0);
+  }
+  operand_write(id_dest, &s0);
 
   print_asm_template2(in);
 }

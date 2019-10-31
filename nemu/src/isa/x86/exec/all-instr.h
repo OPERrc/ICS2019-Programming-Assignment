@@ -51,3 +51,4 @@ make_EHelper(nemu_trap);
 
 // system.c
 make_EHelper(out);
+make_EHelper(in);
