@@ -31,7 +31,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
 int sprintf(char *out, const char *fmt, ...) {
   va_list ap;
-  int d;
+  int d, i = 0;
   char *str = NULL;
   out[0] = '\0';
 
@@ -50,7 +50,7 @@ int sprintf(char *out, const char *fmt, ...) {
           break;
         }
         else {
-          *out++ = *fmt;
+          out[i++] = *fmt;
           break;
         }
       case 'd':
@@ -61,10 +61,10 @@ int sprintf(char *out, const char *fmt, ...) {
           break;
         }
         else {
-          *out++ = *fmt;
+          out[i++] = *fmt;
           break;
         }
-      default: *out++ = *fmt;
+      default: out[i++] = *fmt;
     }
   }
   va_end(ap);
