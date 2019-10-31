@@ -55,7 +55,7 @@ char* strtok(char* s,const char* delim);
 char *strstr(const char *, const char *);
 const char *strchr(const char *s, int c);
 
-char *itoa(int value, char *str, int radix);
+// char *itoa(int value, char *str, int radix);
 
 // stdlib.h
 int atoi(const char* nptr);
