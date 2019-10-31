@@ -8,7 +8,7 @@
 #include <am.h>
 #include <stdarg.h>
 
-#define __NATIVE_USE_KLIB__
+// #define __NATIVE_USE_KLIB__
 
 #ifdef __NATIVE_USE_KLIB__
 #define strlen my_strlen
@@ -39,6 +39,9 @@ void draw_rect(uint32_t *pixels, int x, int y, int w, int h);
 void draw_sync();
 int screen_width();
 int screen_height();
+
+// TODO
+void TODO();
 
 // string.h
 void* memset(void* v, int c, size_t n);
