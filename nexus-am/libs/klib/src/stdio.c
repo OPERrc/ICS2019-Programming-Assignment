@@ -48,7 +48,10 @@ int sprintf(char *out, const char *fmt, ...) {
           flag = 0;
           break;
         }
-        else break;
+        else {
+          *out++ = *fmt;
+          break;
+        }
       case 'd':
         if (flag) {
           d = va_arg(ap, int);
@@ -56,7 +59,10 @@ int sprintf(char *out, const char *fmt, ...) {
           flag = 0;
           break;
         }
-        else break;
+        else {
+          *out++ = *fmt;
+          break;
+        }
       default: *out++ = *fmt;
     }
   }
