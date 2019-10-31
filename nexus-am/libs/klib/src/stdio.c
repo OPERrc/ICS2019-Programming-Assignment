@@ -29,6 +29,7 @@ int printf(const char *fmt, ...) {
   char *str = buf;
   vsprintf(str, fmt, ap);
   va_end(ap);
+
   int len = 0;
   while (*str) {
     _putc(*str);
@@ -89,48 +90,6 @@ int sprintf(char *out, const char *fmt, ...) {
   va_start(ap, fmt);
   vsprintf(out, fmt, ap);
   va_end(ap);
-  /*va_list args;
-  char a[1000];
-  char *str = a;
-  char *tmp = out;
-  int d;
-
-  va_start(args, fmt);
-  int flag = 0;
-  while (*fmt) {
-    if (*fmt != '%' && !flag) {
-      *tmp++ = *fmt;
-      fmt++;
-      continue;
-    }
-
-    flag = 1;
-    switch (*fmt) {
-      case 's':
-        str = va_arg(args, char *);
-        while (*str) {
-          *tmp++ = *str;
-          str++;
-        }
-        flag = 0;
-        break;
-      
-      case 'd':
-        d = va_arg(args, int);
-        str = itoa(d, str, 10);
-        while (*str) {
-          *tmp++ = *str;
-          str++;
-        }
-        flag = 0;
-        break;
-
-      default: break;
-    }
-    fmt++;
-  }
-  *tmp = '\0';
-  va_end(args);*/
 
   return 0;
 }
