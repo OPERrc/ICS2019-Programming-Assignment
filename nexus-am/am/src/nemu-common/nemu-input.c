@@ -9,7 +9,7 @@ size_t __am_input_read(uintptr_t reg, void *buf, size_t size) {
     case _DEVREG_INPUT_KBD: {
       _DEV_INPUT_KBD_t *kbd = (_DEV_INPUT_KBD_t *)buf;
       int k = inl(KBD_ADDR);
-      kbd->keydown = k & _KEY_NONE;
+      kbd->keydown = k & KEYDOWN_MASK;
       kbd->keycode = k;
       return sizeof(_DEV_INPUT_KBD_t);
     }
