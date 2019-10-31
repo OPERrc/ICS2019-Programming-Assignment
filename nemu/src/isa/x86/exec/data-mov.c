@@ -6,8 +6,9 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  rtl_sext(&s0, &id_dest->val, id_dest->width);
-  rtl_push(&s0);
+  // rtl_sext(&s0, &id_dest->val, id_dest->width);
+  // rtl_push(&s0);
+  rtl_push(&id_dest->val);
   print_asm_template1(push);
 }
 
