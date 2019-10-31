@@ -30,12 +30,13 @@ char* strncpy(char* dst, const char* src, size_t n) {
 }
 
 char* strcat(char* dst, const char* src) {
-  size_t len = strlen(dst), i = 0;
-  while (src[i]) {
-    dst[len + i] = src[i];
-    i++;
+  while (*dst)
+    dst++;
+  while (*src) {
+    *dst++ = *src;
+    src++;
   }
-  dst[len + i] = '\0';
+  *dst = '\0';
   return dst;
 }
 

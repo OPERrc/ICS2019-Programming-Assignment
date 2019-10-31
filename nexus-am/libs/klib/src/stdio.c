@@ -12,7 +12,7 @@ char *itoa(int value, char *str, int radix) {
     value /= radix;
     len++;
   }
-  //str[len] = '\0';
+  str[len] = '\0';
   for (int i = 0; i <= len / 2; i++){
     char tmp = str[i];
     str[i] = str[len - 1 - i];
@@ -63,9 +63,9 @@ int sprintf(char *out, const char *fmt, ...) {
           out[stri++] = fmt[fmti];
           break;
         }
-      default: out[stri++] = fmt[fmti];
+      default: *out++ = *fmt;
     }
-    fmti++;
+    fmt++;
   }
   va_end(ap);
 
