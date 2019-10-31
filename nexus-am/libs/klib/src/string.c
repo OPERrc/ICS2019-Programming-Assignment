@@ -30,14 +30,15 @@ char* strncpy(char* dst, const char* src, size_t n) {
 }
 
 char* strcat(char* dst, const char* src) {
-  while (*dst)
-    dst++;
+  char *str = dst;
+  while (*str)
+    str++;
   while (*src) {
-    *dst++ = *src;
+    *str++ = *src;
     src++;
   }
-  *dst = '\0';
-  return dst;
+  *str = '\0';
+  return str;
 }
 
 int strcmp(const char* s1, const char* s2) {
