@@ -7,6 +7,26 @@ void TODO() {
   assert(0);
 }
 
+char *itoa(int value, char *str, int radix) {
+  assert(radix > 16);
+  char index[16] = "0123456789abcdef";
+  int len = 0;
+  _putc('x');
+  while (value > 0) {
+    str[len] = index[value % radix];
+    value /= radix;
+    _putc(str[len]);
+    len++;
+  }
+  //str[len] = '\0';
+  for (int i = 0; i <= len / 2; i++){
+    char tmp = str[i];
+    str[i] = str[len - 1 - i];
+    str[len - 1 - i] = tmp;
+  }
+  return str;
+}
+
 size_t strlen(const char *s) {
   size_t len = 0;
   while (s[len])
