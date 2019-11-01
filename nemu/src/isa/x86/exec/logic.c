@@ -106,13 +106,9 @@ make_EHelper(not) {
 
 make_EHelper(rol) {
   rtl_li(&s0, id_src->val);
-  //printf("%d\n", id_src->val);
-  //printf("%d\n", s0);
   while (s0--) {
-    //printf("0x%x\n", id_dest->val);
     s1 = id_dest->val >> (id_dest->width * 8 - 1);
     id_dest->val = id_dest->val * 2 + s1;
-    //operand_write(id_dest, &s1);
     cpu.CF = cpu.CF ^ s1;
   }
   operand_write(id_dest, &id_dest->val);
@@ -122,4 +118,14 @@ make_EHelper(rol) {
     else
       cpu.OF = 0;
   }
+  /*
+  while (id_src->val--) {
+    rtl_sari(&s1, id_dest->val, (id_dest->width * 8 - 1));
+    rtl_get_Cf(&s0);
+    rtl_xor(&s0, &s1, &s0);
+    rtl_set_CF(&s0);
+    rtl_add(&id_dest->val, &id_dest->val, &id_dest->val);
+    rtl_add(&id_dest->val, &id_dest->val, &s1);
+    operand_write(id_dest, &id_dest->val);
+  }*/
 }
