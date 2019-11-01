@@ -179,7 +179,11 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 
 static inline void rtl_mux(rtlreg_t* dest, const rtlreg_t* cond, const rtlreg_t* src1, const rtlreg_t* src2) {
   // dest <- (cond ? src1 : src2)
-  TODO();
+  switch (*cond) {
+    case 1: rtl_mv(dest, src1);
+    case 0: rtl_mv(dest, src2);
+    default: assert(0);
+  }
 }
 
 #include "isa/rtl.h"
