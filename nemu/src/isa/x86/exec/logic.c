@@ -106,10 +106,10 @@ make_EHelper(not) {
 
 make_EHelper(rol) {
   rtl_li(&s0, id_src->val);
-  printf("%d\n", id_src->val);
-  printf("%d\n", s0);
+  //printf("%d\n", id_src->val);
+  //printf("%d\n", s0);
   while (s0--) {
-    printf("0x%x\n", id_dest->val);
+    //printf("0x%x\n", id_dest->val);
     s1 = id_dest->val >> (id_dest->width * 8 - 1);
     id_dest->val = id_dest->val * 2 + s1;
     //operand_write(id_dest, &s1);
