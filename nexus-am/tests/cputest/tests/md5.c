@@ -174,7 +174,7 @@ uint32_t checksum(void *start, void *end) {
 
 int bench_md5_validate() {
   uint32_t x = checksum(digest, digest + 16);
-  printf("result = 0x%x\n", x);
+  printf("result = 0x%d\n", x);
   return checksum(digest, digest + 16) == 0xf902f28f;
 }
 
