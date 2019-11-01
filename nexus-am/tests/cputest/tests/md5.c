@@ -173,12 +173,14 @@ uint32_t checksum(void *start, void *end) {
 }
 
 int bench_md5_validate() {
+  uint32_t x = checksum(digest, digest + 16);
+  printf("result = 0x%x\n", x);
   return checksum(digest, digest + 16) == 0xf902f28f;
 }
 
 int main() {
     bench_md5_prepare();
     bench_md5_run();
-    bench_md5_validate();
+    nemu_assert(bench_md5_validate());
     return 0;
 }
