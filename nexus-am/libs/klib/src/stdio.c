@@ -93,7 +93,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
       default:
         printf("%c uninplemented!\n", *fmt);
-        TODO();
+        //TODO();
         break;
     }
     fmt++;
