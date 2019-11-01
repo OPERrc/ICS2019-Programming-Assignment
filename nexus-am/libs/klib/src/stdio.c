@@ -74,6 +74,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         flag = 0;
         break;
 
+      case '0': *tmp++ = *str;
+
       case '%': break;
 
       default:
