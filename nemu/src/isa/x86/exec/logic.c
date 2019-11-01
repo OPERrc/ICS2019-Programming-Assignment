@@ -110,28 +110,24 @@ make_EHelper(rol) {
     // s1 = id_dest->val >> (id_dest->width * 8 - 1);
     rtl_msb(&s1, &id_dest->val, id_dest->width);
     // id_dest->val = id_dest->val * 2 + s1;
-    rtl_shli(&s0, &id_dest->val, 1);
-    rtl_add(&id_dest->val, &s0, &s1);
-    operand_write(id_dest, &id_dest->val);
     // cpu.CF = cpu.CF ^ s1;
     rtl_get_CF(&s0);
-    rtl_xor(&s0, &s0, &s1);
+    rtl_xor(&s0, &s1, &s0);
     rtl_set_CF(&s0);
+    rtl_add(&id_dest->val, &id_dest->val, &id_dest->val);
+    rtl_add(&id_dest->val, &id_dest->val, &s1);
   }
-  // operand_write(id_dest, &id_dest->val);
+  operand_write(id_dest, &id_dest->val);
   if (id_src->val == 1) {
-    rtl_msb(&s1, &id_dest->val, id_dest->width);
-    rtl_get_CF(&s0);
-    if (s0 != s1)
-      rtl_li(&ir, 1);
+    if (id_dest->val >> (id_dest->width * 8 - 1) != cpu.CF)
+      cpu.OF = 1;
     else
-      rtl_li(&ir, 0);
-    rtl_set_OF(&ir);
+      cpu.OF = 0;
   }
   /*
   while (id_src->val--) {
     rtl_sari(&s1, id_dest->val, (id_dest->width * 8 - 1));
-    rtl_get_Cf(&s0);
+    rtl_get_CF(&s0);
     rtl_xor(&s0, &s1, &s0);
     rtl_set_CF(&s0);
     rtl_add(&id_dest->val, &id_dest->val, &id_dest->val);
