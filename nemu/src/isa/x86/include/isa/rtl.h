@@ -43,8 +43,12 @@ static inline void rtl_pop(rtlreg_t* dest) {
 static inline void rtl_is_sub_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 - src2)
-  *dest = (*src1 >> (width * 8 - 1) == ~(*src2) >> (width * 8 - 1) 
-    && *src1 >> (width * 8 - 1) != *res >> (width * 8 - 1)) ? 1 : 0;
+  t0 = (*src1 >> (width * 8 - 1)) & 1;
+  t1 = (~(*src2) >> (width * 8 - 1)) & 1;
+  *dest = (*res >> (width * 8 - 1)) & 1;
+  *dest = (t0 == t1 && t0 != *dest) ? 1 : 0;
+  /**dest = (*src1 >> (width * 8 - 1) == ~(*src2) >> (width * 8 - 1) 
+    && *src1 >> (width * 8 - 1) != *res >> (width * 8 - 1)) ? 1 : 0;*/
 }
 
 static inline void rtl_is_sub_carry(rtlreg_t* dest,
@@ -85,7 +89,7 @@ make_rtl_setget_eflags(SF)
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  cpu.ZF = *result == 0 ? 1 : 0;
+  cpu.ZF = (*result << (4 - width) * 8) == 0 ? 1 : 0;
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
