@@ -8,7 +8,12 @@
 char *itoa(int value, char *str, int radix) {
   char index[] = "0123456789abcdef";
   int len = 0;
-  while (value >= 0) {
+  if (value == 0) {
+    str[len] = '0';
+    len++;
+  }
+  else
+  while (value > 0) {
     str[len] = index[value % radix];
     value /= radix;
     len++;
