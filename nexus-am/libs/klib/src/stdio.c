@@ -46,6 +46,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   int d;
 
   int flag = 0;
+  printf("%s\n", fmt);
   while (*fmt) {
     if (*fmt != '%' && !flag) {
       *tmp++ = *fmt;
@@ -79,7 +80,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       case '%': break;
 
       default:
-        _putc(*fmt); 
+        //_putc(*fmt); 
         break;//TODO();
     }
     fmt++;
