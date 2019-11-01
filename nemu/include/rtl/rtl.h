@@ -134,7 +134,7 @@ static inline void rtl_not(rtlreg_t *dest, const rtlreg_t* src1) {
   // dest <- ~src1
   //*dest = ~*src1;
   rtl_li(&ir, 0);
-  rtl_sub(&t1, 0, &ir);
+  rtl_sub(&t1, &ir, src1);
   rtl_subi(dest, &t1, 1);
 }
 
