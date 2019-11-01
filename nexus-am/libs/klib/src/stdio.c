@@ -48,8 +48,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   char a[1000];
   char *str = a;
   char *tmp = out;
-  int d;
+  int d, radix;
   char ch;
+  //char align = ' ';
 
   int flag = 0;
   while (*fmt) {
@@ -77,9 +78,16 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         flag = 0;
         break;
       
+      case 'o':
+        radix = 8;
+
       case 'd':
+        radix = 10;
+
+      case 'x':
+        radix = 16;
         d = va_arg(ap, int);
-        str = my_itoa(d, str, 10);
+        str = my_itoa(d, str, radix);
         while (*str) {
           *tmp++ = *str;
           str++;
@@ -87,7 +95,17 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         flag = 0;
         break;
 
-      //case '0': *tmp++ = *str;
+      /*
+      case '0': *tmp++ = *str;
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':*/
 
       case '%': break;
 
