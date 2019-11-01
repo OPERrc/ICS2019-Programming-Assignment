@@ -109,13 +109,8 @@ make_EHelper(rol) {
   while (ir--) {
     // s1 = id_dest->val >> (id_dest->width * 8 - 1);
     rtl_msb(&s1, &id_dest->val, id_dest->width);
-    // id_dest->val = id_dest->val * 2 + s1;
-    // cpu.CF = cpu.CF ^ s1;
-    rtl_get_CF(&s0);
-    rtl_xor(&s0, &s1, &s0);
-    rtl_set_CF(&s0);
-    rtl_add(&id_dest->val, &id_dest->val, &id_dest->val);
-    rtl_add(&id_dest->val, &id_dest->val, &s1);
+    id_dest->val = id_dest->val * 2 + s1;
+    cpu.CF = cpu.CF ^ s1;
   }
   operand_write(id_dest, &id_dest->val);
   if (id_src->val == 1) {
@@ -127,7 +122,7 @@ make_EHelper(rol) {
   /*
   while (id_src->val--) {
     rtl_sari(&s1, id_dest->val, (id_dest->width * 8 - 1));
-    rtl_get_CF(&s0);
+    rtl_get_Cf(&s0);
     rtl_xor(&s0, &s1, &s0);
     rtl_set_CF(&s0);
     rtl_add(&id_dest->val, &id_dest->val, &id_dest->val);
