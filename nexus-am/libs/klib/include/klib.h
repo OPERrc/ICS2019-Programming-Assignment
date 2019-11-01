@@ -41,7 +41,9 @@ int screen_width();
 int screen_height();
 
 // TODO
-void TODO();
+#define TODO(); \
+  printf("Please inplement me!!!\n"); \
+  assert(0);
 
 // string.h
 void* memset(void* v, int c, size_t n);
