@@ -1,14 +1,7 @@
 #include "cpu/exec.h"
 #include "cc.h"
 
-make_EHelper(test) {
-  /*
-  TEST computes the bit-wise logical AND of its two operands. 
-  Each bit of the result is 1 if both of the corresponding bits of the operands are 1; 
-  otherwise, each bit is 0. 
-  The result of the operation is discarded and only the flags are modified. 
-  */
- 
+make_EHelper(test) { 
   rtl_and(&s0, &id_dest->val, &id_src->val);
   // set ZF SF flags
   rtl_update_ZFSF(&s0, id_dest->width);
