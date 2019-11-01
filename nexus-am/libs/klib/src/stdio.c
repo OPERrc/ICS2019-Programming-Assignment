@@ -47,7 +47,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
   int flag = 0;
   while (*fmt) {
-    _putc(*fmt);
+    //_putc(*fmt);
     if (*fmt != '%' && !flag) {
       *tmp++ = *fmt;
       fmt++;
