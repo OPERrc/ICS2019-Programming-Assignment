@@ -77,8 +77,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       case '%': break;
 
       default:
-        break; 
-        //TODO();
+        _putc(*fmt); 
+        TODO();
     }
     fmt++;
   }
