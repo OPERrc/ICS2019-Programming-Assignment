@@ -26,8 +26,7 @@ static inline void rtl_sr(int r, const rtlreg_t* src1, int width) {
 static inline void rtl_push(const rtlreg_t* src1) {
   // esp <- esp - 4
   // M[esp] <- src1
-  rtl_subi(&cpu.esp, &cpu.esp, 4);
-	// cpu.esp -= 4;
+	cpu.esp -= 4;
   rtl_sm(&cpu.esp, src1, 4);
 	// vaddr_write(cpu.esp, *src1, 4);
 }
@@ -38,17 +37,12 @@ static inline void rtl_pop(rtlreg_t* dest) {
   rtl_lm(dest, &cpu.esp, 4);
   // rtl_lr(dest, R_ESP, 4);
 	// *dest = vaddr_read(cpu.esp, 4);
-  rtl_addi(&cpu.esp, &cpu.esp, 4);
-	// cpu.esp += 4;
+	cpu.esp += 4;
 }
 
 static inline void rtl_is_sub_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 - src2)
-  //rtl_msb(&t0, src1, width);
-  //rtl_not(&t1, src2);
-  //rtl_msb(&t1, &t1, width);
-  //rtl_msb(dest, res, width);
   t0 = (*src1 >> (width * 8 - 1)) & 1;
   t1 = (~(*src2) >> (width * 8 - 1)) & 1;
   *dest = (*res >> (width * 8 - 1)) & 1;
@@ -66,13 +60,9 @@ static inline void rtl_is_sub_carry(rtlreg_t* dest,
 static inline void rtl_is_add_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 + src2)
-  /*t0 = (*src1 >> (width * 8 - 1)) & 1;
+  t0 = (*src1 >> (width * 8 - 1)) & 1;
   t1 = (*src2 >> (width * 8 - 1)) & 1;
-  *dest = (*res >> (width * 8 - 1)) & 1;*/
-  
-  rtl_msb(&t0, src1, width);
-  rtl_msb(&t1, src2, width);
-  rtl_msb(dest, res, width);
+  *dest = (*res >> (width * 8 - 1)) & 1;
   *dest = (t0 == t1 && t0 != *dest) ? 1 : 0;
   /**dest = (*src1 >> (width * 8 - 1) == *src2 >> (width * 8 - 1) 
     && *src2 >> (width * 8 - 1) != *res >> (width * 8 - 1)) ? 1 : 0;*/
@@ -86,7 +76,7 @@ static inline void rtl_is_add_carry(rtlreg_t* dest,
 
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    cpu.f = *src & 1; \
+    cpu.f = *src & 0b1; \
   } \
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
     *dest = cpu.f; \
