@@ -107,12 +107,12 @@ make_EHelper(not) {
 make_EHelper(rol) {
   s0 = id_src->val;
   while (s0--) {
-    s1 = id_dest->val >> 31;
+    s1 = id_dest->val >> (id_dest->width * 8 - 1);
     id_dest->val = id_dest->val * 2 + s1;
     cpu.CF = cpu.CF ^ s1;
   }
   if (id_src->val == 1) {
-    if (id_dest->val >> 31 != cpu.CF)
+    if (id_dest->val >> (id_dest->width * 8 - 1) != cpu.CF)
       cpu.OF = 1;
     else
       cpu.OF = 0;
