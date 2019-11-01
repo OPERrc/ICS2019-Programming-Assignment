@@ -145,7 +145,7 @@ static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
-  rtl_shri(dest, src1, (width * 8 - 1));
+  rtl_sari(dest, src1, (width * 8 - 1));
   rtl_andi(dest, dest, 1);
 }
 
