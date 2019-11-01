@@ -5,7 +5,7 @@
 
 #define make_format \
 
-char *itoa(int value, char *str, int radix) {
+char *my_itoa(int value, char *str, int radix) {
   char index[] = "0123456789abcdef";
   int len = 0;
   if (value == 0) {
@@ -79,7 +79,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       
       case 'd':
         d = va_arg(ap, int);
-        str = itoa(d, str, 10);
+        str = my_itoa(d, str, 10);
         while (*str) {
           *tmp++ = *str;
           str++;
