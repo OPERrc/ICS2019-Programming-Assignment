@@ -26,7 +26,8 @@ static inline void rtl_sr(int r, const rtlreg_t* src1, int width) {
 static inline void rtl_push(const rtlreg_t* src1) {
   // esp <- esp - 4
   // M[esp] <- src1
-	cpu.esp -= 4;
+  rtl_subi(&cpu.esp, &cpu.esp, 4);
+	// cpu.esp -= 4;
   rtl_sm(&cpu.esp, src1, 4);
 	// vaddr_write(cpu.esp, *src1, 4);
 }
@@ -37,7 +38,8 @@ static inline void rtl_pop(rtlreg_t* dest) {
   rtl_lm(dest, &cpu.esp, 4);
   // rtl_lr(dest, R_ESP, 4);
 	// *dest = vaddr_read(cpu.esp, 4);
-	cpu.esp += 4;
+  rtl_addi(&cpu.esp, &cpu.esp, 4);
+	// cpu.esp += 4;
 }
 
 static inline void rtl_is_sub_overflow(rtlreg_t* dest,
@@ -76,7 +78,7 @@ static inline void rtl_is_add_carry(rtlreg_t* dest,
 
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    cpu.f = *src & 0b1; \
+    cpu.f = *src & 1; \
   } \
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
     *dest = cpu.f; \
