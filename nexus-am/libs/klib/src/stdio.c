@@ -46,8 +46,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   int d;
 
   int flag = 0;
-  printf("%s\n", fmt);
   while (*fmt) {
+    _putc(*fmt);
     if (*fmt != '%' && !flag) {
       *tmp++ = *fmt;
       fmt++;
