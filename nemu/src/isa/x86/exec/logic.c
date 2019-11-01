@@ -108,7 +108,8 @@ make_EHelper(rol) {
   s0 = id_src->val;
   while (s0--) {
     s1 = id_dest->val >> (id_dest->width * 8 - 1);
-    id_dest->val = id_dest->val * 2 + s1;
+    s1 = id_dest->val * 2 + s1;
+    operand_write(id_dest, &s1);
     cpu.CF = cpu.CF ^ s1;
   }
   if (id_src->val == 1) {
