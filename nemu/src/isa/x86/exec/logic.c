@@ -111,8 +111,8 @@ make_EHelper(rol) {
   while (s0--) {
     printf("0x%x\n", id_dest->val);
     s1 = id_dest->val >> (id_dest->width * 8 - 1);
-    s1 = id_dest->val * 2 + s1;
-    operand_write(id_dest, &s1);
+    id_dest->val = id_dest->val * 2 + s1;
+    //operand_write(id_dest, &s1);
     cpu.CF = cpu.CF ^ s1;
   }
   if (id_src->val == 1) {
