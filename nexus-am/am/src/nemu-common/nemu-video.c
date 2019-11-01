@@ -35,6 +35,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
         uint32_t *pixels = ctl->pixels;
         uint32_t wh = inl(SCREEN_ADDR);
         uint32_t W = wh >> 16, H = wh & 0x0000ffff;
+        printf("W = %d, H = %d\n", W, H);
         // uint32_t W = 400, H = 300;
         int cp_bytes = sizeof(uint32_t) * min(w, W - x);
         for (int j = 0; j < h && y + j < H; j ++) {
