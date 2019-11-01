@@ -107,8 +107,8 @@ make_EHelper(not) {
 make_EHelper(rol) {
   rtl_li(&ir, id_src->val);
   while (ir--) {
-    //s1 = id_dest->val >> (id_dest->width * 8 - 1);
-    rtl_msb(&s1, &id_dest->val, id_dest->width);
+    s1 = id_dest->val >> (id_dest->width * 8 - 1);
+    // rtl_msb(&s1, &id_dest->val, id_dest->width);
     id_dest->val = id_dest->val * 2 + s1;
     cpu.CF = cpu.CF ^ s1;
   }
