@@ -2,10 +2,6 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-#define TODO(); \
-  printf("Please inplement me!!!\n"); \
-  assert(0);
-
 size_t strlen(const char *s) {
   size_t len = 0;
   while (s[len])
