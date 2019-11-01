@@ -15,7 +15,7 @@ static inline void clear(int n) {
 }
 
 void bench_sieve_prepare() {
-  N = 200000;
+  N = 100;
   primes = (uint32_t*)(N / 32);
   for (int i = 0; i <= N / 32; i ++) {
     primes[i] = 0xffffffff;
@@ -39,7 +39,7 @@ void bench_sieve_run() {
 }
 
 int bench_sieve_validate() {
-  return ans == 0x00004640;
+  return ans == 0x00000019;
 }
 
 int main() {
