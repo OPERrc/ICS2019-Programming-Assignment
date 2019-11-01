@@ -115,6 +115,7 @@ make_EHelper(rol) {
     //operand_write(id_dest, &s1);
     cpu.CF = cpu.CF ^ s1;
   }
+  operand_write(id_dest, &id_dest->val);
   if (id_src->val == 1) {
     if (id_dest->val >> (id_dest->width * 8 - 1) != cpu.CF)
       cpu.OF = 1;
