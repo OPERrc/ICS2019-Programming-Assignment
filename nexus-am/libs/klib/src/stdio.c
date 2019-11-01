@@ -49,6 +49,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   char *str = a;
   char *tmp = out;
   int d;
+  char ch;
 
   int flag = 0;
   while (*fmt) {
@@ -61,6 +62,12 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
     flag = 1;
     switch (*fmt) {
+      case 'c':
+        ch = (unsigned char)va_arg(ap, int);
+          *tmp++ = ch;
+        flag = 0;
+        break;
+
       case 's':
         str = va_arg(ap, char *);
         while (*str) {
@@ -85,7 +92,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       case '%': break;
 
       default:
-        //_putc(*fmt); 
+        printf("%c uninplemented!\n", *fmt);
         break;//TODO();
     }
     fmt++;
