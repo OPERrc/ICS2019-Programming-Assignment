@@ -133,8 +133,8 @@ void interpret_rtl_exit(int state, vaddr_t halt_pc, uint32_t halt_ret);
 static inline void rtl_not(rtlreg_t *dest, const rtlreg_t* src1) {
   // dest <- ~src1
   //*dest = ~*src1;
-  rtl_li(&t1, 0);
-  rtl_sub(&t1, 0, &t1);
+  rtl_li(&ir, 0);
+  rtl_sub(&t1, 0, &ir);
   rtl_subi(dest, &t1, 1);
 }
 
