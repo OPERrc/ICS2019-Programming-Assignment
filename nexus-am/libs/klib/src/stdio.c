@@ -4,13 +4,13 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 #define make_my_itoa(radix) \
+  flag = 0; \
   d = va_arg(ap, int); \
   str = my_itoa(d, str, radix); \
   while (*str) { \
     *tmp++ = *str; \
     str++; \
-  } \
-  flag = 0; \
+  }
 
 char *my_itoa(int value, char *str, int radix) {
   char index[] = "0123456789abcdef";
