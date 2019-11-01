@@ -111,8 +111,8 @@ make_EHelper(rol) {
     rtl_msb(&s1, &id_dest->val, id_dest->width);
     // id_dest->val = id_dest->val * 2 + s1;
     rtl_shli(&s0, &id_dest->val, 1);
-    rtl_add(&s0, &s0, &s1);
-    operand_write(id_dest, &s0);
+    rtl_add(&id_dest->val, &s0, &s1);
+    operand_write(id_dest, &id_dest->val);
     // cpu.CF = cpu.CF ^ s1;
     rtl_get_CF(&s0);
     rtl_xor(&s0, &s0, &s1);
