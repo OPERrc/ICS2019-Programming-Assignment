@@ -3,7 +3,14 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-#define make_format \
+#define make_my_itoa(radix) \
+  d = va_arg(ap, int); \
+  str = my_itoa(d, str, radix); \
+  while (*str) { \
+    *tmp++ = *str; \
+    str++; \
+  } \
+  flag = 0; \
 
 char *my_itoa(int value, char *str, int radix) {
   char index[] = "0123456789abcdef";
@@ -48,7 +55,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   char a[1000];
   char *str = a;
   char *tmp = out;
-  int d, radix;
+  int d;
   char ch;
   //char align = ' ';
 
@@ -79,20 +86,15 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         break;
       
       case 'o':
-        radix = 8;
+        make_my_itoa(8);
+        break;
 
       case 'd':
-        radix = 10;
+        make_my_itoa(10);
+        break;
 
       case 'x':
-        radix = 16;
-        d = va_arg(ap, int);
-        str = my_itoa(d, str, radix);
-        while (*str) {
-          *tmp++ = *str;
-          str++;
-        }
-        flag = 0;
+        make_my_itoa(16);
         break;
 
       /*
