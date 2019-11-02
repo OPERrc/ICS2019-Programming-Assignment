@@ -2,12 +2,10 @@
 #include "monitor/diff-test.h"
 
 #define make_isa_checkregs(name) \
-	void concat(checkregs_, name)() { \
     if (ref_r->name != cpu.name) { \
 		  Log("Should be 0x%x!\n", ref_r->name); \
 		  flag = false; \
 	  } \
-  }
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
 	bool flag = true;
@@ -26,7 +24,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   make_isa_checkregs(SF);
   make_isa_checkregs(IF);*/
 
-  checkregs_eax();
+  /*checkregs_eax();
   checkregs_ecx();
   checkregs_edx();
   checkregs_ebx();
@@ -34,7 +32,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   checkregs_ebp();
   checkregs_esi();
   checkregs_edi();
-  checkregs_pc();
+  checkregs_pc();*/
   /*checkregs_ZF();
   checkregs_CF();
   checkregs_OF();
