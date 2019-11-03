@@ -113,7 +113,7 @@ make_EHelper(rol) {
       cpu.OF = 0;
   }*/
 
-  rtl_sari(&s0, &id_dest->val, 32 - id_src->val);
+  rtl_shri(&s0, &id_dest->val, 32 - id_src->val);
   rtl_shli(&id_dest->val, &id_dest->val, id_src->val);
   rtl_or(&id_dest->val, &id_dest->val, &s0);
   rtl_setrelopi(RELOP_EQ, &s0, &id_src->val, 1);
