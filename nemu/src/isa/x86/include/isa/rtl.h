@@ -60,7 +60,8 @@ static inline void rtl_is_sub_overflow(rtlreg_t* dest,
 static inline void rtl_is_sub_carry(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1) {
   // dest <- is_carry(src1 - src2)
-  *dest = *res > *src1 ? 1 : 0;
+  // *dest = *res > *src1 ? 1 : 0;
+  rtl_setrelop(RELOP_GTU, dest, res, src1);
 }
 
 static inline void rtl_is_add_overflow(rtlreg_t* dest,

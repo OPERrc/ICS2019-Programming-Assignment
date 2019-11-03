@@ -152,7 +152,7 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
   rtl_msb(&t0, src1, width);
-  if (t0 == 1)
+  if (t0)
     switch(width) {
       case 4: rtl_mv(dest, src1); break;
       case 2: rtl_ori(&t1, src1, 0xffff0000); rtl_mv(dest, &t1); break;
