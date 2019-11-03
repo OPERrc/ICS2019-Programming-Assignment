@@ -13,7 +13,7 @@ bool interpret_relop(uint32_t relop, const rtlreg_t src1, const rtlreg_t src2);
 
 /* RTL basic instructions */
 
-static inline void interpret_rtl_li(rtlreg_t* dest, uint32_t imm) {
+/*static inline*/ void interpret_rtl_li(rtlreg_t* dest, uint32_t imm) {
   *dest = imm;
 }
 
@@ -118,7 +118,7 @@ static inline void interpret_rtl_jr(rtlreg_t *target) {
   decinfo_set_jmp(true);
 }
 
-/*static inline */void interpret_rtl_jrelop(uint32_t relop,
+static inline void interpret_rtl_jrelop(uint32_t relop,
     const rtlreg_t *src1, const rtlreg_t *src2, vaddr_t target) {
   bool is_jmp = interpret_relop(relop, *src1, *src2);
   if (is_jmp) cpu.pc = target;
