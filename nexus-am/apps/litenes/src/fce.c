@@ -11,7 +11,7 @@ bool candraw() { return frame_cnt % 3 == 0; }
 
 static uint32_t canvas[W * H];
 
-void draw(int x, int y, int idx) {
+inline void draw(int x, int y, int idx) {
   if (x >= 0 && x < W && y >= 0 && y < H && candraw()) {
     canvas[y * W + x] = palette[idx];
   }
