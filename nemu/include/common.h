@@ -4,7 +4,7 @@
 //#define DEBUG
 //#define DIFF_TEST
 
-volatile static int dummy = 0;
+volatile static int dummy;
 
 #if _SHARE
 // do not enable these features while building a reference design
