@@ -130,7 +130,7 @@ void interpret_rtl_exit(int state, vaddr_t halt_pc, uint32_t halt_ret);
 
 /* RTL pseudo instructions */
 
-/*static inline */void rtl_not(rtlreg_t *dest, const rtlreg_t* src1) {
+static inline void rtl_not(rtlreg_t *dest, const rtlreg_t* src1) {
   // dest <- ~src1
   rtl_li(&ir, 0);
   rtl_sub(&t1, &ir, src1);
@@ -143,7 +143,7 @@ static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
   rtl_setrelop(relop, dest, src1, &ir);
 }
 
-static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
+/*static inline */void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
   rtl_shri(dest, src1, (width * 8 - 1));
   rtl_andi(dest, dest, 1);
