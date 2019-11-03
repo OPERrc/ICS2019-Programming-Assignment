@@ -137,7 +137,7 @@ void fce_update_screen() {
     }
   }
   */
- draw_rect(canvas, xpad, ypad, W, H);
+  draw_rect(canvas, xpad, ypad, W, H);
 
   draw_sync();
 
