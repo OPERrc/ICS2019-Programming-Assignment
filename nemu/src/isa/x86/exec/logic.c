@@ -98,7 +98,7 @@ make_EHelper(not) {
 }
 
 make_EHelper(rol) {
-  rtl_li(&ir, id_src->val);
+  /*rtl_li(&ir, id_src->val);
   while (ir--) {
     s1 = id_dest->val >> (id_dest->width * 8 - 1);
     // rtl_msb(&s1, &id_dest->val, id_dest->width);
@@ -111,7 +111,23 @@ make_EHelper(rol) {
       cpu.OF = 1;
     else
       cpu.OF = 0;
+  }*/
+
+  rtl_sari(&s0, &id_dest->val, 32 - id_src->val);
+  rtl_shri(&id_dest->val, &id_dest->val, id_src->val);
+  rtl_or(&id_dest->val, &id_dest->val, &s0);
+  rtl_setrelopi(RELOP_EQ, &s0, &id_src->val, 1);
+  rtl_msb(&s1, &id_dest->val, id_dest->width);
+  if (s0) {
+    rtl_get_CF(&s0);
+    rtl_setrelop(RELOP_NE, &s0, &s1, &s0);
+    if (s0)
+      rtl_li(&s1, 1);
+    else
+      rtl_li(&s1, 0);
   }
+  rtl_set_OF(&s1);
+
   /*
   while (id_src->val--) {
     rtl_sari(&s1, id_dest->val, (id_dest->width * 8 - 1));
