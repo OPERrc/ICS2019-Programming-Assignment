@@ -73,7 +73,10 @@ static inline void rtl_is_add_overflow(rtlreg_t* dest,
   rtl_msb(&t0, src1, width);
   rtl_msb(&t1, src2, width);
   rtl_msb(dest, res, width);
-  *dest = (t0 == t1 && t0 != *dest) ? 1 : 0;
+  // *dest = (t0 == t1 && t0 != *dest) ? 1 : 0;
+  rtl_setrelop(RELOP_EQ, &t1, &t0, &t1);
+  rtl_setrelop(RELOP_NE, dest, &t0, dest);
+  rtl_and(dest, &t1, dest);
   /**dest = (*src1 >> (width * 8 - 1) == *src2 >> (width * 8 - 1) 
     && *src2 >> (width * 8 - 1) != *res >> (width * 8 - 1)) ? 1 : 0;*/
 }
