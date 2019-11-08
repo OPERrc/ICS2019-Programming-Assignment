@@ -11,12 +11,12 @@ void __am_vecnull();
 
 _Context* __am_irq_handle(_Context *c) {
   _Context *next = c;
-  printf("0x%x\n", c->eax);
-  printf("0x%x\n", c->esp);
-  printf("0x%x\n", c->eip);
-  printf("0x%x\n", c->cs);
-  printf("0x%x\n", c->eflags);
-  
+  printf("eax = 0x%x\n", c->eax);
+  printf("esp = 0x%x\n", c->esp);
+  printf("eip = 0x%x\n", c->eip);
+  printf("cs = 0x%x\n", c->cs);
+  printf("eflags = 0x%x\n", c->eflags);
+
   if (user_handler) {
     _Event ev = {0};
     switch (c->irq) {
