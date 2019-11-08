@@ -8,7 +8,7 @@ void raise_intr(uint32_t NO, vaddr_t ret_addr) {
   cpu.IF = 0;
   cpu.TF = 0;
   rtl_push(&cpu.cs);
-  rtl_push(&cpu.pc);
+  rtl_push(&ret_addr);
   Log("0x%x\n", ret_addr);
   s0 = vaddr_read(cpu.idtr.base + NO * 8, 2);
   s1 = vaddr_read(cpu.idtr.base + NO * 8 + 6, 2);
