@@ -1,8 +1,8 @@
 #include "cpu/exec.h"
 
 make_EHelper(lidt) {
+  //raise_intr(id_src->val, );
   TODO();
-
   print_asm_template1(lidt);
 }
 
