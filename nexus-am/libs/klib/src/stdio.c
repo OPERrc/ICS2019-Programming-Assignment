@@ -97,6 +97,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         make_my_itoa(16);
         break;
 
+      case 'p':
+        make_my_itoa(16);
+        break;
+
       /*
       case '0': *tmp++ = *str;
       case '1':
