@@ -3,10 +3,10 @@
 
 struct _Context {
   // uintptr_t eax, ecx, edx, ebx, esp, ebp, esi, edi, eflags, cs, eip;
-  int irq;
+  struct _AddressSpace *as;
   uintptr_t edi, esi, ebp, esp, ebx, edx, ecx, eax, eflags, cs, eip;
   // uintptr_t esi, ebx, eax, eip, edx, eflags, ecx, cs, esp, edi, ebp;
-  struct _AddressSpace *as;
+  int irq;
 };
 
 #define GPR1 eax
