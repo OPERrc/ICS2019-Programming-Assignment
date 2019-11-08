@@ -11,7 +11,7 @@ void raise_intr(uint32_t NO, vaddr_t ret_addr) {
   rtl_push(&cpu.pc);
   // Log("0x%x\n", NO);
   // TODO();
-  cpu.pc = vaddr_read(cpu.idtr.base + NO * 4, 4);
+  cpu.pc = vaddr_read(cpu.idtr.base + NO, 4);
   Log("0x%x\n", cpu.pc);
   TODO();
 }
