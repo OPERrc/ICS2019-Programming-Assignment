@@ -2,7 +2,9 @@
 
 make_EHelper(lidt) {
   //raise_intr(id_src->val, );
-  TODO();
+  // TODO();
+  void raise_intr();
+  raise_intr(id_dest->addr, id_dest->addr);
   print_asm_template1(lidt);
 }
 
