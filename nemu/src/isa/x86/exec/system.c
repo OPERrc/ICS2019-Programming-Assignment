@@ -1,10 +1,10 @@
 #include "cpu/exec.h"
+void raise_intr(uint32_t, vaddr_t);
 
 make_EHelper(lidt) {
   //raise_intr(id_src->val, );
   // TODO();
-  void raise_intr();
-  raise_intr(id_dest->addr, id_dest->addr);
+  raise_intr(id_dest->addr, cpu.pc);
   print_asm_template1(lidt);
 }
 
@@ -23,7 +23,10 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
-  TODO();
+  rtl_push(&cpu.eflags);
+  rtl_push(&cpu.cs);
+  rtl_push(&cpu.pc);
+  raise_intr(id_dest->val, cpu.pc);
 
   print_asm("int %s", id_dest->str);
 
