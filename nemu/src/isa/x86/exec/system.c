@@ -2,9 +2,11 @@
 void raise_intr(uint32_t, vaddr_t);
 
 make_EHelper(lidt) {
-  //raise_intr(id_src->val, );
-  // TODO();
-  // raise_intr(id_dest->addr, cpu.pc);
+  rtl_lm(&s0, &id_dest->addr, 4);
+  rtl_li(&cpu.idtr.limit, s0 & 0xff);
+  rtl_li(&s1, (s0 >> 16) & 0xff);
+
+  rtl_li(&cpu.idtr.base, (s0 >> 16) & 0xff);
   print_asm_template1(lidt);
 }
 
