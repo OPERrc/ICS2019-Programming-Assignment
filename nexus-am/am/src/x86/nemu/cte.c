@@ -23,6 +23,7 @@ _Context* __am_irq_handle(_Context *c) {
   printf("cs = 0x%x\n", c->cs);
   printf("pc = 0x%x\n", c->eip);
   printf("irq = 0x%x\n", c->irq);
+  printf("as = 0x%x\n", c->as);
 
   if (user_handler) {
     _Event ev = {0};
