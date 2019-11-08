@@ -1,5 +1,6 @@
 #include <am.h>
 #include <x86.h>
+#include <klib.h>
 
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
@@ -21,6 +22,12 @@ _Context* __am_irq_handle(_Context *c) {
       next = c;
     }
   }
+
+  printf("0x%x\n", c->eax);
+  printf("0x%x\n", c->esp);
+  printf("0x%x\n", c->eip);
+  printf("0x%x\n", c->cs);
+  printf("0x%x\n", c->eflags);
 
   return next;
 }
