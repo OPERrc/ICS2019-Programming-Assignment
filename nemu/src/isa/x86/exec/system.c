@@ -8,7 +8,7 @@ make_EHelper(lidt) {
   rtl_mv(&cpu.idtr.limit, &s0);
 
   rtl_addi(&id_dest->addr, &id_dest->addr, 2);
-  rtl_lm(&s0, &id_dest->addr, 2);
+  rtl_lm(&s0, &id_dest->addr, 4);
   Log("0x%x\n", s0);
   rtl_mv(&cpu.idtr.base, &s0);
 
