@@ -2,10 +2,16 @@
 void raise_intr(uint32_t, vaddr_t);
 
 make_EHelper(lidt) {
-  Log("0x%x\n", id_dest->addr);
+  // Log("0x%x\n", id_dest->addr);
+  rtl_lm(&s0, &id_dest->addr, 2);
+  // Log("0x%x\n", s0);
+  rtl_mv(&cpu.idtr.limit, &s0);
+
+  rtl_addi(&id_dest->addr, &id_dest->addr, 2);
   rtl_lm(&s0, &id_dest->addr, 2);
   Log("0x%x\n", s0);
-  rtl_li(&cpu.idtr.limit, s0 & 0xff);
+  rtl_mv(&cpu.idtr.base, &s0);
+
   rtl_li(&s1, (s0 >> 16) & 0xff);
 
   rtl_li(&cpu.idtr.base, (s0 >> 16) & 0xff);
