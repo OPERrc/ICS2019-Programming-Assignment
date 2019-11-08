@@ -5,11 +5,13 @@ void raise_intr(uint32_t NO, vaddr_t ret_addr) {
    * That is, use ``NO'' to index the IDT.
    */
   rtl_push(&cpu.eflags);
+  cpu.IF = 0;
+  cpu.TF = 0;
   rtl_push(&cpu.cs);
   rtl_push(&cpu.pc);
-  Log("0x%x\n", NO);
-  TODO();
-  cpu.pc = vaddr_read(NO, 4);
+  // Log("0x%x\n", NO);
+  // TODO();
+  cpu.pc = vaddr_read(cpu.idtr.base + NO * 4, 4);
 }
 
 bool isa_query_intr(void) {

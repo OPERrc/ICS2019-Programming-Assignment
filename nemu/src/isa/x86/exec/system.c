@@ -29,9 +29,6 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
-  rtl_push(&cpu.eflags);
-  rtl_push(&cpu.cs);
-  rtl_push(&cpu.pc);
   raise_intr(id_dest->val, cpu.pc);
 
   print_asm("int %s", id_dest->str);
