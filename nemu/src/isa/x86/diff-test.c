@@ -2,7 +2,7 @@
 #include "monitor/diff-test.h"
 
 #define make_isa_checkregs(name) \
-	void concat(checkregs_, name)(); { \
+void concat(checkregs_, name)() { \
     if (ref_r->name != cpu.name) { \
 		  Log("Should be 0x%x!\n", ref_r->name); \
 		  flag = false; \
