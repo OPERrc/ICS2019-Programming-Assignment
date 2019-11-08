@@ -16,6 +16,9 @@ _Context* __am_irq_handle(_Context *c) {
   printf("edx = 0x%x\n", c->edx);
   printf("ebx = 0x%x\n", c->ebx);
   printf("esp = 0x%x\n", c->esp);
+  printf("ebp = 0x%x\n", c->ebp);
+  printf("esi = 0x%x\n", c->esi);
+  printf("edi = 0x%x\n", c->edi);
   printf("eflags = 0x%x\n", c->eflags);
   printf("cs = 0x%x\n", c->cs);
   printf("pc = 0x%x\n", c->eip);
