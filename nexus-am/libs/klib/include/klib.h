@@ -41,7 +41,7 @@ int screen_width();
 int screen_height();
 
 // TODO
-#define TODO(); \
+#define my_TODO(); \
   printf("Please inplement me!!!\n"); \
   assert(0);
 

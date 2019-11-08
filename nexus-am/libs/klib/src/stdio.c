@@ -133,7 +133,7 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  TODO();
+  my_TODO();
   return 0;
 }
 
