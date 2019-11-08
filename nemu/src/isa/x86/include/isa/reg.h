@@ -59,6 +59,11 @@ typedef struct {
 
 	uint32_t cs, ss, ds, es, fs, gs;
 
+	struct {
+		uint32_t base;
+		uint32_t limit;
+	} idtr;
+
 } CPU_state;
 
 static inline int check_reg_index(int index) {

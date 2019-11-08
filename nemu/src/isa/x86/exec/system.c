@@ -4,7 +4,7 @@ void raise_intr(uint32_t, vaddr_t);
 make_EHelper(lidt) {
   //raise_intr(id_src->val, );
   // TODO();
-  raise_intr(id_dest->addr, cpu.pc);
+  // raise_intr(id_dest->addr, cpu.pc);
   print_asm_template1(lidt);
 }
 
