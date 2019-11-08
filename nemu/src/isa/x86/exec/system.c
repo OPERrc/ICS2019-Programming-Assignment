@@ -37,8 +37,8 @@ make_EHelper(int) {
 }
 
 make_EHelper(iret) {
-  rtl_pop(&s0);
-  rtl_jr(&s0);
+  rtl_pop(&cpu.pc);
+  //rtl_jr(&s0);
   rtl_pop(&cpu.cs);
   rtl_pop(&cpu.eflags);
 
