@@ -15,14 +15,20 @@ void sys_write(_Context *c) {
     c->GPRx = -1;
   else {
     const char *buf = (char *)c->GPR3;
+    // Log("%s\n", buf);
     uintptr_t len = 0;
-    Log("%s\n", buf);
     while(len < c->GPR4 && buf) {
       _putc(*buf++);
       len++;
     }
     c->GPRx = len;
   }
+}
+
+void sys_brk(_Context *c) {
+  extern char _end;
+  _end = c->GPR2;
+  c->GPRx = 0;
 }
 
 _Context* do_syscall(_Context *c) {
@@ -38,6 +44,9 @@ _Context* do_syscall(_Context *c) {
       break;
     case SYS_write:
       sys_write(c);
+      break;
+    case SYS_brk:
+      sys_brk(c);
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
