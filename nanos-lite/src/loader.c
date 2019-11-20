@@ -19,7 +19,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr *phdr = &phdr_buf;
 
   // read ehdr
-  ramdisk_read(ehdr, 0, sizeof(Elf_Ehdr));
+  ramdisk_read(ehdr, 0, sizeof(ehdr_buf));
 
   size_t point = ehdr->e_phoff;
   for (size_t i = 0; i < ehdr->e_phnum; i++) {
