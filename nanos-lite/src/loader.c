@@ -29,7 +29,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       memset(&fb[phdr.p_filesz], 0, phdr.p_memsz - phdr.p_filesz);
     }
   }
-  printf("0x%x\n", ehdr.e_entry);
+  
   return (uintptr_t)ehdr.e_entry;
 }
 
