@@ -56,8 +56,8 @@ void* memset(void* v,int c,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-  size_t *dest = (size_t *)out;
-  size_t *src = (size_t *)in;
+  char *dest = (char *)out;
+  char *src = (char*)in;
   while (n--) {
     *dest++ = *src;
     src++;
@@ -66,8 +66,8 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
-  const size_t *str1 = (size_t *)s1;
-  const size_t *str2 = (size_t *)s2;
+  const char *str1 = (char *)s1;
+  const char *str2 = (char *)s2;
   while (str1 && str2 && str1 == str2 && n--) {
     str1++;
     str2++;
