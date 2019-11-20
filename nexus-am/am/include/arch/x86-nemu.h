@@ -11,7 +11,7 @@ struct _Context {
   // int irq;
 };
 
-#define GPR1 eip
+#define GPR1 irq
 #define GPR2 eip
 #define GPR3 eip
 #define GPR4 eip
