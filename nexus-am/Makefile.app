@@ -31,7 +31,7 @@ $(OBJS): $(PREBUILD)
 image:   $(OBJS) am $(LIBS) prompt
 prompt:  $(OBJS) am $(LIBS)
 run:     default
-gdb:     gdb
+#gdb:     gdb -s $(BINARY) --args $(NEMU_EXEC)
 
 prompt:
 	@echo \# Creating binary image [$(ARCH)]
@@ -39,4 +39,4 @@ prompt:
 clean: 
 	rm -rf $(APP_DIR)/build/
 
-.PHONY: default run image prompt clean gdb
+.PHONY: default run image prompt clean
