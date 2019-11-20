@@ -31,6 +31,7 @@ $(OBJS): $(PREBUILD)
 image:   $(OBJS) am $(LIBS) prompt
 prompt:  $(OBJS) am $(LIBS)
 run:     default
+gdb:     gdb
 
 prompt:
 	@echo \# Creating binary image [$(ARCH)]
@@ -38,4 +39,4 @@ prompt:
 clean: 
 	rm -rf $(APP_DIR)/build/
 
-.PHONY: default run image prompt clean
+.PHONY: default run image prompt clean gdb
