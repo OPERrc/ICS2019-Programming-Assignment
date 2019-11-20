@@ -25,10 +25,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   for (size_t i = 0; i < ehdr->e_phnum; i++) {
     // read phdr
     printf("%d, %d\n", i, ehdr->e_phnum);
-    printf("%d, %d\n", i, point);
+    //printf("%d, %d\n", i, point);
     point += ramdisk_read(phdr, point, ehdr->e_phentsize);
     printf("%d, %d\n", i, ehdr->e_phnum);
-    printf("%d, %d\n", i, point);
+    //printf("%d, %d\n", i, point);
     if (phdr->p_type == PT_LOAD) {
       uintptr_t *fb = (uintptr_t *)phdr->p_vaddr;
       printf("0x%x, 0x%x\n", phdr->p_offset, phdr->p_vaddr);
