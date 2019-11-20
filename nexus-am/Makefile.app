@@ -31,7 +31,6 @@ $(OBJS): $(PREBUILD)
 image:   $(OBJS) am $(LIBS) prompt
 prompt:  $(OBJS) am $(LIBS)
 run:     default
-#gdb:     gdb -s $(BINARY) --args $(NEMU_EXEC)
 
 prompt:
 	@echo \# Creating binary image [$(ARCH)]

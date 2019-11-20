@@ -13,7 +13,7 @@ size_t ramdisk_read(void *, size_t, size_t);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
-  /*Elf_Ehdr *ehdr = NULL;
+  Elf_Ehdr *ehdr = NULL;
   // Elf_Phdr *phdr = NULL;
 
   // read ehdr
@@ -38,7 +38,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   point += ramdisk_read(&ehdr->e_shstrndx, point, sizeof(ehdr->e_shstrndx));
   printf("%d\n", point);
 
-  //read phdr*/
+  //read phdr
   return 0;
 }
 
