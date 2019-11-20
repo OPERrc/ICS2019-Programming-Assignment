@@ -32,8 +32,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       // ramdisk_write(&data, phdr.p_vaddr, phdr.p_memsz);
     }
   }
-  
-
   //read phdr
   return ehdr.e_entry;
 }
