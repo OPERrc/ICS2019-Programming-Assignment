@@ -7,7 +7,7 @@ void sys_yield(_Context *c) {
 }
 
 void sys_exit(_Context *c) {
-  printf("%d\n", c->GPR1);
+  //printf("%d\n", c->GPR1);
   _halt(c->GPR1);
 }
 
