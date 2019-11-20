@@ -10,6 +10,20 @@ void sys_exit(_Context *c) {
   _halt(c->GPR2);
 }
 
+void sys_write(_Context *c) {
+  if (c->GPR2 != 1 && c->GPR2 != 2)
+    c->GPRx = -1;
+  else {
+    char *buf = (char *)c->GPR3;
+    uintptr_t len = 0;
+    while(len < c->GPR4 && buf) {
+      _putc(*buf++);
+      len++;
+    }
+    c->GPRx = len;
+  }
+}
+
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -20,6 +34,9 @@ _Context* do_syscall(_Context *c) {
       break;
     case SYS_yield:
       sys_yield(c);
+      break;
+    case SYS_write:
+      sys_write(c);
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
