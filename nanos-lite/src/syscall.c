@@ -3,6 +3,7 @@
 
 void sys_yield(_Context *c) {
   _yield();
+  c->GPRx = 0;
 }
 
 _Context* do_syscall(_Context *c) {
@@ -11,10 +12,9 @@ _Context* do_syscall(_Context *c) {
   // printf("%d\n", c->irq);
 
   switch (a[0]) {
-    case 0x80:
-    case 0x81:
-      //sys_yield(c);
-      //break;
+    case SYS_yield:
+      sys_yield(c);
+      break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
