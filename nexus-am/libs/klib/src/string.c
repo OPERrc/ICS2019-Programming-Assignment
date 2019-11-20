@@ -9,7 +9,7 @@ size_t strlen(const char *s) {
   return len;
 }
 
-char *strcpy(char* dst,const char* src) {
+char *strcpy(char* dst, const char* src) {
   size_t i = 0;
   while (src[i]) {
     dst[i] = src[i];
@@ -48,8 +48,8 @@ int strncmp(const char* s1, const char* s2, size_t n) {
   return 0;
 }
 
-void* memset(void* v,int c,size_t n) {
-  size_t *str = (size_t *)v;
+void* memset(void* v, int c, size_t n) {
+  char *str = (char *)v;
   while (n--) 
     *str++ = c;
   return v;
@@ -57,7 +57,7 @@ void* memset(void* v,int c,size_t n) {
 
 void* memcpy(void* out, const void* in, size_t n) {
   char *dest = (char *)out;
-  char *src = (char*)in;
+  const char *src = (char *)in;
   while (n--) {
     *dest++ = *src;
     src++;
