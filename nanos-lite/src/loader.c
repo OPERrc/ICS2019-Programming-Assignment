@@ -18,6 +18,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   // read ehdr
   size_t point = 0;
+  printf("%s\n", "Loading");
   printf("%d\n", point);
   point += ramdisk_read(&ehdr->e_ident, point, sizeof(ehdr->e_ident));
   printf("%d\n", point);
