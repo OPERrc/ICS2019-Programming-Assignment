@@ -16,6 +16,7 @@ void sys_write(_Context *c) {
   else {
     const char *buf = (char *)c->GPR3;
     uintptr_t len = 0;
+    Log("%s\n", buf);
     while(len < c->GPR4 && buf) {
       _putc(*buf++);
       len++;
