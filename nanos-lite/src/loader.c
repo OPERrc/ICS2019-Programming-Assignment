@@ -10,6 +10,7 @@
 #endif
 
 size_t ramdisk_read(void *, size_t, size_t);
+size_t ramdisk_write(const void *, size_t, size_t);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
@@ -23,11 +24,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     // read phdr
     point += ramdisk_read(&phdr, point, ehdr.e_phentsize);
     if (phdr.p_type == PT_LOAD) {
-      //ize_t data;
-      //ramdisk_read(&data, phdr.p_offset, phdr.p_filesz);
-
+      size_t data[phdr.p_filesz];
+      ramdisk_read(&data, phdr.p_offset, phdr.p_filesz);
+      ramdisk_write(&data, phdr.p_vaddr, phdr.p_memsz);
     }
-      
   }
   
 
