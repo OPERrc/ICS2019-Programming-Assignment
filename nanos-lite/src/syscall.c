@@ -14,7 +14,7 @@ void sys_write(_Context *c) {
   if (c->GPR2 != 1 && c->GPR2 != 2)
     c->GPRx = -1;
   else {
-    char *buf = (char *)c->GPR3;
+    const char *buf = (char *)c->GPR3;
     uintptr_t len = 0;
     while(len < c->GPR4 && buf) {
       _putc(*buf++);
