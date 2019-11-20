@@ -20,7 +20,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read(&ehdr, 0, sizeof(ehdr));
 
   size_t point = ehdr.e_phoff;
-  for (int i = 0; i < ehdr.e_phnum; i++) {
+  for (size_t i = 0; i < ehdr.e_phnum; i++) {
     // read phdr
     printf("%d\n", i);
     point += ramdisk_read(&phdr, point, ehdr.e_phentsize);
