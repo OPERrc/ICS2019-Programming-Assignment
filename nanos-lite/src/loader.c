@@ -13,14 +13,14 @@ size_t ramdisk_read(void *, size_t, size_t);
 size_t ramdisk_write(const void *, size_t, size_t);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  static Elf_Ehdr ehdr;
-  static Elf_Phdr phdr;
+  Elf_Ehdr ehdr;
 
   // read ehdr
   ramdisk_read(&ehdr, 0, sizeof(ehdr));
 
   size_t point = ehdr.e_phoff;
   for (size_t i = 0; i < ehdr.e_phnum; i++) {
+    Elf_Phdr phdr;
     // read phdr
     printf("%d, %d\n", i, ehdr.e_phnum);
     printf("%d, %d\n", i, point);
