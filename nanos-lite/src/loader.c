@@ -13,32 +13,30 @@ size_t ramdisk_read(void *, size_t, size_t);
 size_t ramdisk_write(const void *, size_t, size_t);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  Elf_Ehdr ehdr_buf;
-  Elf_Ehdr *ehdr = &ehdr_buf;
-  Elf_Phdr phdr_buf;
-  Elf_Phdr *phdr = &phdr_buf;
+  Elf_Ehdr ehdr;
+  Elf_Phdr phdr;
 
   // read ehdr
-  ramdisk_read(ehdr, 0, sizeof(ehdr_buf));
+  ramdisk_read(&ehdr, 0, sizeof(ehdr));
 
-  size_t point = ehdr->e_phoff;
-  for (size_t i = 0; i < ehdr->e_phnum; i++) {
+  size_t point = ehdr.e_phoff;
+  for (size_t i = 0; i < ehdr.e_phnum; i++) {
     // read phdr
-    printf("%d, %d\n", i, ehdr->e_phnum);
-    //printf("%d, %d\n", i, point);
-    point += ramdisk_read(phdr, point, ehdr->e_phentsize);
-    printf("%d, %d\n", i, ehdr->e_phnum);
-    //printf("%d, %d\n", i, point);
-    if (phdr->p_type == PT_LOAD) {
-      uintptr_t *fb = (uintptr_t *)phdr->p_vaddr;
-      printf("0x%x, 0x%x\n", phdr->p_offset, phdr->p_vaddr);
-      ramdisk_read(fb, phdr->p_offset, phdr->p_filesz);
-      memset(&fb[phdr->p_filesz], 0, phdr->p_memsz - phdr->p_filesz);
+    printf("%d, %d\n", i, ehdr.e_phnum);
+    printf("%d, %d\n", i, point);
+    point += ramdisk_read(&phdr, point, ehdr.e_phentsize);
+    ramdisk_read(&ehdr, 0, sizeof(ehdr));
+    printf("%d, %d\n", i, ehdr.e_phnum);
+    if (phdr.p_type == PT_LOAD) {
+      uintptr_t *fb = (uintptr_t *)phdr.p_vaddr;
+      printf("0x%x, 0x%x\n", phdr.p_offset, phdr.p_vaddr);
+      ramdisk_read(fb, phdr.p_offset, phdr.p_filesz);
+      memset(&fb[phdr.p_filesz], 0, phdr.p_memsz - phdr.p_filesz);
       // ramdisk_write(&data, phdr.p_vaddr, phdr.p_memsz);
     }
   }
-  printf("0x%x\n", ehdr->e_entry);
-  return (uintptr_t)ehdr->e_entry;
+  printf("0x%x\n", ehdr.e_entry);
+  return (uintptr_t)ehdr.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
