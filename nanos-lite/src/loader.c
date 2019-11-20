@@ -23,9 +23,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     // read phdr
     point += ramdisk_read(&phdr, point, ehdr.e_phentsize);
     if (phdr.p_type == PT_LOAD) {
-      size_t data;
-      ramdisk_read(&data, phdr.p_offset, phdr.p_filesz);
-      
+      //ize_t data;
+      //ramdisk_read(&data, phdr.p_offset, phdr.p_filesz);
+
     }
       
   }
