@@ -13,8 +13,8 @@ _Context* do_syscall(_Context *c) {
   switch (a[0]) {
     case 0x80:
     case 0x81:
-      sys_yield(c);
-      break;
+      //sys_yield(c);
+      //break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
