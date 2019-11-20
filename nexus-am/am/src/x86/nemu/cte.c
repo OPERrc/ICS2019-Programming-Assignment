@@ -28,8 +28,8 @@ _Context* __am_irq_handle(_Context *c) {
   if (user_handler) {
     _Event ev = {0};
     switch (c->irq) {
-      case 32: my_TODO(); break;
-      case 0x80: my_TODO(); break;
+      // case 32: my_TODO(); break;
+      // case 0x80: my_TODO(); break;
       case 0x81: ev.event = _EVENT_YIELD; break; 
       default: ev.event = _EVENT_ERROR; break;
     }
