@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
+#include <stdio.h>
 
 // helper macros
 #define _concat(x, y) x ## y
@@ -63,9 +64,18 @@ int _write(int fd, void *buf, size_t count) {
 
 void *_sbrk(intptr_t increment) {
   extern char _end;
-  void *pre_brk = &_end;
-  if (_syscall_(SYS_brk, _end + increment, 0, 0) == 0)
+  char *pre_brk = &_end;
+  char buf[128];
+  //sprintf(buf, "%p\n", pre_brk + increment);
+  //_write(1, buf, 20);
+  // sprintf(buf, "0x%x\n", pre_brk + increment);
+  // _write(1, buf, 20);
+  // assert(0);
+  if (_syscall_(SYS_brk, (intptr_t)(pre_brk + increment), 0, 0) == 0) {
+    //sprintf(buf, "%p\n", &_end);
+    //_write(1, buf, 4);
     return pre_brk;
+  }
   else
     return (void *)-1;
 }

@@ -83,7 +83,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
     return len;
   }
   else {
-    Log("%s\n", buf);
+    // Log("%s\n", buf);
     uintptr_t i = 0;
     while(i < len && buf) {
       _putc(*(char *)buf++);
