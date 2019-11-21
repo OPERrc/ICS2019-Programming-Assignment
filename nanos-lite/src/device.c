@@ -39,10 +39,10 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   int height = screen_height();
   int x = (int)offset / width;
   int y = offset - x * width;
-  while (len > 0) {
-    draw_rect((uint32_t *)buf++, x, y, width, height);
-    len -= 8;
-  }
+  //while (len > 0) {
+    draw_rect((uint32_t *)buf, x, y, width, height);
+    //len -= 8;
+  //}
   return 0;
 }
 
