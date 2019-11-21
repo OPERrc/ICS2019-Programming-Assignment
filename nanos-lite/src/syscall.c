@@ -1,6 +1,12 @@
 #include "common.h"
 #include "syscall.h"
 
+int fs_open(const char *pathname, int flags, int mode);
+size_t fs_read(int fd, void *buf, size_t len);
+size_t fs_write(int fd, const void *buf, size_t len);
+size_t fs_lseek(int fd, size_t offset, int whence);
+int fs_close(int fd);
+
 void sys_yield(_Context *c) {
   _yield();
   c->GPRx = 0;
@@ -11,7 +17,7 @@ void sys_exit(_Context *c) {
 }
 
 void sys_write(_Context *c) {
-  if (c->GPR2 != 1 && c->GPR2 != 2)
+  /*if (c->GPR2 != 1 && c->GPR2 != 2)
     c->GPRx = -1;
   else {
     const char *buf = (char *)c->GPR3;
@@ -22,13 +28,30 @@ void sys_write(_Context *c) {
       len++;
     }
     c->GPRx = len;
-  }
+  }*/
+  c->GPRx = fs_write(c->GPR2, (void *)(c->GPR3), c->GPR4);
 }
 
 void sys_brk(_Context *c) {
   extern char _end;
   _end = c->GPR2;
   c->GPRx = 0;
+}
+
+void sys_open(_Context *c) {
+  c->GPRx = fs_open((char *)(c->GPR2), c->GPR3, c->GPR4);
+}
+
+void sys_read(_Context *c) {
+  c->GPRx = fs_read(c->GPR2, (void *)(c->GPR3), c->GPR4);
+}
+
+void sys_lseek(_Context *c) {
+  c->GPRx = fs_lseek(c->GPR2, c->GPR3, c->GPR4);
+}
+
+void sys_close(_Context *c) {
+  c->GPRx = fs_close(c->GPR2);
 }
 
 _Context* do_syscall(_Context *c) {
@@ -48,9 +71,18 @@ _Context* do_syscall(_Context *c) {
     case SYS_brk:
       sys_brk(c);
       break;
-    //case SYS_open:
-      //sys_open(c);
-      //break;
+    case SYS_open:
+      sys_open(c);
+      break;
+    case SYS_close:
+      sys_open(c);
+      break;
+    case SYS_lseek:
+      sys_open(c);
+      break;
+    case SYS_read:
+      sys_open(c);
+      break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
