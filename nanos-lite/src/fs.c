@@ -47,16 +47,18 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
+  assert(offset < file_table[fd].size);
   switch(whence) {
     case SEEK_SET: file_table[fd].open_offset = offset; break;
     case SEEK_CUR: file_table[fd].open_offset += offset; break;
     case SEEK_END: file_table[fd].open_offset = offset + file_table[fd].size; break;
-    default: assert(0);
+    default: assert(0); return -1;
   }
   return file_table[fd].open_offset;
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
+  assert(file_table[fd].open_offset + len < file_table[fd].size);
   if (fd >= NR_FILES)
     return -1;
   
@@ -66,8 +68,10 @@ size_t fs_read(int fd, void *buf, size_t len) {
 }
 
 size_t fs_write(int fd, const void *buf, size_t len) {
+  assert(file_table[fd].open_offset + len < file_table[fd].size);
   if (fd != 1 && fd != 2) {
-    ramdisk_write(buf, file_table[fd].disk_offset, len);
+    ramdisk_write(buf, file_table[fd].open_offset, len);
+    fs_lseek(fd, len, SEEK_CUR);
     return len;
   }
   else {
