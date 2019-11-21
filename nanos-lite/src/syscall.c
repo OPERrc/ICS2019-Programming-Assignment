@@ -35,10 +35,10 @@ void sys_write(_Context *c) {
 void sys_brk(_Context *c) {
   extern char _end;
   printf("%p\n", &_end);
-  printf("%p\n", _heap.start);
+  printf("%p, %p\n", _heap.start);
   // _write(1, buf, 20);
-  _end = c->GPR2;
-  printf("%p\n", &_end);
+  _heap.start = (uintptr_t *)(c->GPR2);
+  printf("%p, %p\n", _heap.start);
   c->GPRx = 0;
 }
 
