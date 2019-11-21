@@ -83,7 +83,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
     return len;
   }
   else {
-    // Log("%s\n", buf);
+    Log("%s\n", buf);
     uintptr_t i = 0;
     while(i < len && buf) {
       _putc(*(char *)buf++);
@@ -107,5 +107,6 @@ void init_fs() {
   }
   
   // TODO: initialize the size of /dev/fb
-  file_table[NR_FILES-1].size = screen_width() * screen_height();
+  file_table[NR_FILES-1].size = (screen_width() << 16) | (screen_height());
+  printf("%d, %d\n", screen_width(), screen_height());
 }
