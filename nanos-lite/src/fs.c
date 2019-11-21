@@ -62,7 +62,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
   if (fd >= NR_FILES)
     return -1;
   
-  ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+  file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
   fs_lseek(fd, len, SEEK_CUR);
   return len;
 }
@@ -70,7 +70,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 size_t fs_write(int fd, const void *buf, size_t len) {
   assert(file_table[fd].open_offset <= file_table[fd].size);
   if (fd != 1 && fd != 2) {
-    ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+    file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
     fs_lseek(fd, len, SEEK_CUR);
     return len;
   }
