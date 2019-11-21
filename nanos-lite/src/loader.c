@@ -24,8 +24,18 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // read ehdr
   int fd = fs_open(filename, 0, 0);
   fs_read(fd, &ehdr, sizeof(ehdr));
-  
-  size_t point = ehdr.e_phoff;
+
+  for (size_t i = 0; i < ehdr.e_phnum; i++) {
+    // read phdr
+    fs_read(fd, &phdr, ehdr.e_phentsize);
+    if (phdr.p_type == PT_LOAD) {
+      uintptr_t *fb = (uintptr_t *)phdr.p_vaddr;
+      ramdisk_read(fb, phdr.p_offset, phdr.p_filesz);
+      memset(&fb[phdr.p_filesz], 0, phdr.p_memsz - phdr.p_filesz);
+    }
+  }
+
+  /* size_t point = ehdr.e_phoff;
   for (size_t i = 0; i < ehdr.e_phnum; i++) {
     // read phdr
     point += ramdisk_read(&phdr, point, ehdr.e_phentsize);
@@ -34,7 +44,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       ramdisk_read(fb, phdr.p_offset, phdr.p_filesz);
       memset(&fb[phdr.p_filesz], 0, phdr.p_memsz - phdr.p_filesz);
     }
-  } 
+  } */
+  
   return (uintptr_t)ehdr.e_entry;
 }
 
