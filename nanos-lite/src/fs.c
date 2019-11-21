@@ -2,9 +2,14 @@
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
-size_t ramdisk_read(void *, size_t, size_t);
-size_t ramdisk_write(const void *, size_t, size_t);
+
+size_t ramdisk_read(void *buf, size_t offset, size_t len);
+size_t dispinfo_read(void *buf, size_t offset, size_t len);
+
+size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t serial_write(const void *buf, size_t offset, size_t len);
+size_t fb_write(const void *buf, size_t offset, size_t len);
+
 
 typedef struct {
   char *name;
@@ -33,6 +38,8 @@ static Finfo file_table[] __attribute__((used)) = {
   {"stdout", 0, 0, invalid_read, invalid_write},
   {"stderr", 0, 0, invalid_read, invalid_write},
 #include "files.h"
+  {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
+  {"/dev/fb", 0, 0, invalid_read, fb_write},
 };
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
@@ -98,5 +105,7 @@ void init_fs() {
     file_table[i].write = &ramdisk_write;
     file_table[i].open_offset = 0;
   }
+  
   // TODO: initialize the size of /dev/fb
+  file_table[NR_FILES-1].size = screen_width() * screen_height();
 }
