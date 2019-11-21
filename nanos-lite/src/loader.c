@@ -19,12 +19,12 @@ int fs_close(int fd);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
-  //Elf_Phdr phdr;
+  Elf_Phdr phdr;
 
   // read ehdr
-  ramdisk_read(&ehdr, 0, sizeof(ehdr));
-
-  /*
+  int fd = fs_open(filename, 0, 0);
+  fs_read(fd, &ehdr, sizeof(ehdr));
+  
   size_t point = ehdr.e_phoff;
   for (size_t i = 0; i < ehdr.e_phnum; i++) {
     // read phdr
@@ -34,10 +34,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       ramdisk_read(fb, phdr.p_offset, phdr.p_filesz);
       memset(&fb[phdr.p_filesz], 0, phdr.p_memsz - phdr.p_filesz);
     }
-  } */
-  //int fd = fs_open(filename, 0, 0);
-  
-  
+  } 
   return (uintptr_t)ehdr.e_entry;
 }
 
