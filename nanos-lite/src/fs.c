@@ -4,6 +4,7 @@ typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 size_t ramdisk_read(void *, size_t, size_t);
 size_t ramdisk_write(const void *, size_t, size_t);
+size_t serial_write(const void *buf, size_t offset, size_t len);
 
 typedef struct {
   char *name;
@@ -90,6 +91,8 @@ int fs_close(int fd) {
 }
 
 void init_fs() {
+  file_table[1].write = &serial_write;
+  file_table[2].write = &serial_write;
   for (int i = 3; i < NR_FILES; i++) {
     file_table[i].read = &ramdisk_read;
     file_table[i].write = &ramdisk_write;
