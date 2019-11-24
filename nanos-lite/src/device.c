@@ -20,7 +20,8 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  size_t num = 0;
+  return num;
 }
 
 static char dispinfo[128] __attribute__((used)) = {};
@@ -34,7 +35,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   }
   // size_t num = len;
   // memcpy(buf, &dispinfo[offset], num);
-  printf("in dispinfo: num = %d\n", num);
+  // printf("in dispinfo: num = %d\n", num);
   return num;
 }
 
