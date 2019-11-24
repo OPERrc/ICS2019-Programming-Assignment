@@ -135,12 +135,17 @@ static void get_display_info() {
   char buf[128], key[128], value[128], *delim;
   while (fgets(buf, 128, dispinfo)) {
     printf("start while\n");
+    printf("buf = %s, len = %d\n", buf, strlen(buf));
     *(delim = strchr(buf, ':')) = '\0';
+    // printf("here1\n");
     sscanf(buf, "%s", key);
+    // printf("here2\n");
     sscanf(delim + 1, "%s", value);
+    // printf("here3\n");
     if (strcmp(key, "WIDTH") == 0) sscanf(value, "%d", &screen_w);
     if (strcmp(key, "HEIGHT") == 0) sscanf(value, "%d", &screen_h);
-    printf("end while\n");
+    // printf("w = %d, h = %d\n", screen_w, screen_h);
+    // printf("end while\n");
   }
   fclose(dispinfo);
   assert(screen_w > 0 && screen_h > 0);

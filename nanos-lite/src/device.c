@@ -27,12 +27,14 @@ static char dispinfo[128] __attribute__((used)) = {};
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   size_t num = 0;
-  while (buf && num < len) {
+  while (dispinfo[offset + num] && num < len) {
     *(char *)buf++ = dispinfo[offset + num];
     num++;
   }
-  // memcpy(buf, &dispinfo[offset], len);
-  return num;
+  // size_t num = len;
+  // memcpy(buf, &dispinfo[offset], num);
+  printf("in dispinfo: num = %d\n", num);
+  return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
