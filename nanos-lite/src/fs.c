@@ -71,7 +71,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
     return -1;
   
   if (file_table[fd].read == NULL) {
-    int off = ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+    size_t off = ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
     fs_lseek(fd, off, SEEK_CUR);
     return off;
   }
