@@ -136,7 +136,7 @@ static void get_display_info() {
   char buf[128], key[128], value[128], *delim;
   while (fgets(buf, 128, dispinfo)) {
     printf("start while\n");
-    printf("buf = %s len = %d\n", buf, strlen(buf));
+    printf("buf = %d len = %d\n", *buf, strlen(buf));
     *(delim = strchr(buf, ':')) = '\0';
     // printf("here1\n");
     sscanf(buf, "%s", key);
