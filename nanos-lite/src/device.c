@@ -21,7 +21,6 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   int key = read_key();
-  char name[128] = "  ";
   char time[128];
   int down = 0;
   int num = 0;
@@ -37,9 +36,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     else
       *(char *)buf++ = 'u';
     num++;
-    while (name[num] && num < len) {
-      *(char *)buf++ = name[num];
+    int point = 0;
+    while (keyname[key][point] && num < len) {
+      *(char *)buf++ = keyname[key][point];
       num++;
+      point++;
     }
     return num;
   } else {
