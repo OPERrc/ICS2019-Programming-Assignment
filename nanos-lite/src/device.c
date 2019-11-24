@@ -21,8 +21,8 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   int key = read_key();
-  char name[128];
-  char time[128];
+  static char name[128];
+  static char time[128];
   int down = 0;
   int num = 0;
   if (key & 0x8000) {
