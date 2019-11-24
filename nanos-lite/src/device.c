@@ -29,6 +29,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   }
   if (key != _KEY_NONE) {
     char name[128];
+    name[0] = '\0';
     if (down) 
       sprintf(name, "kd %s\n", keyname[key]);
     else
