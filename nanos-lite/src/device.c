@@ -29,39 +29,26 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   }
   if (key != _KEY_NONE) {
     char name[128];
-    switch (down) {
-      case 0:
-        sprintf(name, "ku %s\n", keyname[key]);
-        printf("name = %s\n", name);
-        num = 0;
-        while (name[num] && num < len) {
-          *(char *)buf++ = name[num];
-          num++;
-        }
-        return num;
-        break;
-      case 1:
-        sprintf(name, "kd %s\n", keyname[key]);
-        // printf("name = %s\n", name);
-        num = 0;
-        while (name[num] && num < len) {
-          *(char *)buf++ = name[num];
-          num++;
-        }
-        return num;
-        break;
-      default: assert(0);
+    if (down) 
+      sprintf(name, "kd %s\n", keyname[key]);
+    else
+      sprintf(name, "kd %s\n", keyname[key]);
+    num = 0;
+    while (name[num] && num < len) {
+      *(char *)buf++ = name[num];
+      num++;
     }
+    return num;
+  } else {
+    char time[128];
+    num = 0;
+    sprintf(time, "t %d\n", uptime());
+    while (time[num] && num < len) {
+      *(char *)buf++ = time[num];
+      num++;
+    }
+    return num;
   }
-
-  char time[128];
-  num = 0;
-  sprintf(time, "t %d\n", uptime());
-  while (time[num] && num < len) {
-    *(char *)buf++ = time[num];
-    num++;
-  }
-  return num;
 }
 
 static char dispinfo[128] __attribute__((used)) = {};
