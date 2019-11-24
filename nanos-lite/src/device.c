@@ -32,7 +32,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if (key != _KEY_NONE) {
     // sprintf(time, "%s\n", name);
     if (down) 
-      printf("kd %s\n", keyname[key]);
+      printf("kd %d\n", keyname[key]);
     else
       sprintf(name, "ku %s\n", keyname[key]);
     num = 0;
