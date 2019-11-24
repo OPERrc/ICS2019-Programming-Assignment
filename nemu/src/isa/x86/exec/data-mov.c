@@ -117,6 +117,8 @@ make_EHelper(movs) {
   // rtl_sext(&s0, &id_src->val, id_src->width);
   // Log("width = 0x%x, id_src = 0x%x, id_src->width = %d\n", decinfo.src.width, id_src->val, id_src->width);
   // operand_write(id_dest, &s0);
+  void isa_reg_display();
+  isa_reg_display();
   rtl_lr(&s0, R_ESI, id_dest->width);
   rtl_sr(R_EDI, &s0, id_dest->width);
   //assert(0);
