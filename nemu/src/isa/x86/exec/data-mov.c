@@ -117,8 +117,8 @@ make_EHelper(movs) {
   // rtl_sext(&s0, &id_src->val, id_src->width);
   // Log("width = 0x%x, id_src = 0x%x, id_src->width = %d\n", decinfo.src.width, id_src->val, id_src->width);
   // operand_write(id_dest, &s0);
-  void isa_reg_display();
-  isa_reg_display();
+  // void isa_reg_display();
+  // isa_reg_display();
   vaddr_write(cpu.edi, vaddr_read(cpu.esi, id_dest->width), id_dest->width);
   cpu.edi += id_dest->width;
   cpu.esi += id_dest->width;
