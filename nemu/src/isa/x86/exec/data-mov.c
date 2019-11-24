@@ -113,9 +113,10 @@ make_EHelper(lea) {
 }
 
 make_EHelper(movs) {
-  id_dest->width = decinfo.isa.is_operand_size_16 ? 2 : 4;
-  rtl_sext(&s0, &id_src->val, id_src->width);
-  // Log("id_dest = 0x%x, id_src = 0x%x, id_src->width = %d\n", s0, id_src->val, id_src->width);
-  operand_write(id_dest, &s0);
-  print_asm_template2(movsx);
+  // id_dest->width = decinfo.isa.is_operand_size_16 ? 2 : 4;
+  // rtl_sext(&s0, &id_src->val, id_src->width);
+  Log("width = 0x%x, id_src = 0x%x, id_src->width = %d\n", decinfo.width, id_src->val, id_src->width);
+  // operand_write(id_dest, &s0);
+  assert(0);
+  print_asm_template2(movs);
 }
