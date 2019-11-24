@@ -31,7 +31,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     char name[128];
     switch (down) {
       case 0:
-        name[0] = '\0';
         sprintf(name, "ku %s\n", keyname[key]);
         // printf("%s\n", name);
         num = 0;
@@ -42,9 +41,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
         return num;
         break;
       case 1:
-        name[0] = '\0';
         sprintf(name, "kd %s\n", keyname[key]);
-        // printf("%s\n", name);
+        printf("name = %s\n", name);
         num = 0;
         while (name[num] && num < len) {
           *(char *)buf++ = name[num];
