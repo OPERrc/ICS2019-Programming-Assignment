@@ -131,12 +131,12 @@ int NDL_WaitEvent(NDL_Event *event) {
 static void get_display_info() {
   FILE *dispinfo = fopen("/proc/dispinfo", "r");
   assert(dispinfo);
-  printf("file = %d\n", *dispinfo);
+  // printf("file = %d\n", *dispinfo);
   screen_w = screen_h = 0;
   char buf[128], key[128], value[128], *delim;
   while (fgets(buf, 128, dispinfo)) {
     printf("start while\n");
-    printf("buf = %s, len = %d\n", buf, strlen(buf));
+    printf("buf = %s len = %d\n", buf, strlen(buf));
     *(delim = strchr(buf, ':')) = '\0';
     // printf("here1\n");
     sscanf(buf, "%s", key);
@@ -148,6 +148,7 @@ static void get_display_info() {
     // printf("w = %d, h = %d\n", screen_w, screen_h);
     // printf("end while\n");
   }
+  printf("here\n");
   fclose(dispinfo);
   assert(screen_w > 0 && screen_h > 0);
 }
