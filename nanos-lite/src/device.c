@@ -3,7 +3,7 @@
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   int num = 0;
-
+  //Log("%s\n", buf);
   while (buf && num < len) {
     _putc(*(char *)buf++);
     num++;

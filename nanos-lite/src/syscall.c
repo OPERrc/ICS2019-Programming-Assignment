@@ -34,7 +34,7 @@ void sys_write(_Context *c) {
 
 void sys_brk(_Context *c) {
   // _write(1, buf, 20);
-  // _heap.start = (uintptr_t *)(c->GPR2);
+  //_heap.start = (uintptr_t *)(c->GPR2);
   c->GPRx = 0;
 }
 
