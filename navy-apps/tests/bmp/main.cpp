@@ -7,10 +7,10 @@ int main() {
   NDL_LoadBitmap(bmp, "/share/pictures/projectn.bmp");
   assert(bmp->pixels);
   NDL_OpenDisplay(bmp->w, bmp->h);
+  printf("here\n");
   NDL_DrawRect(bmp->pixels, 0, 0, bmp->w, bmp->h);
   NDL_Render();
   NDL_CloseDisplay();
-  printf("here\n");
   while (1);
   return 0;
 }
