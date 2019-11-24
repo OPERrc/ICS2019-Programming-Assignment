@@ -26,6 +26,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 static char dispinfo[128] __attribute__((used)) = {};
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+  //printf("in dispinfo: dispinfo = %s\n", &dispinfo[offset]);
   size_t num = 0;
   while (dispinfo[offset + num] && num < len) {
     *(char *)buf++ = dispinfo[offset + num];
@@ -34,7 +35,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   // size_t num = len;
   // memcpy(buf, &dispinfo[offset], num);
   printf("in dispinfo: num = %d\n", num);
-  return num;
+  return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {

@@ -110,6 +110,8 @@ strchr (const char *s1,
 
   while (*s && *s != c)
     s++;
+  printf("%s\n", (char *)s);
+  printf("s == NULL? %d, s == c? %d\n", s == NULL, *s == c);
   if (*s == c)
     return (char *)s;
   return NULL;
