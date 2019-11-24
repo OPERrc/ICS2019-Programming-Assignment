@@ -122,7 +122,7 @@ make_EHelper(movs) {
   vaddr_write(cpu.edi, vaddr_read(cpu.esi, id_dest->width), id_dest->width);
   cpu.edi += id_dest->width;
   cpu.esi += id_dest->width;
-  Log("DIFF_TEST passed!\n");
+  // Log("DIFF_TEST passed!\n");
   // assert(0);
   print_asm_template2(movs);
 }
