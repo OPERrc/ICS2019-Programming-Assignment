@@ -111,3 +111,11 @@ make_EHelper(lea) {
   operand_write(id_dest, &id_src->addr);
   print_asm_template2(lea);
 }
+
+make_EHelper(movs) {
+  id_dest->width = decinfo.isa.is_operand_size_16 ? 2 : 4;
+  rtl_sext(&s0, &id_src->val, id_src->width);
+  // Log("id_dest = 0x%x, id_src = 0x%x, id_src->width = %d\n", s0, id_src->val, id_src->width);
+  operand_write(id_dest, &s0);
+  print_asm_template2(movsx);
+}
