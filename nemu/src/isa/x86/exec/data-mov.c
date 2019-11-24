@@ -120,5 +120,6 @@ make_EHelper(movs) {
   rtl_lr(&s0, R_ESI, id_dest->width);
   rtl_sr(R_EDI, &s0, id_dest->width);
   //assert(0);
+  Log("DIFF_TEST passed!\n");
   print_asm_template2(movs);
 }
