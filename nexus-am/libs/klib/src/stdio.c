@@ -37,7 +37,7 @@ char *my_itoa(int value, char *str, int radix) {
 int printf(const char *fmt, ...) {
   va_list(ap);
   va_start(ap, fmt);
-  char buf[1000] = "";
+  char buf[1000];
   char *str = buf;
   vsprintf(str, fmt, ap);
   va_end(ap);
@@ -52,7 +52,7 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  char a[1000];
+  char a[1000] = "";
   char *str = a;
   char *tmp = out;
   int d;
