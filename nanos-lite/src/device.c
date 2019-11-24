@@ -33,7 +33,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     if (down) 
       sprintf(name, "kd %s\n", keyname[key]);
     else
-      sprintf(name, "kd %s\n", keyname[key]);
+      sprintf(name, "ku %s\n", keyname[key]);
     num = 0;
     while (name[num] && num < len) {
       *(char *)buf++ = name[num];
