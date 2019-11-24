@@ -36,12 +36,12 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
   {"stdin", 0, 0, invalid_read, invalid_write},
-  {"stdout", 0, 0, invalid_read, invalid_write},
-  {"stderr", 0, 0, invalid_read, invalid_write},
+  {"stdout", 0, 0, invalid_read, serial_write},
+  {"stderr", 0, 0, invalid_read, serial_write},
   {"/dev/fb", 0, 0, invalid_read, fb_write},
-#include "files.h"
   {"/dev/events", 0, 0, events_read, invalid_write},
   {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
+#include "files.h"
 };
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
@@ -59,7 +59,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
-  printf("name = %s\n", file_table[fd].name);
+  // printf("name = %s\n", file_table[fd].name);
   assert(offset <= file_table[fd].size);
   switch(whence) {
     case SEEK_SET: file_table[fd].open_offset = offset; break;
@@ -72,8 +72,10 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
 
 size_t fs_read(int fd, void *buf, size_t len) {
   assert(file_table[fd].open_offset <= file_table[fd].size);
-  if (fd >= NR_FILES)
+  if (fd >= NR_FILES) {
+    assert(0);
     return -1;
+  }
   // printf("name = %s\n", file_table[fd].name);
   // printf("file_table[fd].read == NULL? %d\n", file_table[fd].read == NULL);
   if (file_table[fd].read == NULL) {
@@ -120,13 +122,11 @@ int fs_close(int fd) {
 }
 
 void init_fs() {
-  file_table[1].write = &serial_write;
-  file_table[2].write = &serial_write;
-  for (int i = 4; i < NR_FILES - 2; i++) {
+  /*for (int i = 4; i < NR_FILES - 2; i++) {
     file_table[i].read = NULL;
     file_table[i].write = NULL;
     file_table[i].open_offset = 0;
-  }
+  }*/
   
   // TODO: initialize the size of /dev/fb
   // file_table[NR_FILES-1].size = (screen_width() << 16) | (screen_height());
