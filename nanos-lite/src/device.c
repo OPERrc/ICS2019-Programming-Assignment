@@ -41,6 +41,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
         break;
       case 1:
         sprintf(name, "kd %s\n", keyname[key]);
+        printf("%s\n", name);
         num = 0;
         while (name[num] && num < len) {
           *(char *)buf++ = name[num];
@@ -51,14 +52,14 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       default: assert(0);
     }
   }
-
+/*
   char time[128];
   num = 0;
   sprintf(time, "t %d\n", uptime());
   while (time[num] && num < len) {
     *(char *)buf++ = time[num];
     num++;
-  }
+  }*/
   return num;
 }
 
