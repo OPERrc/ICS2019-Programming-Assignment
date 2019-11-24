@@ -71,7 +71,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
   assert(file_table[fd].open_offset <= file_table[fd].size);
   if (fd >= NR_FILES)
     return -1;
-  // printf("name = %s\n", file_table[fd].name);
+  printf("name = %s\n", file_table[fd].name);
   // printf("file_table[fd].read == NULL? %d\n", file_table[fd].read == NULL);
   if (file_table[fd].read == NULL) {
     size_t off = ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
