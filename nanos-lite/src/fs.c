@@ -5,6 +5,7 @@ typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t dispinfo_read(void *buf, size_t offset, size_t len);
+size_t events_read(void *buf, size_t offset, size_t len);
 
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t serial_write(const void *buf, size_t offset, size_t len);
@@ -39,6 +40,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"stderr", 0, 0, invalid_read, invalid_write},
   {"/dev/fb", 0, 0, invalid_read, fb_write},
 #include "files.h"
+  {"/dev/events", 0, 0, events_read, invalid_write},
   {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
 };
 
@@ -120,7 +122,7 @@ int fs_close(int fd) {
 void init_fs() {
   file_table[1].write = &serial_write;
   file_table[2].write = &serial_write;
-  for (int i = 4; i < NR_FILES - 1; i++) {
+  for (int i = 4; i < NR_FILES - 2; i++) {
     file_table[i].read = NULL;
     file_table[i].write = NULL;
     file_table[i].open_offset = 0;
