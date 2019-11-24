@@ -119,15 +119,9 @@ make_EHelper(movs) {
   // operand_write(id_dest, &s0);
   void isa_reg_display();
   isa_reg_display();
-  rtl_lr(&s0, R_ESI, id_dest->width);
-  rtl_sr(R_EDI, &s0, id_dest->width);
-  //assert(0);
-  rtl_lr(&s0, R_ESI, id_dest->width);
-  rtl_addi(&s0, &s0, id_dest->width);
-  rtl_sr(R_ESI, &s0, id_dest->width);
-  rtl_lr(&s0, R_EDI, id_dest->width);
-  rtl_addi(&s0, &s0, id_dest->width);
-  rtl_sr(R_EDI, &s0, id_dest->width);
+  vaddr_write(cpu.edi, vaddr_read(cpu.esi, id_dest->width), id_dest->width);
+  cpu.edi += id_dest->width;
+  cpu.esi += id_dest->width;
   Log("DIFF_TEST passed!\n");
   // assert(0);
   print_asm_template2(movs);
