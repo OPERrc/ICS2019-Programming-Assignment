@@ -54,7 +54,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 
   char time[128];
   num = 0;
-  sprintf(time, "t\n", uptime());
+  sprintf(time, "t %d\n", uptime());
   while (time[num] && num < len) {
     *(char *)buf++ = time[num];
     num++;
