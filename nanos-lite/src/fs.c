@@ -70,9 +70,14 @@ size_t fs_read(int fd, void *buf, size_t len) {
   if (fd >= NR_FILES)
     return -1;
   
-  file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
-  fs_lseek(fd, len, SEEK_CUR);
-  return len;
+  if (file_table[fd].read == NULL) {
+    int off = ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+    fs_lseek(fd, off, SEEK_CUR);
+    return off;
+  }
+  else
+    return file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+  // printf("fd = %d, name = %s, size = %d\n", fd, file_table[fd].name, file_table[fd].size);
 }
 
 size_t fs_write(int fd, const void *buf, size_t len) {
@@ -100,13 +105,13 @@ int fs_close(int fd) {
 void init_fs() {
   file_table[1].write = &serial_write;
   file_table[2].write = &serial_write;
-  for (int i = 3; i < NR_FILES; i++) {
-    file_table[i].read = &ramdisk_read;
-    file_table[i].write = &ramdisk_write;
+  for (int i = 3; i < NR_FILES - 2; i++) {
+    file_table[i].read = NULL;
+    file_table[i].write = NULL;
     file_table[i].open_offset = 0;
   }
   
   // TODO: initialize the size of /dev/fb
-  file_table[NR_FILES-1].size = (screen_width() << 16) | (screen_height());
-  printf("%d, %d\n", screen_width(), screen_height());
+  // file_table[NR_FILES-1].size = (screen_width() << 16) | (screen_height());
+  file_table[NR_FILES-1].size = screen_width() * screen_height();
 }
