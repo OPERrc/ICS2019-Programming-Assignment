@@ -32,6 +32,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     switch (down) {
       case 0:
         sprintf(name, "ku %s\n", keyname[key]);
+        num = 0;
         while (name[num] && num < len) {
           *(char *)buf++ = name[num];
           num++;
@@ -40,6 +41,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
         break;
       case 1:
         sprintf(name, "kd %s\n", keyname[key]);
+        num = 0;
         while (name[num] && num < len) {
           *(char *)buf++ = name[num];
           num++;
@@ -51,6 +53,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   }
 
   char time[128];
+  num = 0;
   sprintf(time, "t\n", uptime());
   while (time[num] && num < len) {
     *(char *)buf++ = time[num];
