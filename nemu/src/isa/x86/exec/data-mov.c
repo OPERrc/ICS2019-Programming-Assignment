@@ -123,10 +123,10 @@ make_EHelper(movs) {
   rtl_sr(R_EDI, &s0, id_dest->width);
   //assert(0);
   rtl_lr(&s0, R_ESI, id_dest->width);
-  rtl_addi(&s0, &s0, 1);
+  rtl_addi(&s0, &s0, id_dest->width);
   rtl_sr(R_ESI, &s0, id_dest->width);
   rtl_lr(&s0, R_EDI, id_dest->width);
-  rtl_addi(&s0, &s0, 1);
+  rtl_addi(&s0, &s0, id_dest->width);
   rtl_sr(R_EDI, &s0, id_dest->width);
   Log("DIFF_TEST passed!\n");
   // assert(0);
