@@ -95,7 +95,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
     // printf("%d\n", off);
     if (fd == FD_DISPINFO)
       fs_lseek(fd, off, SEEK_CUR);
-    printf("off = %d\n", off);
+    // printf("off = %d\n", off);
     return off;
   }
   // printf("fd = %d, name = %s, size = %d\n", fd, file_table[fd].name, file_table[fd].size);
