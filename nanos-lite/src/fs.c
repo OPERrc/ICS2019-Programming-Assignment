@@ -46,6 +46,8 @@ static Finfo file_table[] __attribute__((used)) = {
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
+size_t fs_lseek(int fd, size_t offset, int whence);
+
 int fs_open(const char *pathname, int flags, int mode) {
   int i;
   printf("pathname = %s\n", pathname);
@@ -55,6 +57,7 @@ int fs_open(const char *pathname, int flags, int mode) {
   // printf("name = %s\n", file_table[i].name);
   if (i == NR_FILES)
     assert(0);
+  fs_lseek(i, 0, SEEK_SET);
   return i;
 }
 
@@ -118,6 +121,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 }
 
 int fs_close(int fd) {
+  fs_lseek(fd, 0, SEEK_SET);
   return 0;
 }
 
