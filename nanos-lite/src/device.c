@@ -57,7 +57,7 @@ static char dispinfo[128] __attribute__((used)) = {};
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   //printf("in dispinfo: dispinfo = %s\n", &dispinfo[offset]);
-  printf("%d\n", offset);
+  // printf("%d\n", offset);
   size_t num = 0;
   while (dispinfo[offset + num] && num < len) {
     *(char *)buf++ = dispinfo[offset + num];

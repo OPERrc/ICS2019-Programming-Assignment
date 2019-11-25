@@ -40,7 +40,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"stderr", 0, 0, invalid_read, serial_write},
   {"/dev/fb", 0, 0, invalid_read, fb_write},
   {"/dev/events", 0, 0, events_read, invalid_write},
-  {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
+  {"/proc/dispinfo", 0, 128, dispinfo_read, invalid_write},
 #include "files.h"
 };
 
@@ -88,8 +88,11 @@ size_t fs_read(int fd, void *buf, size_t len) {
     // printf("open_offset_after = %d\n", file_table[fd].open_offset);
     return len;
   }
-  else
-    return file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+  else {
+    size_t off = file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+    fs_lseek(fd, off, SEEK_CUR);
+    return off;
+  }
   // printf("fd = %d, name = %s, size = %d\n", fd, file_table[fd].name, file_table[fd].size);
 }
 
