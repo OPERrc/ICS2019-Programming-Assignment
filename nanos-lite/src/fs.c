@@ -64,7 +64,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
-  printf("name = %s, offset = %d\n", file_table[fd].name, offset);
+  printf("name = %s, offset = %d, whence = %d\n", file_table[fd].name, offset, whence);
   assert(offset <= file_table[fd].size);
   switch(whence) {
     case SEEK_SET: file_table[fd].open_offset = offset; break;
@@ -107,8 +107,11 @@ size_t fs_write(int fd, const void *buf, size_t len) {
     fs_lseek(fd, len, SEEK_CUR);
     return len;
   }
-  else
-    return file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+  else {
+    size_t off = file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+    fs_lseek(fd, off, SEEK_CUR);
+    return off;
+  }
   /*
   if (fd != 1 && fd != 2) {
     file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
