@@ -73,7 +73,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   // offset /= 4;
   int width = screen_width();
   int height = screen_height();
-  printf("offset = %d, len = %d\n", offset, len);
+  // printf("offset = %d, len = %d\n", offset, len);
   int x = (int)offset / width;
   int y = offset - x * width;
   // printf("x = %d, y = %d\n", x, y);

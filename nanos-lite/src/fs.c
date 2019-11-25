@@ -64,7 +64,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
-  //printf("name = %s, offset = %d, whence = %d\n", file_table[fd].name, offset, whence);
+  printf("name = %s, offset = %d, whence = %d\n", file_table[fd].name, offset, whence);
   assert(offset <= file_table[fd].size);
   switch(whence) {
     case SEEK_SET: file_table[fd].open_offset = offset; break;
