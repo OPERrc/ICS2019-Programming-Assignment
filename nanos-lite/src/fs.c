@@ -22,7 +22,7 @@ typedef struct {
   size_t open_offset;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS, FD_DISPINFO, FD_FBSYNC};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -64,7 +64,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
-  printf("name = %s, offset = %d, whence = %d\n", file_table[fd].name, offset, whence);
+  //printf("name = %s, offset = %d, whence = %d\n", file_table[fd].name, offset, whence);
   assert(offset <= file_table[fd].size);
   switch(whence) {
     case SEEK_SET: file_table[fd].open_offset = offset; break;
@@ -93,7 +93,9 @@ size_t fs_read(int fd, void *buf, size_t len) {
   else {
     size_t off = file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
     // printf("%d\n", off);
-    fs_lseek(fd, off, SEEK_CUR);
+    if (fd == FD_DISPINFO)
+      fs_lseek(fd, off, SEEK_CUR);
+    printf("off = %d\n", off);
     return off;
   }
   // printf("fd = %d, name = %s, size = %d\n", fd, file_table[fd].name, file_table[fd].size);
@@ -109,7 +111,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
   }
   else {
     size_t off = file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
-    fs_lseek(fd, off, SEEK_CUR);
+    // fs_lseek(fd, off, SEEK_CUR);
     return off;
   }
   /*
@@ -143,5 +145,5 @@ void init_fs() {
   
   // TODO: initialize the size of /dev/fb
   // file_table[NR_FILES-1].size = (screen_width() << 16) | (screen_height());
-  file_table[FD_FB].size = screen_width() * screen_height();
+  file_table[FD_FB].size = 4 * screen_width() * screen_height();
 }
