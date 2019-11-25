@@ -10,6 +10,7 @@ size_t events_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t serial_write(const void *buf, size_t offset, size_t len);
 size_t fb_write(const void *buf, size_t offset, size_t len);
+size_t fbsync_write(const void *buf, size_t offset, size_t len);
 
 
 typedef struct {
@@ -41,6 +42,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"/dev/fb", 0, 0, invalid_read, fb_write},
   {"/dev/events", 0, 0, events_read, invalid_write},
   {"/proc/dispinfo", 128, 0, dispinfo_read, invalid_write},
+  {"/dev/fbsync", 0, 0, invalid_read, fbsync_write},
 #include "files.h"
 };
 
