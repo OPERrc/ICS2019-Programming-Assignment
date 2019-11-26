@@ -77,11 +77,11 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   // printf("offset = %d, len = %d\n", offset, len);
   int y = offset / width;
   int x = offset % width;
-  // printf("before: x = %d, y = %d, len = %d\n", x, y, len);
   //while (len > 0) {
   if (offset + len > width * height)
     len = width * height - offset;
   len /= 4;
+  //printf("before: x = %d, y = %d, len = %d\n", x, y, len);
   for (int i = 0; i < len; i++) {
     draw_rect(&pixels[i], x, y, 1, 1);
     x = (x + 1) % width;
@@ -90,12 +90,12 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   }
   // printf("after: x = %d, y = %d\n", x, y);
     //len -= 8;
-  //}
   return len * 4;
 }
 
 size_t fbsync_write(const void *buf, size_t offset, size_t len) {
   draw_sync();
+  //while(1);
   return len;
 }
 
