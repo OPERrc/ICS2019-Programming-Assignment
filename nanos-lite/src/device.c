@@ -70,23 +70,33 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  // offset /= 4;
+  uint32_t *pixels = (uint32_t *)buf;
+  offset /= 4;
   int width = screen_width();
   int height = screen_height();
   // printf("offset = %d, len = %d\n", offset, len);
-  int x = (int)offset / width;
-  int y = offset - x * width;
-  // printf("x = %d, y = %d\n", x, y);
+  int y = offset / width;
+  int x = offset % width;
+  // printf("before: x = %d, y = %d, len = %d\n", x, y, len);
   //while (len > 0) {
-    draw_rect((uint32_t *)buf, x, y, width, height);
+  if (offset + len > width * height)
+    len = width * height - offset;
+  len /= 4;
+  for (int i = 0; i < len; i++) {
+    draw_rect(&pixels[i], x, y, 1, 1);
+    x = (x + 1) % width;
+    if (x == 0)
+      y++;
+  }
+  // printf("after: x = %d, y = %d\n", x, y);
     //len -= 8;
   //}
-  return len;
+  return len * 4;
 }
 
 size_t fbsync_write(const void *buf, size_t offset, size_t len) {
   draw_sync();
-  return 0;
+  return len;
 }
 
 void init_device() {

@@ -22,7 +22,7 @@ typedef struct {
   size_t open_offset;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS, FD_DISPINFO, FD_FBSYNC};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS, FD_DISPINFO, FD_FBSYNC, FD_TTY};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -43,6 +43,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"/dev/events", 0, 0, events_read, invalid_write},
   {"/proc/dispinfo", 128, 0, dispinfo_read, invalid_write},
   {"/dev/fbsync", 0, 0, invalid_read, fbsync_write},
+  {"/dev/tty", 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 
@@ -84,11 +85,14 @@ size_t fs_read(int fd, void *buf, size_t len) {
   // printf("name = %s\n", file_table[fd].name);
   // printf("file_table[fd].read == NULL? %d\n", file_table[fd].read == NULL);
   if (file_table[fd].read == NULL) {
-    size_t off = ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+    size_t off = 0;
+    if (file_table[fd].open_offset + len > file_table[fd].size)
+      len = file_table[fd].size - file_table[fd].open_offset;
+    off = ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
     // printf("open_offset_before = %d\n", file_table[fd].open_offset);
     fs_lseek(fd, off, SEEK_CUR);
     // printf("open_offset_after = %d\n", file_table[fd].open_offset);
-    return len;
+    return off;
   }
   else {
     size_t off = file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
