@@ -85,7 +85,7 @@ _freopen_r (struct _reent *ptr,
   int e = 0;
 
   CHECK_INIT (ptr, fp);
-  printf("here\n");
+
   /* We can't use the _newlib_flockfile_XXX macros here due to the
      interlocked locking with the sfp_lock. */
 #ifdef _STDIO_WITH_THREAD_CANCELLATION_SUPPORT
@@ -217,8 +217,11 @@ _freopen_r (struct _reent *ptr,
 #endif
       return NULL;
     }
-
+printf("here1\n");
+printf("fp = %p, fp->_flags = %d, flags = %d\n", fp, fp->_flags, flags);
   fp->_flags = flags;
+  printf("fp = %p, fp->_flags = %d, flags = %d\n", fp, fp->_flags, flags);
+printf("here2\n");
   fp->_file = f;
   fp->_cookie = (void *) fp;
   fp->_read = __sread;
