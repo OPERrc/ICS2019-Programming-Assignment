@@ -57,7 +57,7 @@ void sys_close(_Context *c) {
 }
 
 void sys_execve(_Context *c) {
-  printf("filename = %s\n", (char *)c->GPR2);
+  // printf("filename = %s\n", (char *)c->GPR2);
   naive_uload(NULL, (char *)c->GPR2);
   c->GPRx = -1;
 }
