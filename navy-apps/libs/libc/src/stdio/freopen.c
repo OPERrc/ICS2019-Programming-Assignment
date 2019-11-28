@@ -85,7 +85,7 @@ _freopen_r (struct _reent *ptr,
   int e = 0;
 
   CHECK_INIT (ptr, fp);
-
+  printf("here\n");
   /* We can't use the _newlib_flockfile_XXX macros here due to the
      interlocked locking with the sfp_lock. */
 #ifdef _STDIO_WITH_THREAD_CANCELLATION_SUPPORT

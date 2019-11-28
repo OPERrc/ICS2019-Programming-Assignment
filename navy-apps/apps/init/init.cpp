@@ -71,7 +71,7 @@ int main(int argc, char *argv[], char *envp[]) {
     // the OS does not meet the spec
     exit(1);
   }
-  printf("here\n");
+  //printf("here\n");
   open_display();
 
   evtdev = fopen("/dev/events", "r");
