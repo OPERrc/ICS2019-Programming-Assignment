@@ -134,7 +134,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
       default:
         //printf("%c unimplemented!\n", *fmt);
-        //TODO();
+        my_TODO();
         break;
     }
     fmt++;
