@@ -14,7 +14,15 @@ void sys_yield(_Context *c) {
   c->GPRx = 0;
 }
 
+void sys_execve(_Context *c, const char *fname) {
+  // printf("filename = %s\n", (char *)c->GPR2);
+  naive_uload(NULL, fname);
+  c->GPRx = -1;
+}
+
 void sys_exit(_Context *c) {
+  if (c->GPR2 == 0)
+    sys_execve(c, "/bin/init");
   _halt(c->GPR2);
 }
 
@@ -56,12 +64,6 @@ void sys_close(_Context *c) {
   c->GPRx = fs_close(c->GPR2);
 }
 
-void sys_execve(_Context *c) {
-  // printf("filename = %s\n", (char *)c->GPR2);
-  naive_uload(NULL, (char *)c->GPR2);
-  c->GPRx = -1;
-}
-
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -75,7 +77,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_close: sys_close(c); break;
     case SYS_lseek: sys_lseek(c); break;
     case SYS_read: sys_read(c); break;
-    case SYS_execve: sys_execve(c); break;
+    case SYS_execve: sys_execve(c, (char *)c->GPR2); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
