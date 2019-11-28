@@ -133,8 +133,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       case '%': break;
 
       default:
-        //printf("%c unimplemented!\n", *fmt);
-        my_TODO();
+        printf("%c unimplemented!\n", *fmt);
+        //my_TODO();
         break;
     }
     fmt++;
