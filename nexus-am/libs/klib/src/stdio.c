@@ -10,6 +10,7 @@
   while (*str) { \
     *tmp++ = *str; \
     str++; \
+    count++; \
   }
 
 char *my_itoa(int value, char *str, int radix) {
@@ -55,7 +56,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   char a[1000] = "";
   char *str = a;
   char *tmp = out;
-  int d;
+  int d, count = 0;
   char ch;
   //char align = ' ';
 
@@ -65,6 +66,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     if (*fmt != '%' && !flag) {
       *tmp++ = *fmt;
       fmt++;
+      count++;
       continue;
     }
 
@@ -74,6 +76,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         ch = (unsigned char)va_arg(ap, int);
           *tmp++ = ch;
         flag = 0;
+        count++;
         break;
 
       case 's':
@@ -81,6 +84,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         while (*str) {
           *tmp++ = *str;
           str++;
+          count++;
         }
         flag = 0;
         break;
@@ -105,10 +109,12 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         while (len < 8) {
           *tmp++ = '0';
           len++;
+          count++;
         }
         while (*str) { 
           *tmp++ = *str; 
           str++; 
+          count++;
         }
         break;
 
@@ -135,16 +141,16 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   }
   *tmp = '\0';
 
-  return 0;
+  return count;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
-  vsprintf(out, fmt, ap);
+  int count = vsprintf(out, fmt, ap);
   va_end(ap);
 
-  return 0;
+  return count;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
