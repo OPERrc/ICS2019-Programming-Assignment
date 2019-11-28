@@ -36,7 +36,7 @@ char *my_itoa(int value, char *str, int radix) {
 }
 
 int printf(const char *fmt, ...) {
-  va_list(ap);
+  va_list ap;
   va_start(ap, fmt);
   char buf[1000];
   char *str = buf;
@@ -133,7 +133,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       case '%': break;
 
       default:
-        printf("%c unimplemented!\n", *fmt);
+        //printf("%c unimplemented!\n", *fmt);
         //TODO();
         break;
     }
@@ -145,7 +145,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  va_list(ap);
+  va_list ap;
   va_start(ap, fmt);
   int count = vsprintf(out, fmt, ap);
   va_end(ap);
