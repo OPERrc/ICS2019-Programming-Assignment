@@ -11,7 +11,8 @@
     *tmp++ = *str; \
     str++; \
     count++; \
-  }
+  } \
+  str = a;
 
 char *my_itoa(int value, char *str, int radix) {
   char index[] = "0123456789abcdef";
