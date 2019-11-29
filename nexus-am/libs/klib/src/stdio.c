@@ -54,9 +54,8 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  //static char a[300];
-  //a[0] = '\0';
-  char *str;// = a;
+  char a[300];
+  char *str = a;
   char *tmp = out;
   int d, count = 0;
   char ch;
