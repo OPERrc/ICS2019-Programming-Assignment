@@ -140,7 +140,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     fmt++;
   }
   *tmp = '\0';
-  count++;
+  //count++;
 
   return count;
 }
