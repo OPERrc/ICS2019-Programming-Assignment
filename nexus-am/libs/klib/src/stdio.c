@@ -38,7 +38,8 @@ char *my_itoa(int value, char *str, int radix) {
 int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
-  char buf[1000] = "\0";
+  static char buf[300];
+  buf[0] = '\0';
   char *str = buf;
   vsprintf(str, fmt, ap);
   va_end(ap);
@@ -53,7 +54,8 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  char a[1000] = "\0";
+  static char a[300];
+  a[0] = '\0';
   char *str = a;
   char *tmp = out;
   int d, count = 0;
