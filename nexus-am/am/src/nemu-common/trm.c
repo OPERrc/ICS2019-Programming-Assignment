@@ -11,7 +11,7 @@ _Area _heap = {
 };
 
 void _putc(char ch) {
-  outl(SERIAL_PORT, ch);
+  outw(SERIAL_PORT, ch);
 }
 
 void _halt(int code) {
