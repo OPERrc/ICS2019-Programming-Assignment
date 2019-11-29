@@ -57,8 +57,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   char a[300];
   char *str = a;
   char *tmp = out;
-  int d, count = 0;
-  char ch;
+  int d = 0, count = 0;
+  char ch = '\0';
   //char align = ' ';
 
   int flag = 0;
