@@ -12,5 +12,7 @@ int main() {
 	sprintf(buf, "%d + %d = %d, %s\n", 23333, 10000, 33333, "correct!");
 	nemu_assert(strcmp(buf, "23333 + 10000 = 33333, correct!\n") == 0);
 
+	printf("%d + %d = %d, %s\n", 23333, 10000, 33333, "correct!");
+
 	return 0;
 }
