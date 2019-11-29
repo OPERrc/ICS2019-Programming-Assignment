@@ -53,7 +53,8 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  char *str;
+  char a[1000] = "";
+  char *str = a;
   char *tmp = out;
   int d, count = 0;
   char ch;
