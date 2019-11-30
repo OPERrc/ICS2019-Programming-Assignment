@@ -39,11 +39,7 @@ void draw_rect(uint32_t *pixels, int x, int y, int w, int h);
 void draw_sync();
 int screen_width();
 int screen_height();
-
-// TODO
-#define my_TODO(); \
-  printf("Please inplement me!!!\n"); \
-  assert(0);
+#define my_TODO(); assert(0);
 
 // string.h
 void* memset(void* v, int c, size_t n);
@@ -66,7 +62,6 @@ int abs(int x);
 unsigned long time();
 void srand(unsigned int seed);
 int rand();
-char *my_itoa(int value, char *str, int radix);
 
 // stdio.h
 int printf(const char* fmt, ...);
@@ -75,6 +70,8 @@ int snprintf(char* s, size_t n, const char* format, ...);
 int vsprintf(char *str, const char *format, va_list ap);
 int vsnprintf(char *str, size_t size, const char *format, va_list ap);
 int sscanf(const char *str, const char *format, ...);
+void my_itoa(char *str, unsigned digit, int base);
+
 
 void qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
 
