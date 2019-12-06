@@ -54,7 +54,7 @@ int printf(const char *fmt, ...) {
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
   *out = '\0';
-  char a[1000] = "";
+  char a[1000];
   char *str = a;
   char *tmp = out;
   int d, count = 0;
@@ -105,6 +105,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       case 'p':
         flag = 0; 
         d = va_arg(ap, int); 
+        str = a;
         str = my_itoa(d, str, 16); 
         int len = strlen(str);
         while (len < 8) {
