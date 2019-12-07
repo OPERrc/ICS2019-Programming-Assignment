@@ -24,8 +24,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   // read ehdr
   int fd = fs_open(filename, 0, 0);
-  int point = 0;
-  point += fs_read(fd, &ehdr, sizeof(ehdr));
+  fs_read(fd, &ehdr, sizeof(ehdr));
+  int point = ehdr.e_phoff;
 
   for (size_t i = 0; i < ehdr.e_phnum; i++) {
     // read phdr
