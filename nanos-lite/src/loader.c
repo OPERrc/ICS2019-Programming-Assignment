@@ -10,14 +10,6 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-size_t ramdisk_read(void *, size_t, size_t);
-size_t ramdisk_write(const void *, size_t, size_t);
-int fs_open(const char *pathname, int flags, int mode);
-size_t fs_read(int fd, void *buf, size_t len);
-size_t fs_write(int fd, const void *buf, size_t len);
-size_t fs_lseek(int fd, size_t offset, int whence);
-int fs_close(int fd);
-
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
@@ -38,7 +30,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       memset(&mem[phdr.p_filesz], 0, phdr.p_memsz - phdr.p_filesz);
     }
   }
-
   /* size_t point = ehdr.e_phoff;
   for (size_t i = 0; i < ehdr.e_phnum; i++) {
     // read phdr
