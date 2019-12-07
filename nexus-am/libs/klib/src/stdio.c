@@ -13,22 +13,22 @@
 int my_itoa(int value, char *out, int radix) {
   char index[] = "0123456789abcdef";
   int len = 0;
+  char numbuf[32];
   if (value == 0) {
-    out[len] = '0';
+    numbuf[len] = '0';
     len++;
   }
   else
   while (value > 0) {
-    out[len] = index[value % radix];
+    numbuf[len] = index[value % radix];
     value /= radix;
     len++;
   }
-  out[len] = '\0';
-  for (int i = 0; i < len / 2; i++) {
-    char tmp = out[i];
-    out[i] = out[len - 1 - i];
-    out[len - 1 - i] = tmp;
+  // numbuf[len] = '\0';
+  for (int i = len - 1; i >=0 ; i--) {
+    *out++ = numbuf[i];
   }
+  *out++ = '\0';
   return len;
 }
 
