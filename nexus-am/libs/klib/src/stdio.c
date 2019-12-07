@@ -11,7 +11,7 @@
   tmp += strlen(tmp);
 
 int my_itoa(int value, char *out, int radix) {
-  char index[] = "0123456789abcdef";
+  static char index[] = "0123456789abcdef";
   int len = 0;
   char numbuf[32];
   if (value == 0) {
@@ -25,7 +25,7 @@ int my_itoa(int value, char *out, int radix) {
     len++;
   }
   // numbuf[len] = '\0';
-  for (int i = len - 1; i >=0 ; i--) {
+  for (int i = len - 1; i >= 0; i--) {
     *out++ = numbuf[i];
   }
   *out++ = '\0';
