@@ -21,7 +21,7 @@ void sys_execve(_Context *c, const char *fname) {
 }
 
 void sys_exit(_Context *c) {
-  if (c->GPR2 == 0)
+  //if (c->GPR2 == 0)
     sys_execve(c, "/bin/init");
   _halt(c->GPR2);
 }
