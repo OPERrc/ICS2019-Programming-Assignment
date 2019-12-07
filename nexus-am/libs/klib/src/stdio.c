@@ -6,33 +6,30 @@
 #define make_my_itoa(radix) \
   flag = 0; \
   d = va_arg(ap, int); \
-  str = my_itoa(d, str, radix); \
-  while (*str) { \
-    *tmp++ = *str; \
-    str++; \
-    count++; \
-  }
+  my_itoa(d, tmp, radix); \
+  count += strlen(tmp); \
+  tmp += strlen(tmp);
 
-char *my_itoa(int value, char *str, int radix) {
+int my_itoa(int value, char *out, int radix) {
   char index[] = "0123456789abcdef";
   int len = 0;
   if (value == 0) {
-    str[len] = '0';
+    out[len] = '0';
     len++;
   }
   else
   while (value > 0) {
-    str[len] = index[value % radix];
+    out[len] = index[value % radix];
     value /= radix;
     len++;
   }
-  str[len] = '\0';
+  out[len] = '\0';
   for (int i = 0; i < len / 2; i++) {
-    char tmp = str[i];
-    str[i] = str[len - 1 - i];
-    str[len - 1 - i] = tmp;
+    char tmp = out[i];
+    out[i] = out[len - 1 - i];
+    out[len - 1 - i] = tmp;
   }
-  return str;
+  return len;
 }
 
 int printf(const char *fmt, ...) {
@@ -102,7 +99,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         make_my_itoa(16);
         break;
 
-      case 'p':
+      /*case 'p':
         flag = 0; 
         d = va_arg(ap, int); 
         str = a;
@@ -119,7 +116,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           count++;
         }
         break;
-
+      */
       /*
       case '0': *tmp++ = *str;
       case '1':

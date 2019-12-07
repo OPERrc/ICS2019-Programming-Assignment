@@ -9,7 +9,7 @@ AM_SRCS := native/trm.c \
            native/devices/timer.c \
            native/devices/video.c \
 
-CFLAGS  += -fpie
+CFLAGS  += -ggdb -fpie
 ASFLAGS += -fpie -pie
 
 image:
