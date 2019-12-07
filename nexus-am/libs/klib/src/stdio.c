@@ -100,9 +100,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         break;
 
       case 'p':
-        *tmp++ = '0';
-        *tmp++ = 'x'; 
-        count += 2;
+        //*tmp++ = '0';
+        //*tmp++ = 'x'; 
+        //count += 2;
         make_my_itoa(16);
         break;
       
