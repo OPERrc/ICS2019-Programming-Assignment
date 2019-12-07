@@ -99,24 +99,13 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         make_my_itoa(16);
         break;
 
-      /*case 'p':
-        flag = 0; 
-        d = va_arg(ap, int); 
-        str = a;
-        str = my_itoa(d, str, 16); 
-        int len = strlen(str);
-        while (len < 8) {
-          *tmp++ = '0';
-          len++;
-          count++;
-        }
-        while (*str) { 
-          *tmp++ = *str; 
-          str++; 
-          count++;
-        }
+      case 'p':
+        *tmp++ = '0';
+        *tmp++ = 'x'; 
+        count += 2;
+        make_my_itoa(16);
         break;
-      */
+      
       /*
       case '0': *tmp++ = *str;
       case '1':
