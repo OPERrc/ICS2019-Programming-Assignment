@@ -24,14 +24,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   // read ehdr
   int fd = fs_open(filename, 0, 0);
-  fs_read(fd, &ehdr, sizeof(ehdr));
+  fs_read(fd, &ehdr, sizeof(Elf_Ehdr));
   int point = ehdr.e_phoff;
 
   for (size_t i = 0; i < ehdr.e_phnum; i++) {
     // read phdr
     point += fs_read(fd, &phdr, ehdr.e_phentsize);
     if (phdr.p_type == PT_LOAD) {
-      uintptr_t *mem = (uintptr_t *)phdr.p_vaddr;
+      char *mem = (char *)phdr.p_vaddr;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
       fs_read(fd, mem, phdr.p_filesz);
       fs_lseek(fd, point, SEEK_SET);
