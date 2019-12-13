@@ -66,8 +66,9 @@ int _cte_init(_Context*(*handler)(_Event, _Context*)) {
 }
 
 _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
-  *(char *)stack.start = *(char *)entry;
-  printf("entry = 0x%x\n", *(char *)entry);
+  *(uintptr_t *)stack.start = *(uintptr_t *)entry;
+  printf("entry = 0x%x\n", *(uintptr_t *)entry);
+  printf("stack.start = 0x%x\n", *(uintptr_t *)stack.start);
   assert(0);
   return NULL;
 }
