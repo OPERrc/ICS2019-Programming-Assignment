@@ -34,5 +34,9 @@ void init_proc() {
 }
 
 _Context* schedule(_Context *prev) {
-  return NULL;
+  current->cp = prev;
+  current = &pcb[0];
+  printf("current->cp = 0x%x\n", current->cp);
+  assert(0);
+  return current->cp;
 }
