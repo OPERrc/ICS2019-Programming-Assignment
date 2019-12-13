@@ -71,7 +71,7 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
   printf("*stack.start = 0x%x\n", *(_Context *)stack.start);
   printf("stack.start = 0x%x\n", stack.start);
   printf("in cte.c: _kcontext(): TODO\n");
-  assert(0);
+  //assert(0);
   return (_Context *)entry;
 }
 
