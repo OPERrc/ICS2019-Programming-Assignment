@@ -77,7 +77,7 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
   printf("*new = 0x%x\n", new);
   printf("context size = %d\n", sizeof(_Context));
   new->eip = (uintptr_t)entry;
-  printf("entry = 0x%x\n", (uintptr_t)entry);
+  printf("entry = 0x%x\n", new->eip);
   printf("in cte.c: _kcontext(): TODO\n");
   //assert(0);
   return new;
