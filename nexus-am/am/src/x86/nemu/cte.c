@@ -39,7 +39,7 @@ _Context* __am_irq_handle(_Context *c) {
       next = c;
     }
   }
-
+  printf("next context = 0x%x\n", next);
   return next;
 }
 
@@ -77,6 +77,7 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
   printf("*new = 0x%x\n", new);
   printf("context size = %d\n", sizeof(_Context));
   new->eip = (uintptr_t)entry;
+  new->cs = 8;
   printf("entry = 0x%x\n", new->eip);
   printf("in cte.c: _kcontext(): TODO\n");
   //assert(0);

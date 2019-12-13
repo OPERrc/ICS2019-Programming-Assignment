@@ -37,6 +37,6 @@ _Context* schedule(_Context *prev) {
   current->cp = prev;
   current = &pcb[0];
   printf("current->cp = 0x%x\n", current->cp);
-  assert(0);
+  //assert(0);
   return current->cp;
 }
