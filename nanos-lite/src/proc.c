@@ -6,6 +6,7 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
 void naive_uload(PCB *, const char *);
+void context_kload(PCB *pcb, void *entry);
 
 void switch_boot_pcb() {
   current = &pcb_boot;
@@ -21,6 +22,8 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
+  context_kload(&pcb[0], (void *)hello_fun);
+  //switch_boot_pcb();
   switch_boot_pcb();
 
   Log("Initializing processes...");
