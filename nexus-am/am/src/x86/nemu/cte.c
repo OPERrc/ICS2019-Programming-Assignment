@@ -9,7 +9,7 @@ void __am_vecsys();
 void __am_vectrap();
 void __am_vecnull();
 
-void context_display(_Context *c) {
+void Context_display(_Context *c) {
   printf("-------------------\n");
   printf("eax = 0x%x\n", c->eax);
   printf("ecx = 0x%x\n", c->ecx);
@@ -30,7 +30,7 @@ void context_display(_Context *c) {
 _Context* __am_irq_handle(_Context *c) {
   _Context *next = c;
   
-  context_display(c);
+  //Context_display(c);
 
   if (user_handler) {
     _Event ev = {0};
@@ -81,13 +81,13 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
   printf("in cte.c: _kcontext(): TODO\n");*/
   //assert(0);
   _Context *new = stack.end - sizeof(_Context);
-  printf("stack.end = 0x%x\n", stack.end);
-  printf("*new = 0x%x\n", new);
-  printf("context size = %d\n", sizeof(_Context));
+  //printf("stack.end = 0x%x\n", stack.end);
+  //printf("*new = 0x%x\n", new);
+  //printf("context size = %d\n", sizeof(_Context));
   new->eip = (uintptr_t)entry;
   new->cs = 8;
-  printf("entry = 0x%x\n", new->eip);
-  printf("in cte.c: _kcontext(): TODO\n");
+  //printf("entry = 0x%x\n", new->eip);
+  //printf("in cte.c: _kcontext(): TODO\n");
   //assert(0);
   return new;
 }

@@ -1,6 +1,7 @@
 #include <am.h>
 #include <x86.h>
 #include <nemu.h>
+#include <klib.h>
 
 #define PG_ALIGN __attribute((aligned(PGSIZE)))
 
@@ -87,5 +88,9 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   _Context *new = ustack.end - 32 - sizeof(_Context);
   new->eip = (uintptr_t)entry;
   new->cs = 8;
+  printf("--------------------------------\n");
+  printf("in vme.c: _ucontext:\n");
+  printf("_Context may have overlap bugs!\n");
+  printf("--------------------------------\n");
   return new;
 }
