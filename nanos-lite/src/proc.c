@@ -30,7 +30,7 @@ void init_proc() {
 
   // load program here
 
-  naive_uload(NULL, "/bin/init");
+  //naive_uload(NULL, "/bin/init");
 }
 
 _Context* schedule(_Context *prev) {
