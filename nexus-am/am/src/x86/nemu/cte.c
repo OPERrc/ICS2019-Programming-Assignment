@@ -39,7 +39,7 @@ _Context* __am_irq_handle(_Context *c) {
       next = c;
     }
   }
-  printf("next context = 0x%x\n", next);
+  printf("next_context = 0x%x\n", next);
   assert(0);
   return next;
 }
