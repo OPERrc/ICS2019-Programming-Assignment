@@ -9,9 +9,8 @@ void __am_vecsys();
 void __am_vectrap();
 void __am_vecnull();
 
-_Context* __am_irq_handle(_Context *c) {
-  _Context *next = c;
-  /*printf("eax = 0x%x\n", c->eax);
+void context_display(_Context *c) {
+  printf("eax = 0x%x\n", c->eax);
   printf("ecx = 0x%x\n", c->ecx);
   printf("edx = 0x%x\n", c->edx);
   printf("ebx = 0x%x\n", c->ebx);
@@ -23,7 +22,13 @@ _Context* __am_irq_handle(_Context *c) {
   printf("cs = 0x%x\n", c->cs);
   printf("pc = 0x%x\n", c->eip);
   printf("irq = 0x%x\n", c->irq);
-  printf("as = 0x%x\n", c->as);*/
+  printf("as = 0x%x\n", c->as);
+}
+
+_Context* __am_irq_handle(_Context *c) {
+  _Context *next = c;
+  
+  context_display(c);
 
   if (user_handler) {
     _Event ev = {0};
