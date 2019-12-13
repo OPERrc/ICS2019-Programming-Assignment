@@ -10,6 +10,7 @@ void __am_vectrap();
 void __am_vecnull();
 
 void context_display(_Context *c) {
+  printf("-------------------");
   printf("eax = 0x%x\n", c->eax);
   printf("ecx = 0x%x\n", c->ecx);
   printf("edx = 0x%x\n", c->edx);
