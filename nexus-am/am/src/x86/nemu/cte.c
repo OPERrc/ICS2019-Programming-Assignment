@@ -75,6 +75,7 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
   _Context *new = stack.end - sizeof(_Context);
   printf("stack.end = 0x%x\n", stack.end);
   printf("*new = 0x%x\n", new);
+  printf("context size = %d\n", sizeof(_Context));
   new->eip = (uintptr_t)entry;
 
   assert(0);
