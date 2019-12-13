@@ -7,7 +7,7 @@ static _Context* do_event(_Event e, _Context* c) {
   _Context *next;
   switch (e.event) {
     case _EVENT_YIELD: 
-      printf("Event \"YIELD\" catched!\n"); 
+      //printf("Event \"YIELD\" catched!\n"); 
       next =  schedule(c);
       break;
     case _EVENT_SYSCALL: 
