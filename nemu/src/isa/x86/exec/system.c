@@ -15,20 +15,22 @@ make_EHelper(lidt) {
 }
   void isa_reg_display();
 make_EHelper(mov_r2cr) {
-  printf("gpr[%d]:0x%x to cr%d:0x%x\n", id_src->reg, id_src->val, id_dest->reg, cpu.cr[id_dest->reg]);
-
+  //printf("gpr[%d]:0x%x to cr%d:0x%x\n", id_src->reg, id_src->val, id_dest->reg, cpu.cr[id_dest->reg]);
   isa_reg_display();
   //assert(0);
   cpu.cr[id_dest->reg] = id_src->val;
+  isa_reg_display();
   //printf("cr3->val = 0x%x\n", cpu.cr3.val);
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
 }
 
 make_EHelper(mov_cr2r) {
-  printf("cr%d:0x%x to gpr[%d]:0x%x\n", id_src->reg, cpu.cr[id_src->reg], id_dest->reg, reg_l(id_dest->reg));
+  //printf("cr%d:0x%x to gpr[%d]:0x%x\n", id_src->reg, cpu.cr[id_src->reg], id_dest->reg, reg_l(id_dest->reg));
   //assert(0);
+  isa_reg_display();
   reg_l(id_dest->reg) = cpu.cr[id_src->reg];
+  isa_reg_display();
 
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 

@@ -44,12 +44,15 @@ void reg_test() {
 void isa_reg_display() {
   // Insert part
   int NUM = 8;
+  printf("---------------------------\n");
   for (int i=0; i<NUM; i++)
     printf("%-6s 0x%-12x %d\n", regsl[i], reg_l(i), reg_l(i));
   printf("pc     0x%-12x %d\n", cpu.pc, cpu.pc);
   printf("cs     0x%-12x %d\n", cpu.cs, cpu.cs);
   printf("eflags 0x%-12x %d\n", cpu.eflags, cpu.eflags);
   printf("CF = %d, ZF = %d, SF = %d, IF = %d, OF = %d\n", cpu.CF, cpu.ZF, cpu.SF, cpu.IF, cpu.OF);
+  printf("cr0 = 0x%x, cr3 = 0x%x\n", cpu.cr0.val, cpu.cr3.val);
+  printf("---------------------------\n");
 	
 	/*
   for (int i=0; i<NUM; i++)
