@@ -53,8 +53,7 @@ paddr_t page_translate(vaddr_t addr) {
 }
 
 uint32_t isa_vaddr_read(vaddr_t addr, int len) {
-  if (cpu.cr0 != 0)
-    printf("cr0 = %d\n", cpu.cr0);
+  assert(cpu.cr0 != 0);
   paddr_t paddr = (cpu.cr0 >> 31 == 1 ? page_translate(addr) : addr);
   return paddr_read(paddr, len);
 }
