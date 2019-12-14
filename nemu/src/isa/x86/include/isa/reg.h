@@ -2,6 +2,7 @@
 #define __X86_REG_H__
 
 #include "common.h"
+#include "mmu.h"
 
 #define PC_START IMAGE_START
 
@@ -64,8 +65,16 @@ typedef struct {
 		uint32_t limit;
 	} idtr;
 	
-	uint32_t cr0;
-	uint32_t cr3;
+	union {
+		struct {
+			CR0 cr0;
+			uint32_t cr1;
+			uint32_t cr2;
+			CR3 cr3;
+		};
+		uint32_t cr[4];
+	};
+
 } CPU_state;
 
 static inline int check_reg_index(int index) {
