@@ -15,14 +15,15 @@ paddr_t page_translate(vaddr_t addr) {
   PTE pte;
 
   linear_addr.addr = addr;
+  printf("linear_addr = %d\n", addr);
 
   pde.val = paddr_read(cpu.cr3.page_directory_base + linear_addr.dir * 4, 4);
   assert(pde.present == 0);
-  printf("pde.val = %d\n", pde.val);
+  printf("pde = %d\n", pde.val);
 
   pte.val = paddr_read(pde.page_frame + linear_addr.page * 4, 4);
   assert(pte.present == 0);
-  printf("pte.val = %d\n", pte.val);
+  printf("pte = %d\n", pte.val);
 
   panic("untested codes here!\n");
   return paddr_read(pte.page_frame + linear_addr.offset * 4, 4);
