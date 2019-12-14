@@ -16,6 +16,8 @@ make_EHelper(lidt) {
 
 make_EHelper(mov_r2cr) {
   printf("eax to cr3? gpr[%d]:%d to cr%d\n", id_src->reg, id_src->val, id_dest->reg);
+  void isa_reg_display();
+  isa_reg_display();
   assert(0);
   cpu.cr[id_dest->reg] = id_src->val;
 
