@@ -15,7 +15,7 @@ paddr_t page_translate(vaddr_t addr) {
   PTE pte;
 
   linear_addr.addr = addr;
-  printf("linear_addr = %d\n", addr);
+  printf("linear_addr = 0x%x\n", addr);
 
   pde.val = paddr_read(cpu.cr3.page_directory_base + linear_addr.dir * 4, 4);
   assert(pde.present == 0);
