@@ -15,17 +15,17 @@ make_EHelper(lidt) {
 }
 
 make_EHelper(mov_r2cr) {
-  printf("cr0? cr%d\n", id_src->reg);
+  printf("cr3? cr%d\n", id_dest->reg);
   assert(0);
-  reg_l(id_dest->reg) = cpu.cr[id_src->reg];
+  cpu.cr[id_dest->reg] = id_src->val;
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
 }
 
 make_EHelper(mov_cr2r) {
-  printf("cr3? cr%d\n", id_dest->reg);
+  printf("cr0? cr%d\n", id_src->reg);
   assert(0);
-  cpu.cr[id_dest->reg] = id_src->val;
+  reg_l(id_dest->reg) = cpu.cr[id_src->reg];
 
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
