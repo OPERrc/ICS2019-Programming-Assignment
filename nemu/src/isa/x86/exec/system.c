@@ -26,7 +26,7 @@ make_EHelper(mov_r2cr) {
 }
 
 make_EHelper(mov_cr2r) {
-  printf("cr0 to eax? cr%d to gpr[%d]:0x%x\n", id_src->reg, id_dest->reg, reg_l(id_dest->reg));
+  printf("cr0 to eax? cr%d:0x%x to gpr[%d]:0x%x\n", id_src->reg, cpu.cr[id_src->reg], id_dest->reg, reg_l(id_dest->reg));
   assert(0);
   reg_l(id_dest->reg) = cpu.cr[id_src->reg];
 
