@@ -64,26 +64,8 @@ typedef struct {
 		uint32_t limit;
 	} idtr;
 	
-	union {
-		struct {
-			uint32_t PE :1;
-			uint32_t MP :1;
-			uint32_t EM :1;
-			uint32_t TS :1;
-			uint32_t ET :1;
-			uint32_t _  :26;
-			uint32_t PG :1;
-		};
-		uint32_t cr0;
-	} cr0;
-
-	union {
-		struct {
-			uint32_t _    :12;
-			uint32_t pdbr :20;
-		};
-		uint32_t cr3;
-	} cr3;
+	uint32_t cr0;
+	uint32_t cr3;
 } CPU_state;
 
 static inline int check_reg_index(int index) {

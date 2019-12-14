@@ -42,7 +42,7 @@ paddr_t page_translate(vaddr_t addr) {
 
   linear_addr.addr = addr;
 
-  DIR_ENTRY.addr = paddr_read(cpu.cr3.pdbr + linear_addr.DIR * 4, 4);
+  DIR_ENTRY.addr = paddr_read((cpu.cr3 >> 12) + linear_addr.DIR * 4, 4);
   assert(DIR_ENTRY.P == 0);
 
   PG_EBL_ENTRY.addr = paddr_read(DIR_ENTRY.PG_TABLE_ADDR + linear_addr.PAGE * 4, 4);
@@ -53,11 +53,12 @@ paddr_t page_translate(vaddr_t addr) {
 }
 
 uint32_t isa_vaddr_read(vaddr_t addr, int len) {
-  paddr_t paddr = (cpu.cr0.PG == 1 ? page_translate(addr) : addr);
+  printf("cr0 = %d\n", cpu.cr0);
+  paddr_t paddr = (cpu.cr0 >> 31 == 1 ? page_translate(addr) : addr);
   return paddr_read(paddr, len);
 }
 
 void isa_vaddr_write(vaddr_t addr, uint32_t data, int len) {
-  paddr_t paddr = (cpu.cr0.PG == 1 ? page_translate(addr) : addr);
+  paddr_t paddr = (cpu.cr0 >> 31 == 1 ? page_translate(addr) : addr);
   paddr_write(paddr, data, len);
 }
