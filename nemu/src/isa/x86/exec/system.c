@@ -13,10 +13,10 @@ make_EHelper(lidt) {
   rtl_mv(&cpu.idtr.base, &s0);
   print_asm_template1(lidt);
 }
-
+  void isa_reg_display();
 make_EHelper(mov_r2cr) {
   printf("eax to cr3? gpr[%d]:0x%x to cr%d\n", id_src->reg, id_src->val, id_dest->reg);
-  void isa_reg_display();
+
   isa_reg_display();
   //assert(0);
   cpu.cr[id_dest->reg] = id_src->val;
@@ -26,7 +26,7 @@ make_EHelper(mov_r2cr) {
 }
 
 make_EHelper(mov_cr2r) {
-  printf("cr0? cr%d\n", id_src->reg);
+  printf("cr0 to eax? cr%d to gpr[%d]:0x%x\n", id_src->reg, id_dest->reg, reg_l(id_dest->reg));
   assert(0);
   reg_l(id_dest->reg) = cpu.cr[id_src->reg];
 
