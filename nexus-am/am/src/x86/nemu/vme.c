@@ -36,10 +36,13 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
     for (; pdir_idx < pdir_idx_end; pdir_idx ++) {
       // fill PDE
       kpdirs[pdir_idx] = (uintptr_t)ptab | PTE_P;
+      printf("kpdirs[pdir_idx]? kpdirs[%d] = 0x%x\n", pdir_idx, kpdirs[pdir_idx]);
 
       // fill PTE
       PTE pte = PGADDR(pdir_idx, 0, 0) | PTE_P;
+      printf("pte? = 0x%x\n", pte);
       PTE pte_end = PGADDR(pdir_idx + 1, 0, 0) | PTE_P;
+      printf("pte_end? = 0x%x\n", pte);
       for (; pte < pte_end; pte += PGSIZE) {
         *ptab = pte;
         ptab ++;
@@ -50,7 +53,7 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
   set_cr3(kpdirs);
   set_cr0(get_cr0() | CR0_PG);
   vme_enable = 1;
-
+  assert(0);
   return 0;
 }
 
