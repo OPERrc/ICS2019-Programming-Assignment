@@ -1,55 +1,31 @@
 #include "nemu.h"
+#include "isa/mmu.h"
 
 paddr_t page_translate(vaddr_t addr) {
   union {
     struct{
-      uint32_t OFFSET:12;
-      uint32_t PAGE:10;
-      uint32_t DIR:10;
+      uint32_t offset:12;
+      uint32_t page:10;
+      uint32_t dir:10;
     };
     vaddr_t addr;
   } linear_addr;
 
-  union {
-    struct{
-      uint32_t P:1;
-      uint32_t R_W:1;
-      uint32_t U_S:1;
-      uint32_t _1:2;
-      uint32_t A:1;
-      uint32_t D:1;
-      uint32_t _2:2;
-      uint32_t AVAIL:3;
-      uint32_t PG_FRAME_ADDR:20;
-    };
-    vaddr_t addr;
-  } PG_EBL_ENTRY;
-
-  union {
-    struct{
-      uint32_t P:1;
-      uint32_t R_W:1;
-      uint32_t U_S:1;
-      uint32_t _1:2;
-      uint32_t A:1;
-      uint32_t D:1;
-      uint32_t _2:2;
-      uint32_t AVAIL:3;
-      uint32_t PG_TABLE_ADDR:20;
-    };
-    vaddr_t addr;
-  } DIR_ENTRY;
+  PDE pde;
+  PTE pte;
 
   linear_addr.addr = addr;
 
-  DIR_ENTRY.addr = paddr_read(cpu.cr3.page_directory_base + linear_addr.DIR * 4, 4);
-  assert(DIR_ENTRY.P == 0);
+  pde.val = paddr_read(cpu.cr3.page_directory_base + linear_addr.dir * 4, 4);
+  assert(pde.present == 0);
+  printf("pde.val = %d\n", pde.val);
 
-  PG_EBL_ENTRY.addr = paddr_read(DIR_ENTRY.PG_TABLE_ADDR + linear_addr.PAGE * 4, 4);
-  assert(PG_EBL_ENTRY.P == 0);
+  pte.val = paddr_read(pde.page_frame + linear_addr.page * 4, 4);
+  assert(pte.present == 0);
+  printf("pte.val = %d\n", pte.val);
 
   panic("untested codes here!\n");
-  return paddr_read(PG_EBL_ENTRY.PG_FRAME_ADDR + linear_addr.OFFSET * 4, 4);
+  return paddr_read(pte.page_frame + linear_addr.offset * 4, 4);
 }
 
 uint32_t isa_vaddr_read(vaddr_t addr, int len) {
