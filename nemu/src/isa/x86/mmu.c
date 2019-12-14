@@ -19,13 +19,13 @@ paddr_t page_translate(vaddr_t addr) {
 
   pde.val = paddr_read(cpu.cr3.page_directory_base + linear_addr.dir * 4, 4);
   assert(pde.present == 0);
-  printf("pde = %d\n", pde.val);
+  printf("pde = 0x%x\n", pde.val);
 
   pte.val = paddr_read(pde.page_frame + linear_addr.page * 4, 4);
   assert(pte.present == 0);
-  printf("pte = %d\n", pte.val);
+  printf("pte = 0x%x\n", pte.val);
 
-  panic("untested codes here!\n");
+  //panic("untested codes here!\n");
   return paddr_read(pte.page_frame + linear_addr.offset * 4, 4);
 }
 
