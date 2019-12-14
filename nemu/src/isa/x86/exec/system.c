@@ -18,7 +18,7 @@ make_EHelper(mov_r2cr) {
   printf("eax to cr3? gpr[%d]:0x%x to cr%d\n", id_src->reg, id_src->val, id_dest->reg);
   void isa_reg_display();
   isa_reg_display();
-  assert(0);
+  //assert(0);
   cpu.cr[id_dest->reg] = id_src->val;
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
