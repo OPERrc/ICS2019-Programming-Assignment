@@ -84,7 +84,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           // cross filesz
           int len = phdr.p_filesz - load_offset;
           fs_read(fd, p_mem, len);
-          //memset(p_mem + len, 0, PGSIZE - len);
+          if (phdr.p_memsz < load_offset + PGSIZE)
+            memset(p_mem + len, 0, phdr.p_memsz - len);
+          else
+            memset(p_mem + len, 0, PGSIZE - len);
         }
         else if (load_offset + PGSIZE <= phdr.p_memsz)
           // in (filesz, memsz - PGSIZE]
