@@ -37,19 +37,32 @@ paddr_t page_translate(vaddr_t addr) {
 }
 
 uint32_t isa_vaddr_read(vaddr_t addr, int len) {
-  if ((addr & 0xfff) + len > PAGE_SIZE) {
-    //printf("%d\n", cpu.cr0.paging);
-    assert(0);
+  if (cpu.cr0.paging) {
+    if ((addr & 0xfff) + len > PAGE_SIZE) {
+      // cross pages
+      assert(0);
+    }
+    else {
+      // not cross pages
+      paddr_t paddr = page_translate(addr);
+      return paddr_read(paddr, len);
+    }
   }
-  paddr_t paddr = (cpu.cr0.paging == 1 ? page_translate(addr) : addr);
-  return paddr_read(paddr, len);
+  else
+    return paddr_read(addr, len);
 }
 
 void isa_vaddr_write(vaddr_t addr, uint32_t data, int len) {
-  if ((addr & 0xfff) + len > PAGE_SIZE) {
-    //printf("%d\n", cpu.cr0.paging);
-    assert(0);
+  if (cpu.cr0.paging) {
+    if ((addr & 0xfff) + len > PAGE_SIZE) {
+      // cross pages
+      assert(0);
+    }
+    else {
+      // not cross pages
+      paddr_t paddr = page_translate(addr);
+      paddr_write(paddr, data, len);
+    }
   }
-  paddr_t paddr = (cpu.cr0.paging == 1 ? page_translate(addr) : addr);
-  paddr_write(paddr, data, len);
+  paddr_write(addr, data, len);
 }
