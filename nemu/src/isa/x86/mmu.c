@@ -40,6 +40,10 @@ paddr_t page_translate(vaddr_t addr) {
   assert(pde.present);
 
   pte.val = paddr_read((pde.page_frame << 12) + linear_addr.page * 4, 4);
+  if (!pte.present) {
+    print_debug_info
+    printf("pte = 0x%x\n", pte.val);
+  }
   //printf("pte = 0x%x\n", pte.val);
   assert(pte.present);
 
