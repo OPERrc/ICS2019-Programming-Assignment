@@ -47,9 +47,15 @@ int mm_brk(uintptr_t brk, intptr_t increment);
 void sys_brk(_Context *c) {
   // _write(1, buf, 20);
   //_heap.start = (uintptr_t *)(c->GPR2);
-  //intptr_t new_brk = mm_brk(current->max_brk, c->GPR2 - current->max_brk);
-  //printf("brk = 0x%x\n", c->GPR2);
-  //assert(0);
+  intptr_t cur_brk = c->GPR2;
+  printf("max_brk = 0x%x\n", current->max_brk);
+  printf("cur_brk = 0x%x\n", cur_brk);
+  if (cur_brk > current->max_brk) {
+    mm_brk(current->max_brk, cur_brk - current->max_brk);
+    current->max_brk = cur_brk;
+  }
+  //printf("cur_brk = 0x%x\n", cur_brk);
+  assert(0);
   c->GPRx = 0;
 }
 
