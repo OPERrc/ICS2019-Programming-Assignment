@@ -19,7 +19,7 @@ paddr_t page_translate(vaddr_t addr) {
   printf("cpu.cr3.page_directory_base = 0x%x\n", cpu.cr3.page_directory_base << 12);
   printf("dir = 0x%x\n", (cpu.cr3.page_directory_base << 12) + linear_addr.dir * 4);
 
-  pde.val = paddr_read(cpu.cr3.page_directory_base + linear_addr.dir * 4, 4);
+  pde.val = paddr_read((cpu.cr3.page_directory_base << 12) + linear_addr.dir * 4, 4);
   assert(pde.present == 0);
   printf("pde = 0x%x\n", pde.val);
 
