@@ -31,9 +31,9 @@ void __am_get_cur_as(_Context *c);
 void __am_switch(_Context *c);
 
 _Context* __am_irq_handle(_Context *c) {
-  Context_display(c);
+  //Context_display(c);
   __am_get_cur_as(c);
-  Context_display(c);
+  //Context_display(c);
   _Context *next = c;
   
   //Context_display(c);
@@ -54,7 +54,7 @@ _Context* __am_irq_handle(_Context *c) {
     //printf("ev.event = %d, next_context = 0x%x\n", ev.event, next);
   }
   //assert(0);
-  Context_display(next);
+  //Context_display(next);
   __am_switch(next);
   return next;
 }
