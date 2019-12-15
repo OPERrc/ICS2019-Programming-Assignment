@@ -8,6 +8,7 @@ size_t fs_write(int fd, const void *buf, size_t len);
 size_t fs_lseek(int fd, size_t offset, int whence);
 int fs_close(int fd);
 void naive_uload(PCB *pcb, const char *filename);
+void context_uload(PCB *pcb, const char *filename);
 
 void sys_yield(_Context *c) {
   _yield();
@@ -16,7 +17,7 @@ void sys_yield(_Context *c) {
 
 void sys_execve(_Context *c, const char *fname) {
   // printf("filename = %s\n", (char *)c->GPR2);
-  naive_uload(NULL, fname);
+  context_uload(current, fname);
   //c->GPRx = -1;
 }
 
