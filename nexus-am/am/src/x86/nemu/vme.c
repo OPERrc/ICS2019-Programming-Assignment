@@ -132,7 +132,7 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   new->eip = (uintptr_t)entry;
   new->cs = 8;
   new->as = as;
-  void Context_display(_Context *c);
+  //void Context_display(_Context *c);
   //Context_display(new);
   //printf("as->ptr = 0x%x\n", new->as->ptr);
   //printf("--------------------------------\n");
