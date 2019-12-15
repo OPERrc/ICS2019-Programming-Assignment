@@ -44,3 +44,8 @@ _Context* schedule(_Context *prev) {
   //assert(0);
   return current->cp;
 }
+
+void kill(PCB *pcb) {
+  for (int i = 0; i < STACK_SIZE; i++)
+    pcb->stack[i] = 0;
+}
