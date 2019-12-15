@@ -70,7 +70,7 @@ uint32_t isa_vaddr_read(vaddr_t addr, int len) {
       printf("data_lo = 0x%x\n", data_lo);
       printf("data = 0x%x\n", data);
       printf("paddr = 0x%x\n", paddr_read(page_translate(addr), len));
-      //panic("cross pages!");
+      panic("cross pages!");
       return data;
       //return paddr_read(paddr, len);
     }
