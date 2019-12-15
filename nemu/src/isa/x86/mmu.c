@@ -59,9 +59,13 @@ uint32_t isa_vaddr_read(vaddr_t addr, int len) {
   if (cpu.cr0.paging) {
     if ((addr & 0xfff) + len > PAGE_SIZE) {
       // cross pages
-      //panic("cross pages!");
+      uint32_t cross_len = (addr & 0xfff) + len - PAGE_SIZE;
+      uint32_t data_hi = paddr_read(page_translate(addr), len - cross_len);
+      uint32_t data_lo = paddr_read(page_translate((addr + len) & ~0xfff), cross_len);
+      uint32_t data = ((data_hi << cross_len * 8) | data_lo);
+      printf("data = 0x%x\n", data);
       panic("cross pages!");
-      //paddr_t paddr = page_translate(addr);
+      return data;
       //return paddr_read(paddr, len);
     }
     else {
