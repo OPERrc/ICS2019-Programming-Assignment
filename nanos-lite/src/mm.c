@@ -18,7 +18,7 @@ void free_page(void *p) {
 int mm_brk(uintptr_t brk, intptr_t increment) {
   if ((brk & 0xfff) + increment < PGSIZE) 
     return 0;
-  void *v_brk = (void *)((brk + PGSIZE) & 0xfff);
+  void *v_brk = (void *)((brk + PGSIZE) & ~0xfff);
   while ((uintptr_t)v_brk <= brk + increment) {
     printf("v_brk = 0x%x\n", v_brk);
     void *p_mem = new_page(1);
