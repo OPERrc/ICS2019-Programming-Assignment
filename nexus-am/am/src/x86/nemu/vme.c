@@ -124,7 +124,7 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   _Context *new = ustack.end - 0x40 - sizeof(_Context);
   new->eip = (uintptr_t)entry;
   new->cs = 8;
-  //new->as = as;
+  new->as = as;
   printf("--------------------------------\n");
   printf("in vme.c: _ucontext:\n");
   printf("_Context may have overlap bugs!\n");
