@@ -3,6 +3,7 @@
 
 #define print_debug_info \
   printf("linear_addr = 0x%x\n", linear_addr.addr); \
+  printf("cpu.cr3.page_directory_base = 0x%x\n", cpu.cr3.page_directory_base << 12); \
   printf("dir = 0x%x\n", linear_addr.dir); \
   printf("page = 0x%x\n", linear_addr.page); \
   printf("offset = 0x%x\n", linear_addr.offset); \
