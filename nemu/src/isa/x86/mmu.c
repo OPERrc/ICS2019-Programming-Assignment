@@ -44,11 +44,11 @@ paddr_t page_translate(vaddr_t addr) {
     print_debug_info
     printf("pte = 0x%x\n", pte.val);
   }
-  //printf("pte = 0x%x\n", pte.val);
+  printf("pte = 0x%x\n", pte.val);
   assert(pte.present);
 
   //panic("untested codes here!\n");
-  //printf("paddr = 0x%x\n", (pte.page_frame << 12) + linear_addr.offset);
+  printf("paddr = 0x%x\n", (pte.page_frame << 12) + linear_addr.offset);
   //printf("paddr_read = 0x%x\n", paddr_read((pte.page_frame << 12) + linear_addr.offset, 4));
   return (pte.page_frame << 12) + linear_addr.offset;
 }
