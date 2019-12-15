@@ -61,8 +61,8 @@ uint32_t isa_vaddr_read(vaddr_t addr, int len) {
       // cross pages
       //panic("cross pages!");
       panic("cross pages!");
-      paddr_t paddr = page_translate(addr);
-      return paddr_read(paddr, len);
+      //paddr_t paddr = page_translate(addr);
+      //return paddr_read(paddr, len);
     }
     else {
       // not cross pages
