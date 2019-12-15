@@ -23,7 +23,7 @@ paddr_t page_translate(vaddr_t addr) {
   assert(pde.present);
   printf("pde = 0x%x\n", pde.val);
 
-  pte.val = paddr_read(pde.page_frame + linear_addr.page * 4, 4);
+  pte.val = paddr_read((pde.page_frame << 12) + linear_addr.page * 4, 4);
   assert(pte.present);
   printf("pte = 0x%x\n", pte.val);
 
