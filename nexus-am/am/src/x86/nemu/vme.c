@@ -100,6 +100,9 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   v_addr.val = (uint32_t)va;
   
   printf("va = 0x%x\n", v_addr.val);
+  printf("va.dir = 0x%x\n", v_addr.dir);
+  printf("va.page = 0x%x\n", v_addr.page);
+  printf("va.offset = 0x%x\n", v_addr.offset);
   PDE *updir = (PDE *)as->ptr;
   printf("updir = 0x%x\n", updir);
   //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
