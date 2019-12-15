@@ -99,6 +99,7 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   } v_addr;
   v_addr.val = (uint32_t)va;
   
+  printf("------------------\n");
   printf("va = 0x%x\n", v_addr.val);
   printf("pa = 0x%x\n", pa);
   printf("va.dir = 0x%x\n", v_addr.dir);
@@ -133,9 +134,9 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   void Context_display(_Context *c);
   //Context_display(new);
   //printf("as->ptr = 0x%x\n", new->as->ptr);
-  printf("--------------------------------\n");
-  printf("in vme.c: _ucontext:\n");
-  printf("_Context may have overlap bugs!\n");
-  printf("--------------------------------\n");
+  //printf("--------------------------------\n");
+  //printf("in vme.c: _ucontext:\n");
+  //printf("_Context may have overlap bugs!\n");
+  //printf("--------------------------------\n");
   return new;
 }
