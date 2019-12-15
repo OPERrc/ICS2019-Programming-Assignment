@@ -49,7 +49,7 @@ _Context* __am_irq_handle(_Context *c) {
     if (next == NULL) {
       next = c;
     }
-    printf("ev.event = %d, next_context = 0x%x\n", ev.event, next);
+    //printf("ev.event = %d, next_context = 0x%x\n", ev.event, next);
   }
   //assert(0);
   __am_switch(c);

@@ -1,6 +1,15 @@
 #include "nemu.h"
 #include "isa/mmu.h"
 
+#define print_debug_info \
+  printf("linear_addr = 0x%x\n", linear_addr.addr); \
+  printf("dir = 0x%x\n", linear_addr.dir); \
+  printf("page = 0x%x\n", linear_addr.page); \
+  printf("offset = 0x%x\n", linear_addr.offset); \
+  printf("pde = 0x%x\n", pde.val); \
+
+  //printf("pte = 0x%x\n", pte.val); 
+
 paddr_t page_translate(vaddr_t addr) {
   union {
     struct{
@@ -24,6 +33,9 @@ paddr_t page_translate(vaddr_t addr) {
 
   pde.val = paddr_read((cpu.cr3.page_directory_base << 12) + linear_addr.dir * 4, 4);
   //printf("pde = 0x%x\n", pde.val);
+  if (!pde.present) {
+    print_debug_info
+  }
   assert(pde.present);
 
   pte.val = paddr_read((pde.page_frame << 12) + linear_addr.page * 4, 4);
