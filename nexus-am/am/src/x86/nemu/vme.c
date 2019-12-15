@@ -30,29 +30,29 @@ printf("kpdirs = 0x%x\n", kpdirs);
   }
 
   PTE *ptab = kptabs;
-  for (i = 0; i < NR_KSEG_MAP - 1; i ++) {
+  for (i = 0; i < NR_KSEG_MAP; i ++) {
     uint32_t pdir_idx = (uintptr_t)segments[i].start / (PGSIZE * NR_PTE);
     uint32_t pdir_idx_end = (uintptr_t)segments[i].end / (PGSIZE * NR_PTE);
     for (; pdir_idx < pdir_idx_end; pdir_idx ++) {
       // fill PDE
       kpdirs[pdir_idx] = (uintptr_t)ptab | PTE_P;
-      printf("kpdirs[pdir_idx]? kpdirs[%d] = 0x%x\n", pdir_idx, kpdirs[pdir_idx]);
+      //printf("kpdirs[pdir_idx]? kpdirs[%d] = 0x%x\n", pdir_idx, kpdirs[pdir_idx]);
 
       // fill PTE
       PTE pte = PGADDR(pdir_idx, 0, 0) | PTE_P;
-      printf("pte? = 0x%x\n", pte);
+      //printf("pte? = 0x%x\n", pte);
       PTE pte_end = PGADDR(pdir_idx + 1, 0, 0) | PTE_P;
-      printf("pte_end? = 0x%x\n", pte_end);
+      //printf("pte_end? = 0x%x\n", pte_end);
       for (; pte < pte_end; pte += PGSIZE) {
         *ptab = pte;
-        printf("*ptab? = 0x%x\n", ptab);
-        printf("pte? = 0x%x\n", pte);
+        //printf("*ptab? = 0x%x\n", ptab);
+        //printf("pte? = 0x%x\n", pte);
         ptab ++;
       }
     }
   }
-  printf("kpdirs = 0x%x\n", kpdirs);
-  assert(0);
+  //printf("kpdirs = 0x%x\n", kpdirs);
+  //assert(0);
   set_cr3(kpdirs);
   set_cr0(get_cr0() | CR0_PG);
   vme_enable = 1;
