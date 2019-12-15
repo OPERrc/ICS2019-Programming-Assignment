@@ -111,7 +111,7 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   //PDE *uptab_addr = (PTE *)(pa - v_addr.offset) - v_addr.page;
   //updir[v_addr.dir] = uptab_addr;
   //uptab_addr[v_addr.page] = p_addr;
-  assert(0);
+  //assert(0);
   return 0;
 }
 
