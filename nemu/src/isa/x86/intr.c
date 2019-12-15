@@ -1,4 +1,5 @@
 #include "rtl/rtl.h"
+#include "cpu/decode.h"
 
 #define IRQ_TIMER 32
 
@@ -24,7 +25,7 @@ bool isa_query_intr(void) {
   if (cpu.IF == 1 && cpu.INTR == true) {
   //if (cpu.INTR == true) {
     cpu.INTR = false;
-    raise_intr(IRQ_TIMER, cpu.pc);
+    raise_intr(IRQ_TIMER, decinfo.seq_pc);
     return true;
   }
   return false;
