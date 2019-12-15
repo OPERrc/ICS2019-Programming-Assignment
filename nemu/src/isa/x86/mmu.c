@@ -25,8 +25,8 @@ paddr_t page_translate(vaddr_t addr) {
   PTE pte;
 
   linear_addr.addr = addr;
-  //printf("------------------\n");
-  //printf("linear_addr = 0x%x\n", linear_addr.addr);
+  printf("------------------\n");
+  printf("linear_addr = 0x%x\n", linear_addr.addr);
   //printf("dir = 0x%x\n", linear_addr.dir);
   //printf("page = 0x%x\n", linear_addr.page);
   //printf("offset = 0x%x\n", linear_addr.offset);
@@ -49,8 +49,8 @@ paddr_t page_translate(vaddr_t addr) {
   assert(pte.present);
 
   //panic("untested codes here!\n");
-  //printf("paddr = 0x%x\n", (pte.page_frame << 12) + linear_addr.offset);
-  //printf("mem = 0x%x\n", paddr_read((pte.page_frame << 12) + linear_addr.offset, 4));
+  printf("paddr = 0x%x\n", (pte.page_frame << 12) + linear_addr.offset);
+  printf("mem = 0x%x\n", paddr_read((pte.page_frame << 12) + linear_addr.offset, 4));
   return (pte.page_frame << 12) + linear_addr.offset;
 }
 
