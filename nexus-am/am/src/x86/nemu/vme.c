@@ -126,7 +126,8 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
 }
 
 _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, void *args) {
-  _Context *new = ustack.end - 0x40 - sizeof(_Context);
+  _Context *new = ustack.end - 0x100 - sizeof(_Context);
+  printf("as->ptr = 0x%x\n", as->ptr);
   new->eip = (uintptr_t)entry;
   new->cs = 8;
   new->as = as;

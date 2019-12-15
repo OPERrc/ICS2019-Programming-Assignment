@@ -124,13 +124,12 @@ void context_kload(PCB *pcb, void *entry) {
 }
 
 void context_uload(PCB *pcb, const char *filename) {
-  printf("as->ptr = 0x%x\n", pcb->as.ptr);
   _protect(&pcb->as);
   uintptr_t entry = loader(pcb, filename);
 
   _Area stack;
   stack.start = pcb->stack;
   stack.end = stack.start + sizeof(pcb->stack);
-printf("as->ptr = 0x%x\n", pcb->as.ptr);
+
   pcb->cp = _ucontext(&pcb->as, stack, stack, (void *)entry, NULL);
 }
