@@ -60,13 +60,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     point += fs_read(fd, &phdr, ehdr.e_phentsize);
 
     if (phdr.p_type == PT_LOAD) {
-      void *v_mem = (char *)phdr.p_vaddr;
+      void *v_mem = (void *)phdr.p_vaddr;
       uintptr_t load_offset = 0;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
 
       // load pages
       while (load_offset <= phdr.p_memsz) {
         void *p_mem = new_page(1);
+        //printf("p_mem = 0x%x\n", p_mem);
         _map(&(pcb->as), v_mem, p_mem, 0);
 
         if (load_offset + PGSIZE <= phdr.p_filesz)
