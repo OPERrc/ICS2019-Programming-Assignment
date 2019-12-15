@@ -18,7 +18,7 @@ void sys_yield(_Context *c) {
 
 void sys_execve(_Context *c, const char *fname) {
   // printf("filename = %s\n", (char *)c->GPR2);
-  kill(current);
+  //kill(current);
   context_uload(current, fname);
   //c->GPRx = -1;
 }
