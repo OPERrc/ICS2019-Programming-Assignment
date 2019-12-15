@@ -59,10 +59,7 @@ void sys_brk(_Context *c) {
   }
   else
   if (cur_brk > current->max_brk) {
-    if (mm_brk(current->max_brk, cur_brk - current->max_brk)) {
-      void *p_mem = new_page(1);
-      _map(&current->as, (void *)(cur_brk & ~0xfff), p_mem, 0);
-    }
+    mm_brk(current->max_brk, cur_brk - current->max_brk);
     current->max_brk = cur_brk;
   }
   //printf("cur_brk = 0x%x\n", cur_brk);
