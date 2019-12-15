@@ -76,7 +76,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           // cross filesz
           int len = phdr.p_filesz - load_offset;
           fs_read(fd, p_mem, len);
-          memset(p_mem + len, 0, PGSIZE - len);
+          //memset(p_mem + len, 0, PGSIZE - len);
         }
         else if (load_offset + PGSIZE <= phdr.p_memsz)
           // in (filesz, memsz - PGSIZE]
@@ -88,7 +88,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         v_mem += PGSIZE;
         load_offset += PGSIZE;
         printf("p_mem = 0x%x\n", p_mem);
-        printf("in mem = 0x%x\n", *(uint32_t *)p_mem);
+        printf("in p_mem = 0x%x\n", *(uint32_t *)p_mem);
       }
 
       fs_lseek(fd, point, SEEK_SET);
