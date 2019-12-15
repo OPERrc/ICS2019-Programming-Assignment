@@ -55,7 +55,7 @@ paddr_t page_translate(vaddr_t addr) {
 }
 
 uint32_t isa_vaddr_read(vaddr_t addr, int len) {
-  printf("addr = 0x%x\n", addr);
+  //printf("addr = 0x%x\n", addr);
   if (cpu.cr0.paging) {
     if ((addr & 0xfff) + len > PAGE_SIZE) {
       // cross pages
