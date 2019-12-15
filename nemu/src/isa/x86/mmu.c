@@ -78,8 +78,8 @@ void isa_vaddr_write(vaddr_t addr, uint32_t data, int len) {
   if (cpu.cr0.paging) {
     if ((addr & 0xfff) + len > PAGE_SIZE) {
       // cross pages
-      // panic("cross pages!");
-      Log("cross pages!");
+      panic("cross pages!");
+      // Log("cross pages!");
     }
     else {
       // not cross pages
