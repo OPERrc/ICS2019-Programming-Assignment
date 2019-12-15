@@ -40,7 +40,10 @@ uint32_t isa_vaddr_read(vaddr_t addr, int len) {
   if (cpu.cr0.paging) {
     if ((addr & 0xfff) + len > PAGE_SIZE) {
       // cross pages
-      panic("cross pages!");
+      //panic("cross pages!");
+      Log("cross pages!");
+      paddr_t paddr = page_translate(addr);
+      return paddr_read(paddr, len);
     }
     else {
       // not cross pages
@@ -56,7 +59,8 @@ void isa_vaddr_write(vaddr_t addr, uint32_t data, int len) {
   if (cpu.cr0.paging) {
     if ((addr & 0xfff) + len > PAGE_SIZE) {
       // cross pages
-       panic("cross pages!");
+      // panic("cross pages!");
+      Log("cross pages!");
     }
     else {
       // not cross pages
