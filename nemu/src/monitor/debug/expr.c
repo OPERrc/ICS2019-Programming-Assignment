@@ -316,7 +316,8 @@ int eval(int left, int right) {
 			while (index-1 >= left && tokens[index-1].type == TK_DEREF)
 				index--;
 			int val2 = eval(index+1, right);
-			return paddr_read(val2, 1);
+			printf("here\n");
+			return vaddr_read(val2, 1);
 		}
 		int val2 = eval(op+1, right);
 		int val1 = eval(left, op-1);
