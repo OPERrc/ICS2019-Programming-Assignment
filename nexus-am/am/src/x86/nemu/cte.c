@@ -27,7 +27,11 @@ void Context_display(_Context *c) {
   printf("-------------------\n");
 }
 
+void __am_get_cur_as(_Context *c);
+void __am_switch(_Context *c);
+
 _Context* __am_irq_handle(_Context *c) {
+  __am_get_cur_as(c);
   _Context *next = c;
   
   //Context_display(c);
@@ -48,6 +52,7 @@ _Context* __am_irq_handle(_Context *c) {
     printf("ev.event = %d, next_context = 0x%x\n", ev.event, next);
   }
   //assert(0);
+  __am_switch(c);
   return next;
 }
 

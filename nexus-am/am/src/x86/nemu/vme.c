@@ -89,13 +89,38 @@ void __am_switch(_Context *c) {
 }
 
 int _map(_AddressSpace *as, void *va, void *pa, int prot) {
+  union {
+    struct{
+      uint32_t offset:12;
+      uint32_t page:10;
+      uint32_t dir:10;
+    };
+    uint32_t val;
+  } v_addr;
+  v_addr.val = (uint32_t)va;
+  
+  PDE *updir = (PDE *)as->ptr;
+  if (updir[v_addr.dir] == 0)
+    updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1));
+  
+  PTE *uptabs = (PDE *)(updir[v_addr.dir]);
+  uptabs[v_addr.page] = (uint32_t)(pa - v_addr.offset);
+  //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
+  //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
+  //PTE *p_addr = (PTE *)(pa - v_addr.offset);
+  //PDE *uptab_addr = (PTE *)(pa - v_addr.offset) - v_addr.page;
+  //updir[v_addr.dir] = uptab_addr;
+  //uptab_addr[v_addr.page] = p_addr;
+  assert(0);
   return 0;
 }
 
 _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, void *args) {
+  _protect(as);
   _Context *new = ustack.end - 0x40 - sizeof(_Context);
   new->eip = (uintptr_t)entry;
   new->cs = 8;
+  //new->as = as;
   printf("--------------------------------\n");
   printf("in vme.c: _ucontext:\n");
   printf("_Context may have overlap bugs!\n");
