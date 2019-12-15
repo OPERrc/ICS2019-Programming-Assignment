@@ -45,6 +45,7 @@ printf("kpdirs = 0x%x\n", kpdirs);
       printf("pte_end? = 0x%x\n", pte_end);
       for (; pte < pte_end; pte += PGSIZE) {
         *ptab = pte;
+        printf("*ptab? = 0x%x\n", ptab);
         ptab ++;
       }
     }
