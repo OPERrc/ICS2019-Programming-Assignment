@@ -76,7 +76,9 @@ void *_sbrk(intptr_t increment) {
     //sprintf(buf, "%p\n", &_end);
     //_write(1, buf, 4);
     char *pre_brk = brk;
+    printf("brk = 0x%x\n", brk);
     brk += increment;
+    printf("brk = 0x%x\n", brk);
     return (void *)pre_brk;
   }
   else
