@@ -67,7 +67,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       // load pages
       while (load_offset <= phdr.p_memsz) {
         void *p_mem = new_page(1);
-        //printf("p_mem = 0x%x\n", p_mem);
         _map(&(pcb->as), v_mem, p_mem, 0);
 
         if (load_offset + PGSIZE <= phdr.p_filesz)
@@ -88,6 +87,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
         v_mem += PGSIZE;
         load_offset += PGSIZE;
+        printf("p_mem = 0x%x\n", p_mem);
+        printf("in mem = 0x%x\n", *(uint32_t *)p_mem);
       }
 
       fs_lseek(fd, point, SEEK_SET);
