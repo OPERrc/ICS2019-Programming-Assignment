@@ -72,13 +72,13 @@ void *_sbrk(intptr_t increment) {
   // sprintf(buf, "0x%x\n", pre_brk + increment);
   // _write(1, buf, 20);
   // assert(0);
+      printf("brk = %d\n", brk);
+    assert(0);
   if (_syscall_(SYS_brk, (intptr_t)(brk + increment), 0, 0) == 0) {
     //sprintf(buf, "%p\n", &_end);
     //_write(1, buf, 4);
     char *pre_brk = brk;
     brk += increment;
-    printf("brk = %d\n", brk);
-    assert(0);
     return (void *)pre_brk;
   }
   else
