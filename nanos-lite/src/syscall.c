@@ -50,12 +50,23 @@ void sys_brk(_Context *c) {
   intptr_t cur_brk = c->GPR2;
   printf("max_brk = 0x%x\n", current->max_brk);
   printf("cur_brk = 0x%x\n", cur_brk);
+
+  if (current->max_brk == 0) {
+    current->max_brk = cur_brk;
+    void *p_mem = new_page(1);
+    _map(&current->as, (void *)(cur_brk & ~0xfff), p_mem, 0);
+    //if (!has_map(cur_brk))
+  }
+  else
   if (cur_brk > current->max_brk) {
-    mm_brk(current->max_brk, cur_brk - current->max_brk);
+    if (mm_brk(current->max_brk, cur_brk - current->max_brk)) {
+      void *p_mem = new_page(1);
+      _map(&current->as, (void *)(cur_brk & ~0xfff), p_mem, 0);
+    }
     current->max_brk = cur_brk;
   }
   //printf("cur_brk = 0x%x\n", cur_brk);
-  assert(0);
+  //assert(0);
   c->GPRx = 0;
 }
 
