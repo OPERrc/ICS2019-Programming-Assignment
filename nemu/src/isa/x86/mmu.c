@@ -63,6 +63,8 @@ uint32_t isa_vaddr_read(vaddr_t addr, int len) {
       uint32_t data_hi = paddr_read(page_translate(addr), len - cross_len);
       uint32_t data_lo = paddr_read(page_translate((addr + len) & ~0xfff), cross_len);
       uint32_t data = ((data_hi << cross_len * 8) | data_lo);
+      printf("addr = 0x%x\n", addr);
+      printf("len = %d\n", len);
       printf("cross_len = %d\n", cross_len);
       printf("data_hi = 0x%x\n", data_hi);
       printf("data_lo = 0x%x\n", data_lo);
