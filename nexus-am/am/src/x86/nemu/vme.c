@@ -101,7 +101,7 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   
   PDE *updir = (PDE *)as->ptr;
   printf("updir = 0x%x\n", updir);
-  printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
+  //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
   if (updir[v_addr.dir] == 0)
     updir[v_addr.dir] = ((uint32_t)(pgalloc_usr(1)) << 12) | 0x001;
   printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
