@@ -49,8 +49,8 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
         printf("*ptab? = 0x%x\n", ptab);
         printf("pte? = 0x%x\n", pte);
         ptab ++;
+        assert(0);
       }
-      assert(0);
     }
   }
   //printf("kpdirs = 0x%x\n", kpdirs);
