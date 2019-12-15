@@ -15,7 +15,9 @@ paddr_t page_translate(vaddr_t addr) {
   PTE pte;
 
   linear_addr.addr = addr;
-  printf("linear_addr = 0x%x\n", addr);
+  printf("dir = 0x%x\n", linear_addr.dir);
+  printf("page = 0x%x\n", linear_addr.page);
+  printf("offset = 0x%x\n", linear_addr.offset);
   printf("cpu.cr3.page_directory_base = 0x%x\n", cpu.cr3.page_directory_base << 12);
   printf("dir = 0x%x\n", (cpu.cr3.page_directory_base << 12) + linear_addr.dir * 4);
 
