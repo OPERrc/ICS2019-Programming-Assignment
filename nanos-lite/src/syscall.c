@@ -48,6 +48,8 @@ void sys_brk(_Context *c) {
   // _write(1, buf, 20);
   //_heap.start = (uintptr_t *)(c->GPR2);
   //intptr_t new_brk = mm_brk(c->as->max_brk, c->GPR2 - c->as->max_brk);
+  printf("brk = 0x%x\n", c->GPR2);
+  assert(0);
   c->GPRx = 0;
 }
 
