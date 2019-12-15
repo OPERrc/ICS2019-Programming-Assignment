@@ -45,6 +45,13 @@
 }*/
 void* new_page(size_t nr_page);
 
+void phdr_display(Elf_Phdr *phdr) {
+  printf("--------------\n");
+  printf("vaddr = 0x%x\n", phdr->p_vaddr);
+  printf("filesz = %d\n", phdr->p_filesz);
+  printf("memsz = %d\n", phdr->p_memsz);
+}
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
@@ -61,7 +68,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
     if (phdr.p_type == PT_LOAD) {
       void *v_mem = (void *)phdr.p_vaddr;
-      printf("v_mem = 0x%x\n", v_mem);
+      phdr_display(&phdr);
       uintptr_t load_offset = 0;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
 
