@@ -23,8 +23,8 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  //context_kload(&pcb[0], (void *)hello_fun);
-  context_uload(&pcb[0], "/bin/dummy");
+  context_kload(&pcb[0], (void *)hello_fun);
+  context_uload(&pcb[0], "/bin/pal");
   //switch_boot_pcb();
   switch_boot_pcb();
 
@@ -37,9 +37,9 @@ void init_proc() {
 
 _Context* schedule(_Context *prev) {
   current->cp = prev;
-  current = &pcb[0];
-  //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-  printf("current->cp = 0x%x\n", current->cp);
+  //current = &pcb[0];
+  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  //printf("current->cp = 0x%x\n", current->cp);
   //assert(0);
   return current->cp;
 }

@@ -42,9 +42,12 @@ void sys_write(_Context *c) {
   c->GPRx = fs_write(c->GPR2, (void *)(c->GPR3), c->GPR4);
 }
 
+int mm_brk(uintptr_t brk, intptr_t increment);
+
 void sys_brk(_Context *c) {
   // _write(1, buf, 20);
   //_heap.start = (uintptr_t *)(c->GPR2);
+  //intptr_t new_brk = mm_brk(c->as->max_brk, c->GPR2 - c->as->max_brk);
   c->GPRx = 0;
 }
 

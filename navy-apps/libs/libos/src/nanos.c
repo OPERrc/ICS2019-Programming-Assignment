@@ -77,6 +77,8 @@ void *_sbrk(intptr_t increment) {
     //_write(1, buf, 4);
     char *pre_brk = brk;
     brk += increment;
+    printf("brk = %d\n", brk);
+    assert(0);
     return (void *)pre_brk;
   }
   else
