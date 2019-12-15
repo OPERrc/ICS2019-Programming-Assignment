@@ -53,8 +53,8 @@ void sys_brk(_Context *c) {
 
   if (current->max_brk == 0) {
     current->max_brk = cur_brk;
-    void *p_mem = new_page(1);
-    _map(&current->as, (void *)(cur_brk & ~0xfff), p_mem, 0);
+    //void *p_mem = new_page(1);
+    //_map(&current->as, (void *)(cur_brk & ~0xfff), p_mem, 0);
     //if (!has_map(cur_brk))
   }
   else
