@@ -21,7 +21,7 @@ void raise_intr(uint32_t NO, vaddr_t ret_addr) {
 
 bool isa_query_intr(void) {
   //printf("cpu.pc = 0x%x\n", cpu.pc);
-  if (cpu.IF == 1 && cpu.INTR == true) {
+  if (cpu.IF == 0 && cpu.INTR == true) {
     cpu.INTR = false;
     raise_intr(IRQ_TIMER, cpu.pc);
     return true;
