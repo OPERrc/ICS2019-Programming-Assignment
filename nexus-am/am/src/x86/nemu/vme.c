@@ -99,6 +99,7 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   } v_addr;
   v_addr.val = (uint32_t)va;
   
+  printf("va = 0x%x\n", v_addr.val);
   PDE *updir = (PDE *)as->ptr;
   printf("updir = 0x%x\n", updir);
   //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
