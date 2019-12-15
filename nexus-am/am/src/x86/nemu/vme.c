@@ -107,7 +107,7 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
   PTE *uptabs = (PDE *)(updir[v_addr.dir]);
   printf("uptabs = 0x%x\n", uptabs);
-  printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
+  //printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
   uptabs[v_addr.page] = ((uint32_t)(pa - v_addr.offset) << 12) | 0x001;
   printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
