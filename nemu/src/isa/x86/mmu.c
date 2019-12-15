@@ -33,7 +33,7 @@ paddr_t page_translate(vaddr_t addr) {
   //panic("untested codes here!\n");
   printf("paddr = 0x%x\n", (pte.page_frame << 12) + linear_addr.offset);
   printf("paddr_read = 0x%x\n", paddr_read((pte.page_frame << 12) + linear_addr.offset, 4));
-  return (pte.page_frame << 12) + linear_addr.offset * 4;
+  return (pte.page_frame << 12) + linear_addr.offset;
 }
 
 uint32_t isa_vaddr_read(vaddr_t addr, int len) {
