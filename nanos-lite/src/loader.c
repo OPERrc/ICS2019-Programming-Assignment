@@ -61,6 +61,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
     if (phdr.p_type == PT_LOAD) {
       void *v_mem = (void *)phdr.p_vaddr;
+      printf("v_mem = 0x%x\n", v_mem);
       uintptr_t load_offset = 0;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
 
@@ -87,8 +88,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
         v_mem += PGSIZE;
         load_offset += PGSIZE;
-        printf("p_mem = 0x%x\n", p_mem);
-        printf("in p_mem = 0x%x\n", *(uint32_t *)p_mem);
+        //printf("p_mem = 0x%x\n", p_mem);
+        //printf("in p_mem = 0x%x\n", *(uint32_t *)p_mem);
       }
 
       fs_lseek(fd, point, SEEK_SET);
