@@ -101,10 +101,10 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   
   PDE *updir = (PDE *)as->ptr;
   if (updir[v_addr.dir] == 0)
-    updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1));
+    updir[v_addr.dir] = ((uint32_t)(pgalloc_usr(1)) << 12) | 0x001;
   
   PTE *uptabs = (PDE *)(updir[v_addr.dir]);
-  uptabs[v_addr.page] = (uint32_t)(pa - v_addr.offset);
+  uptabs[v_addr.page] = ((uint32_t)(pa - v_addr.offset) << 12) | 0x001;
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
   //PTE *p_addr = (PTE *)(pa - v_addr.offset);
