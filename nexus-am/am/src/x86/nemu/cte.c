@@ -54,7 +54,7 @@ _Context* __am_irq_handle(_Context *c) {
     //printf("ev.event = %d, next_context = 0x%x\n", ev.event, next);
   }
   //assert(0);
-  //Context_display(next);
+  Context_display(next);
   __am_switch(next);
   return next;
 }
