@@ -52,7 +52,7 @@ _Context* __am_irq_handle(_Context *c) {
     //printf("ev.event = %d, next_context = 0x%x\n", ev.event, next);
   }
   //assert(0);
-  __am_switch(c);
+  __am_switch(next);
   return next;
 }
 
