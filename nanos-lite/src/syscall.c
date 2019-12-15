@@ -65,7 +65,7 @@ void sys_brk(_Context *c) {
   }
   else
   if (cur_brk > current->max_brk) {
-    mm_brk(current->max_brk, cur_brk - current->max_brk);
+    mm_brk(current->max_brk, increment);
     current->max_brk = cur_brk;
   }
   //printf("cur_brk = 0x%x\n", cur_brk);
