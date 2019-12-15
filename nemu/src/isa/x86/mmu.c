@@ -60,7 +60,7 @@ uint32_t isa_vaddr_read(vaddr_t addr, int len) {
     if ((addr & 0xfff) + len > PAGE_SIZE) {
       // cross pages
       //panic("cross pages!");
-      Log("cross pages!");
+      panic("cross pages!");
       paddr_t paddr = page_translate(addr);
       return paddr_read(paddr, len);
     }
