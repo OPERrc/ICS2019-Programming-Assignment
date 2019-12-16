@@ -141,7 +141,7 @@ void context_uload(PCB *pcb, const char *filename) {
   _protect(&pcb->as);
   uintptr_t entry = loader(pcb, filename);
 
-  Log("Jump to entry = %x", entry);
+  Log("%s entry = %x", filename, entry);
 
   _Area stack;
   stack.start = pcb->stack;
