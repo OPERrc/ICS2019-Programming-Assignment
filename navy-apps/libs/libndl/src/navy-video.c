@@ -56,6 +56,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
 }
 
 void __am_vga_init() {
+  assert(0);
   get_display_info();
   NDL_OpenDisplay(screen_w, screen_h);
 }
