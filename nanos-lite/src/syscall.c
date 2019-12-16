@@ -59,7 +59,7 @@ void sys_brk(_Context *c) {
   printf("increment = 0x%x\n", increment);
 
   if (current->max_brk == 0) {
-    mm_brk(cur_brk, increment);
+    mm_brk(cur_brk - PGSIZE, PGSIZE + increment);
     current->max_brk = cur_brk + increment;
     //if (!has_page(&current->as, (void *)cur_brk)) { 
     //}
