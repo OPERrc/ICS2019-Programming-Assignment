@@ -1,4 +1,5 @@
 #include <ndl.h>
+#include <stdio.h>
 //#include <stddef.h>
 
 int NDL_WaitEvent(NDL_Event *event);
