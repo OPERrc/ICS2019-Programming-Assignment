@@ -68,7 +68,7 @@ int _protect(_AddressSpace *as) {
   // map kernel space
   for (int i = 0; i < NR_PDE; i ++) {
     updir[i] = kpdirs[i];
-    printf("updir[%d] = 0x%x\n", i, updir[i]);
+    // printf("updir[%d] = 0x%x\n", i, updir[i]);
   }
 
   return 0;
