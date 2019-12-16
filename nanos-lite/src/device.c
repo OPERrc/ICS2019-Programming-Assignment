@@ -22,6 +22,7 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   //_yield();
+  extern int fg_pcb;
   int key = read_key();
   char name[128];
   char time[128];
@@ -33,8 +34,15 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   }
   if (key != _KEY_NONE) {
     //printf("name before = %s\n", name);
-    if (down) 
+    if (down) {
       sprintf(name, "kd %s\n", keyname[key]);
+      if (strcmp(keyname[key], "F1") == 0)
+        fg_pcb = 1;
+      else if (strcmp(keyname[key], "F2") == 0)
+        fg_pcb = 2;
+      else if (strcmp(keyname[key], "F3") == 0)
+        fg_pcb = 3;
+    }
     else
       sprintf(name, "ku %s\n", keyname[key]);
     num = 0;
