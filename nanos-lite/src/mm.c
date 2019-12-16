@@ -4,17 +4,17 @@
 static void *pf = NULL;
 
 
-void* new_page(size_t nr_page) {
+/*void* new_page(size_t nr_page) {
   void *p = pf;
   pf += PGSIZE * nr_page;
   assert(pf < (void *)_heap.end);
   return p;
-}
+}*/
 
 static void *start = NULL;
-//static bool pg_alloc[0x8000000 / PGSIZE] = {};
+static bool pg_alloc[0x8000000 / PGSIZE] = {};
 #define INDEX(p) (uint32_t)p / PGSIZE
-/*void* new_page(size_t nr_page) {
+void* new_page(size_t nr_page) {
   void *p = pf;
   pg_alloc[INDEX(p)] = true;
   pf += PGSIZE * nr_page;
@@ -29,12 +29,11 @@ static void *start = NULL;
   //assert(0);
   //assert(pf < (void *)_heap.end);
   return p;
-}*/
+}
 
 void free_page(void *p) {
-  //if (p >= start)
-    //pg_alloc[INDEX(p)] = false;
-  //panic("not implement yet");
+  if (p >= start)
+    pg_alloc[INDEX(p)] = false;
 }
 
 /* The brk() system call handler. */
@@ -54,8 +53,8 @@ int mm_brk(uintptr_t brk, intptr_t increment) {
 void init_mm() {
   pf = (void *)PGROUNDUP((uintptr_t)_heap.start);
   start = pf;
-  //for (int i = INDEX(start); i < INDEX(0x8000000); i++)
-    //pg_alloc[i] = false;
+  for (int i = INDEX(start); i < INDEX(0x8000000); i++)
+    pg_alloc[i] = false;
   Log("free physical pages starting from %p", pf);
   
   _vme_init(new_page, free_page);
