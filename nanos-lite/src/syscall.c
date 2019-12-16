@@ -54,9 +54,9 @@ void sys_brk(_Context *c) {
   intptr_t increment = c->GPR3;
   //extern char _end;
   //printf("_end = 0x%x\n", &_end);
-  printf("max_brk = 0x%x\n", current->max_brk);
+  /*printf("max_brk = 0x%x\n", current->max_brk);
   printf("cur_brk = 0x%x\n", cur_brk);
-  printf("increment = 0x%x\n", increment);
+  printf("increment = 0x%x\n", increment);*/
 
   if (current->max_brk == 0) {
     mm_brk(cur_brk - PGSIZE, PGSIZE + increment);
