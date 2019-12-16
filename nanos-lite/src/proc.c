@@ -30,8 +30,8 @@ void init_proc() {
   fg_pcb = 1;
   context_uload(&pcb[0], "/bin/hello");
   context_uload(&pcb[1], "/bin/pal");
-  context_uload(&pcb[2], "/bin/pal");
-  context_uload(&pcb[3], "/bin/pal");
+  context_uload(&pcb[2], "/bin/bmptest");
+  context_uload(&pcb[3], "/bin/events");
   //context_kload(&pcb[1], (void *)hello_fun);
   //switch_boot_pcb();
   switch_boot_pcb();
