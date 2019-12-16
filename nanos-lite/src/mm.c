@@ -32,7 +32,8 @@ void* new_page(size_t nr_page) {
 }
 
 void free_page(void *p) {
-  pg_alloc[INDEX(p)] = false;
+  if (p >= start)
+    pg_alloc[INDEX(p)] = false;
   //panic("not implement yet");
 }
 
