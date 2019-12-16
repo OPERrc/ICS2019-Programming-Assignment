@@ -16,7 +16,7 @@ static _Context* do_event(_Event e, _Context* c) {
       break; 
     case _EVENT_IRQ_TIMER:
       _yield();
-      Log("Event \"IRQ_TIMER\" catched!\n");
+      //Log("Event \"IRQ_TIMER\" catched!\n");
       break;
     default: panic("Unhandled event ID = %d", e.event);
   }
