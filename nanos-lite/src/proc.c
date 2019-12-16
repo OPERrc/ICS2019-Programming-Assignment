@@ -27,7 +27,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   proc_time = 0;
-  fg_pcb = 2;
+  fg_pcb = 1;
   context_uload(&pcb[0], "/bin/hello");
   context_uload(&pcb[1], "/bin/typing-am");
   context_uload(&pcb[2], "/bin/microbench-am");
@@ -47,7 +47,7 @@ _Context* schedule(_Context *prev) {
   current->cp = prev;
   //current = &pcb[0];
   proc_time = (proc_time + 1) % TIME_CHANGE;
-  current = (proc_time == 0 ? &pcb[2] : &pcb[fg_pcb]);
+  current = (proc_time == 0 ? &pcb[1] : &pcb[fg_pcb]);
   //printf("current->cp = 0x%x\n", current->cp);
   //assert(0);
   return current->cp;
