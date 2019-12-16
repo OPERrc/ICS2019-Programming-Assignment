@@ -20,7 +20,7 @@ vaddr_t exec_once(void) {
   isa_exec(&decinfo.seq_pc);
   //if (isa_query_intr())
   isa_query_intr();
-    update_pc();
+  update_pc();
 
   return decinfo.seq_pc;
 }
