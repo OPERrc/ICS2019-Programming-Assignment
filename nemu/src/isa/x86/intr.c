@@ -25,7 +25,7 @@ bool isa_query_intr(void) {
   if (cpu.IF == 1 && cpu.INTR == true) {
   //if (cpu.INTR == true) {
     cpu.INTR = false;
-    raise_intr(IRQ_TIMER, decinfo.seq_pc);
+    raise_intr(IRQ_TIMER, decinfo.is_jmp ? cpu.pc : decinfo.seq_pc);
     return true;
   }
   return false;
