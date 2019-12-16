@@ -87,13 +87,13 @@ void _unprotect(_AddressSpace *as) {
         }
       }
       pgfree_usr((void *)(updir[i] & ~0xfff));
-      updir[i] = 0;
       printf("freed updir = 0x%x\n", updir[i]);
+      updir[i] = 0;
     }
   }
   pgfree_usr(as->ptr);
-  as->ptr = 0;
   printf("freed as = 0x%x\n", updir);
+  as->ptr = 0;
 }
 
 static _AddressSpace *cur_as = NULL;
