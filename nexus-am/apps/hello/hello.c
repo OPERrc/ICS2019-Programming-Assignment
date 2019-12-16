@@ -11,7 +11,8 @@ int main() {
   int i = 2;
   while(1) {
     putstr("Hello, AM World @ " __ISA__);
-    printf("for the %d times!\n", i);
+    printf("for the %dth time!\n", i);
+    i++;
   }
   return 0;
 }
