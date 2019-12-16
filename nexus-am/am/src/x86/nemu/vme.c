@@ -90,9 +90,6 @@ void _unprotect(_AddressSpace *as) {
   }
   pgfree_usr(updir);
   printf("freed as = 0x%x\n", updir);
-  for (int i = 0; i < NR_PDE; i ++) {
-    updir[i] = kpdirs[i];
-  }
 }
 
 static _AddressSpace *cur_as = NULL;

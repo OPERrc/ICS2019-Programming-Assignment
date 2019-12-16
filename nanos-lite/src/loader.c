@@ -138,8 +138,7 @@ void context_kload(PCB *pcb, void *entry) {
 }
 
 void context_uload(PCB *pcb, const char *filename) {
-  if (pcb->as.ptr == NULL)
-    _protect(&pcb->as);
+  _protect(&pcb->as);
   uintptr_t entry = loader(pcb, filename);
 
   Log("%s entry = %x", filename, entry);
