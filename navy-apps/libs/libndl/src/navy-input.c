@@ -11,14 +11,14 @@ size_t __am_input_read(uintptr_t reg, void *buf, size_t size) {
       _DEV_INPUT_KBD_t *kbd = (_DEV_INPUT_KBD_t *)buf;
       //assert(0);
       if (e.type == NDL_EVENT_KEYDOWN || e.type == NDL_EVENT_KEYUP) {
-        kbd->keydown = e.type;
+        kbd->keydown = ~e.type;
         kbd->keycode = e.data;
       }
       else {
-        kbd->keydown = NDL_EVENT_KEYUP;
+        kbd->keydown = ~NDL_EVENT_KEYUP;
         kbd->keycode = NDL_SCANCODE_NONE;
       }
-      printf("key = %d, keydown = %d\n", kbd->keydown, kbd->keycode);
+      printf("key = %d, keydown = %d\n", kbd->keycode, kbd->keydown);
       return sizeof(_DEV_INPUT_KBD_t);
     }
   }
