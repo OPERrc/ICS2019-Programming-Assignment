@@ -27,10 +27,10 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   proc_time = 0;
-  fg_pcb = 3;
+  fg_pcb = 2;
   context_uload(&pcb[0], "/bin/hello");
   context_uload(&pcb[1], "/bin/typing-am");
-  context_uload(&pcb[2], "/bin/slider-am");
+  context_uload(&pcb[2], "/bin/init");
   context_uload(&pcb[3], "/bin/pal");
   //context_kload(&pcb[1], (void *)hello_fun);
   //switch_boot_pcb();
