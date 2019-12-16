@@ -149,11 +149,15 @@ void _kill(_AddressSpace *as) {
     if ((updir[i] & PTE_P) == 1) {
       PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
       for (int j = 0; j < PGSIZE / 4; j++) {
-        if ((uptabs[j] & PTE_P) == 1)
+        if ((uptabs[j] & PTE_P) == 1) {
           pgfree_usr((void *)(uptabs[j] & ~0xfff));
+          printf("freed page = 0x%x\n", uptabs[j]);
+        }
       }
-      pgfree_usr(uptabs);
+      pgfree_usr((void *)(updir[i] & ~0xfff));
+      printf("freed page = 0x%x\n", updir[i]);
     }
   }
   pgfree_usr(updir);
+  printf("freed page = 0x%x\n", updir);
 }
