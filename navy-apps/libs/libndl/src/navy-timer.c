@@ -10,7 +10,7 @@ size_t __am_timer_read(uintptr_t reg, void *buf, size_t size) {
     case _DEVREG_TIMER_UPTIME: {
       _DEV_TIMER_UPTIME_t *uptime = (_DEV_TIMER_UPTIME_t *)buf;
       NDL_Event e;
-      while (e.data != NDL_EVENT_TIMER)
+      while (e.type != NDL_EVENT_TIMER)
         NDL_WaitEvent(&e);
       uint32_t t = e.data;
       uptime->hi = 0;
