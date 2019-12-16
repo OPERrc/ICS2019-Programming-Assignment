@@ -75,10 +75,10 @@ int _protect(_AddressSpace *as) {
 
 void _unprotect(_AddressSpace *as) {
   PDE *updir = as->ptr;
-  for (int i = NR_PDE; i < 0x8000000 / PGSIZE; i++) {
+  for (int i = 0; i < NR_PDE; i++) {
     if ((updir[i] & PTE_P) == 1) {
       PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
-      for (int j = 0; j < PGSIZE / 4; j++) {
+      for (int j = 0; j < NR_PTE; j++) {
         if ((uptabs[j] & PTE_P) == 1) {
           pgfree_usr((void *)(uptabs[j] & ~0xfff));
           //printf("freed uptabs = 0x%x\n", uptabs[j]);
@@ -90,6 +90,9 @@ void _unprotect(_AddressSpace *as) {
   }
   pgfree_usr(updir);
   printf("freed as = 0x%x\n", updir);
+  for (int i = 0; i < NR_PDE; i ++) {
+    updir[i] = kpdirs[i];
+  }
 }
 
 static _AddressSpace *cur_as = NULL;
