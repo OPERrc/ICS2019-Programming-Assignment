@@ -4,10 +4,11 @@
 
 _Area _heap = {};
 
-void _start(int argc, char *argv[], char *envp[]);
+int main(const char *args);
 
 void _trm_init() {
-  _start(0, NULL, NULL);
+  int ret = main(NULL);
+  _halt(ret);
 }
 
 void _putc(char ch) {
