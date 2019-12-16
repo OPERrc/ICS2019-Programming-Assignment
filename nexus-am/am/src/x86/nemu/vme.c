@@ -151,7 +151,7 @@ void _kill(_AddressSpace *as) {
       for (int j = 0; j < PGSIZE / 4; j++) {
         if ((uptabs[j] & PTE_P) == 1) {
           pgfree_usr((void *)(uptabs[j] & ~0xfff));
-          printf("freed uptabs = 0x%x\n", uptabs[j]);
+          //printf("freed uptabs = 0x%x\n", uptabs[j]);
         }
       }
       pgfree_usr((void *)(updir[i] & ~0xfff));
