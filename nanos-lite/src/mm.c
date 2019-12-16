@@ -2,10 +2,20 @@
 #include "proc.h"
 
 static void *pf = NULL;
+static void *start = NULL;
+
+/*void* new_page(size_t nr_page) {
+  void *p = pf;
+  pf += PGSIZE * nr_page;
+  assert(pf < (void *)_heap.end);
+  return p;
+}*/
 
 void* new_page(size_t nr_page) {
   void *p = pf;
   pf += PGSIZE * nr_page;
+  printf("_heap.end = 0x%x\n", _heap.end);
+  assert(0);
   assert(pf < (void *)_heap.end);
   return p;
 }
@@ -30,6 +40,7 @@ int mm_brk(uintptr_t brk, intptr_t increment) {
 
 void init_mm() {
   pf = (void *)PGROUNDUP((uintptr_t)_heap.start);
+  start = pf;
   Log("free physical pages starting from %p", pf);
 
   _vme_init(new_page, free_page);
