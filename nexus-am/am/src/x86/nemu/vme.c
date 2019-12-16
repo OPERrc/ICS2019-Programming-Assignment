@@ -74,6 +74,22 @@ int _protect(_AddressSpace *as) {
 }
 
 void _unprotect(_AddressSpace *as) {
+  PDE *updir = as->ptr;
+  for (int i = NR_PDE; i < 0x8000000 / PGSIZE; i++) {
+    if ((updir[i] & PTE_P) == 1) {
+      PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
+      for (int j = 0; j < PGSIZE / 4; j++) {
+        if ((uptabs[j] & PTE_P) == 1) {
+          pgfree_usr((void *)(uptabs[j] & ~0xfff));
+          //printf("freed uptabs = 0x%x\n", uptabs[j]);
+        }
+      }
+      pgfree_usr((void *)(updir[i] & ~0xfff));
+      printf("freed updir = 0x%x\n", updir[i]);
+    }
+  }
+  pgfree_usr(updir);
+  printf("freed as = 0x%x\n", updir);
 }
 
 static _AddressSpace *cur_as = NULL;
@@ -141,23 +157,4 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   //printf("_Context may have overlap bugs!\n");
   //printf("--------------------------------\n");
   return new;
-}
-
-void _kill(_AddressSpace *as) {
-  PDE *updir = as->ptr;
-  for (int i = 0; i < PGSIZE / 4; i++) {
-    if ((updir[i] & PTE_P) == 1) {
-      PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
-      for (int j = 0; j < PGSIZE / 4; j++) {
-        if ((uptabs[j] & PTE_P) == 1) {
-          pgfree_usr((void *)(uptabs[j] & ~0xfff));
-          //printf("freed uptabs = 0x%x\n", uptabs[j]);
-        }
-      }
-      pgfree_usr((void *)(updir[i] & ~0xfff));
-      printf("freed updir = 0x%x\n", updir[i]);
-    }
-  }
-  pgfree_usr(updir);
-  printf("freed as = 0x%x\n", updir);
 }
