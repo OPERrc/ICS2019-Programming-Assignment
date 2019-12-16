@@ -12,7 +12,6 @@ int get_fps() {
 
 int main (){
   _ioe_init();
-  assert(0);
   init_screen();
   int num_draw = 0, frames = 0;
   unsigned long next_frame = 0, next_refresh = 0;
