@@ -27,7 +27,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   proc_time = 0;
-  fg_pcb = 2;
+  fg_pcb = 1;
   context_uload(&pcb[0], "/bin/hello");
   context_uload(&pcb[1], "/bin/typing-am");
   context_uload(&pcb[2], "/bin/microbench-am");
