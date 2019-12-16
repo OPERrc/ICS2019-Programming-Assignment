@@ -53,7 +53,3 @@ _Context* schedule(_Context *prev) {
   return current->cp;
 }
 
-void kill(PCB *pcb) {
-  for (int i = 0; i < STACK_SIZE; i++)
-    pcb->stack[i] = 0;
-}

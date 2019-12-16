@@ -142,3 +142,18 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   //printf("--------------------------------\n");
   return new;
 }
+
+void _kill(_AddressSpace *as) {
+  PDE *updir = as->ptr;
+  for (int i = 0; i < PGSIZE / 4; i++) {
+    if ((updir[i] & PTE_P) == 1) {
+      PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
+      for (int j = 0; j < PGSIZE / 4; j++) {
+        if ((uptabs[j] & PTE_P) == 1)
+          pgfree_usr((void *)(uptabs[j] & ~0xfff));
+      }
+      pgfree_usr(uptabs);
+    }
+  }
+  pgfree_usr(updir);
+}
