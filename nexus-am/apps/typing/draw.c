@@ -24,8 +24,6 @@ void init_screen(void) {
     for (int x = 0; x < W; x ++)
       canvas[y][x] = BACKGROUND_COLOR;
 
-  printf("here\n");
-
   assert(screen_width() >= W);
   assert(screen_height() >= H);
   x_adjust = (screen_width() - W) / 2;
