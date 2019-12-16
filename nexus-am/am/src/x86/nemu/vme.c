@@ -145,7 +145,7 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
 
 void _kill(_AddressSpace *as) {
   PDE *updir = as->ptr;
-  for (int i = PGSIZE / 4; i < 2 * PGSIZE / 4; i++) {
+  for (int i = 0; i < PGSIZE / 4; i++) {
     if ((updir[i] & PTE_P) == 1) {
       PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
       for (int j = 0; j < PGSIZE / 4; j++) {
