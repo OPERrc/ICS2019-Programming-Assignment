@@ -19,7 +19,7 @@ size_t __am_input_read(uintptr_t reg, void *buf, size_t size) {
         kbd->keydown = 0;
         kbd->keycode = NDL_SCANCODE_NONE;
       }
-      printf("e.type = %d, key = %d, keydown = %d\n", e.type, kbd->keycode, kbd->keydown);
+      //printf("e.type = %d, key = %d, keydown = %d\n", e.type, kbd->keycode, kbd->keydown);
       return sizeof(_DEV_INPUT_KBD_t);
     }
   }
