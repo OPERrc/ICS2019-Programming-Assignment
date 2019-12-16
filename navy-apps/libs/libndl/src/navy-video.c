@@ -7,6 +7,7 @@
 int NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h);
 void draw_sync();
 static int screen_w, screen_h;
+int NDL_OpenDisplay(int w, int h);
 
 static void get_display_info() {
   FILE *dispinfo = fopen("/proc/dispinfo", "r");
@@ -56,4 +57,5 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
 
 void __am_vga_init() {
   get_display_info();
+  NDL_OpenDisplay(screen_w, screen_h);
 }
