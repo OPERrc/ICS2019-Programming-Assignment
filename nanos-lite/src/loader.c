@@ -68,7 +68,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
     if (phdr.p_type == PT_LOAD) {
       void *v_mem = (void *)phdr.p_vaddr;
-      phdr_display(&phdr);
+      //phdr_display(&phdr);
       uintptr_t load_offset = 0;
       fs_lseek(fd, phdr.p_offset, SEEK_SET);
 
