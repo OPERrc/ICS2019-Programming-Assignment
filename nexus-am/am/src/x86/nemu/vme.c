@@ -103,8 +103,8 @@ void _unprotect(_AddressSpace *as) {
   
   pgfree_usr((void *)updir);
   
-  _clear((void *)updir);
-  assert(0);
+  //_clear((void *)updir);
+  //assert(0);
 }
 
 static _AddressSpace *cur_as = NULL;
