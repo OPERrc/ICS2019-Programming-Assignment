@@ -95,7 +95,7 @@ void _unprotect(_AddressSpace *as) {
       }
       //printf("freed pte = 0x%x\n", uptabs);
       pgfree_usr((void *)uptabs);
-      _clear((uint32_t *)uptabs);
+      //_clear((uint32_t *)uptabs);
       //updir[i] = 0;
     }
   }
