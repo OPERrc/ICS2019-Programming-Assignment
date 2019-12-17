@@ -32,8 +32,8 @@ void* new_page(size_t nr_page) {
 }
 
 void free_page(void *p) {
-  if (p < start) 
-    return;
+  //if (p < start) 
+    //return;
 
   pg_alloc[INDEX(p)] = false;
   //uint32_t *pte = (uint32_t *)p;
