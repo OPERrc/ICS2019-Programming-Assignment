@@ -81,7 +81,7 @@ void _unprotect(_AddressSpace *as) {
       PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
       for (int j = 0; j < NR_PTE; j++) {
         if ((uptabs[j] & PTE_P) == 1) {
-          printf("freed p_mem = 0x%x\n", uptabs[j]);
+          //printf("freed p_mem = 0x%x\n", uptabs[j]);
           pgfree_usr((void *)(uptabs[j] & ~0xfff));
           //uptabs[j] = 0;
         }
