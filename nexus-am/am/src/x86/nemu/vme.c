@@ -76,6 +76,7 @@ int _protect(_AddressSpace *as) {
 
 void _unprotect(_AddressSpace *as) {
   PDE *updir = as->ptr;
+  printf("updir = 0x%x\n", updir);
   for (int i = 0; i < NR_PDE; i++) {
     printf("i = 0x%x\n", i);
     if ((updir[i] & PTE_P) == 1) {
