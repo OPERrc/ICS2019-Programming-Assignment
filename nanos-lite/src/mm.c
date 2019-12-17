@@ -32,8 +32,13 @@ void* new_page(size_t nr_page) {
 }
 
 void free_page(void *p) {
-  if (p >= start)
-    pg_alloc[INDEX(p)] = false;
+  if (p < start) 
+    return;
+    
+  pg_alloc[INDEX(p)] = false;
+  uint32_t *pte = (uint32_t *)p;
+  for (int i = 0; i < PGSIZE / 4; i++)
+    pte[i] = 0x00000000;
 }
 
 /* The brk() system call handler. */

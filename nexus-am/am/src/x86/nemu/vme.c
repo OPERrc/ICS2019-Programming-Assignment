@@ -81,22 +81,18 @@ void _unprotect(_AddressSpace *as) {
       PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
       for (int j = 0; j < NR_PTE; j++) {
         if ((uptabs[j] & PTE_P) == 1) {
+          printf("freed p_mem = 0x%x\n", uptabs[j]);
           pgfree_usr((void *)(uptabs[j] & ~0xfff));
           //uptabs[j] = 0;
-          //printf("freed uptabs = 0x%x\n", uptabs[j]);
         }
       }
-      pgfree_usr((void *)(updir[i] & ~0xfff));
-      printf("freed updir = 0x%x\n", updir[i]);
+      printf("freed pte = 0x%x\n", uptabs);
+      pgfree_usr((void *)uptabs);
       //updir[i] = 0;
     }
   }
-  for (int i = 0; i < NR_PDE; i++) {
-    updir[i] = 0;
-  }
-  //pgfree_usr(as->ptr);
-  printf("freed as = 0x%x\n", updir);
-  as->ptr = 0;
+  printf("freed pde = 0x%x\n", as->ptr);
+  pgfree_usr((void *)as->ptr);
 }
 
 static _AddressSpace *cur_as = NULL;
