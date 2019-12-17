@@ -77,6 +77,7 @@ int _protect(_AddressSpace *as) {
 void _unprotect(_AddressSpace *as) {
   PDE *updir = as->ptr;
   for (int i = 0; i < NR_PDE; i++) {
+    printf("i = 0x%x\n", i);
     if ((updir[i] & PTE_P) == 1) {
       PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
       for (int j = 0; j < NR_PTE; j++) {
