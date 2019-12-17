@@ -74,6 +74,11 @@ int _protect(_AddressSpace *as) {
   return 0;
 }
 
+void _clear(uint32_t *p) {
+  for (int i = 0; i < NR_PTE; i++)
+    p[i] = 0;
+}
+
 void _unprotect(_AddressSpace *as) {
   PDE *updir = as->ptr;
   printf("updir = 0x%x\n", updir);
@@ -90,11 +95,13 @@ void _unprotect(_AddressSpace *as) {
       }
       //printf("freed pte = 0x%x\n", uptabs);
       pgfree_usr((void *)uptabs);
+      _clear((uint32_t *)uptabs);
       //updir[i] = 0;
     }
   }
  // printf("freed pde = 0x%x\n", as->ptr);
   pgfree_usr((void *)as->ptr);
+  _clear((void *)as->ptr);
 }
 
 static _AddressSpace *cur_as = NULL;

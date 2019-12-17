@@ -35,15 +35,15 @@ void free_page(void *p) {
   if (p < start) 
     return;
 
-  //pg_alloc[INDEX(p)] = false;
-  uint32_t *pte = (uint32_t *)p;
-  printf("freed pte = 0x%x\n", pte);
-  for (int i = 0; i < PGSIZE / 4; i++) {
-    if (pte[i] != 0) {
+  pg_alloc[INDEX(p)] = false;
+  //uint32_t *pte = (uint32_t *)p;
+  //printf("freed pte = 0x%x\n", pte);
+  //for (int i = 0; i < PGSIZE / 4; i++) {
+    //if (pte[i] != 0) {
     //printf("freed = 0x%x\n", pte[i]);
-    pte[i] = 0x00000000;
-    }
-  }
+    //pte[i] = 0x00000000;
+    //}
+  //}
 }
 
 /* The brk() system call handler. */
