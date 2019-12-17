@@ -30,7 +30,7 @@ struct rom roms[] = {'''
   name = "mario"
   yield '  { .name = "%s", .body = rom_%s_nes, },' % (name, name)
   for name in roms:
-    if name != mario
+    if name != "mario"
       yield '  { .name = "%s", .body = rom_%s_nes, },' % (name, name)
   yield '};'
 
