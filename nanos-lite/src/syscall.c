@@ -22,7 +22,8 @@ void sys_execve(_Context *c, const char *fname) {
   // printf("filename = %s\n", (char *)c->GPR2);
   //kill(current);
   _unprotect(&current->as);
-  _vme_init(new_page, free_page);
+  assert(0);
+  //_vme_init(new_page, free_page);
   context_uload(current, fname);
   //c->GPRx = -1;
 }
