@@ -86,12 +86,12 @@ void _unprotect(_AddressSpace *as) {
           //uptabs[j] = 0;
         }
       }
-      printf("freed pte = 0x%x\n", uptabs);
+      //printf("freed pte = 0x%x\n", uptabs);
       pgfree_usr((void *)uptabs);
       //updir[i] = 0;
     }
   }
-  printf("freed pde = 0x%x\n", as->ptr);
+ // printf("freed pde = 0x%x\n", as->ptr);
   pgfree_usr((void *)as->ptr);
 }
 
