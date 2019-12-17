@@ -100,6 +100,7 @@ void _unprotect(_AddressSpace *as) {
     }
   }
  // printf("freed pde = 0x%x\n", as->ptr);
+  assert(0);
   pgfree_usr((void *)as->ptr);
   _clear((void *)as->ptr);
 }
