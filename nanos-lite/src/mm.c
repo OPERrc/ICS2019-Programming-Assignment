@@ -40,7 +40,7 @@ void free_page(void *p) {
   printf("freed pte = 0x%x\n", pte);
   for (int i = 0; i < PGSIZE / 4; i++) {
     if (pte[i] != 0) {
-    printf("freed = 0x%x\n", pte[i]);
+    //printf("freed = 0x%x\n", pte[i]);
     pte[i] = 0x00000000;
     }
   }
