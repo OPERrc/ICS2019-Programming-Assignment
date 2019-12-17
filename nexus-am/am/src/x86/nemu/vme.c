@@ -102,9 +102,9 @@ void _unprotect(_AddressSpace *as) {
  // printf("freed pde = 0x%x\n", as->ptr);
   
   pgfree_usr((void *)updir);
-  assert(0);
-  _clear((void *)updir);
   
+  _clear((void *)updir);
+  assert(0);
 }
 
 static _AddressSpace *cur_as = NULL;
