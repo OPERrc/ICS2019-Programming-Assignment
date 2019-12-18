@@ -21,11 +21,10 @@ void sys_yield(_Context *c) {
 void sys_execve(_Context *c, const char *fname) {
   // printf("filename = %s\n", (char *)c->GPR2);
   //kill(current);
-  //_unprotect(&current->as);
+  _unprotect(&current->as);
   //assert(0);
   //_vme_init(new_page, free_page);
-  //context_uload(current, fname);
-  naive_uload(NULL, fname);
+  context_uload(current, fname);
   //c->GPRx = -1;
 }
 
@@ -54,16 +53,15 @@ void sys_write(_Context *c) {
 int mm_brk(uintptr_t brk, intptr_t increment);
 
 void sys_brk(_Context *c) {
-  /*
   // _write(1, buf, 20);
   //_heap.start = (uintptr_t *)(c->GPR2);
   uintptr_t cur_brk = c->GPR2;
   intptr_t increment = c->GPR3;
   //extern char _end;
   //printf("_end = 0x%x\n", &_end);
-  //printf("max_brk = 0x%x\n", current->max_brk);
-  //printf("cur_brk = 0x%x\n", cur_brk);
-  //printf("increment = 0x%x\n", increment);
+  /*printf("max_brk = 0x%x\n", current->max_brk);
+  printf("cur_brk = 0x%x\n", cur_brk);
+  printf("increment = 0x%x\n", increment);*/
 
   if (current->max_brk == 0) {
     mm_brk(cur_brk - PGSIZE, PGSIZE + increment);
@@ -79,7 +77,6 @@ void sys_brk(_Context *c) {
   }
   //printf("cur_brk = 0x%x\n", cur_brk);
   //assert(0);
-  */
   c->GPRx = 0;
 }
 

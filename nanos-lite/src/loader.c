@@ -10,7 +10,7 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-static uintptr_t loader(PCB *pcb, const char *filename) {
+/*static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
 
@@ -42,7 +42,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //} 
   fs_close(fd);
   return (uintptr_t)ehdr.e_entry;
-}
+}*/
 void* new_page(size_t nr_page);
 
 void phdr_display(Elf_Phdr *phdr) {
@@ -51,7 +51,7 @@ void phdr_display(Elf_Phdr *phdr) {
   printf("filesz = %d\n", phdr->p_filesz);
   printf("memsz = %d\n", phdr->p_memsz);
 }
-/*
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
   Elf_Phdr phdr;
@@ -118,7 +118,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   fs_close(fd);
   //assert(0);
   return (uintptr_t)ehdr.e_entry;
-}*/
+}
 
 void naive_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);
