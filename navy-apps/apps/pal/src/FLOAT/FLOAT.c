@@ -66,11 +66,6 @@ FLOAT f2F(float a) {
   f.val = a;
   i.val = 0;
   F.val = 0;
-  printf("--------f to F--------\n");
-  printf("float = 0x%x\n", f.i);
-  printf("f.f = 0x%x\n", f.f);
-  printf("f.e = 0x%x\n", f.e);
-  printf("f.s = 0x%x\n", f.s);
   i.f = f.f;
   //printf("i.f = 0x%x\n", i.f);
   i.e = 1;
@@ -95,8 +90,14 @@ FLOAT f2F(float a) {
     F.f = i.f >> 7;
   }
   F.s = f.s;
+  /*
+  printf("--------f to F--------\n");
+  printf("float = 0x%x\n", f.i);
+  printf("f.f = 0x%x\n", f.f);
+  printf("f.e = 0x%x\n", f.e);
+  printf("f.s = 0x%x\n", f.s);
   printf("FLOAT = 0x%x\n", F.val);
-
+  */
   //assert(0);
   return F.val;
 }
