@@ -1,15 +1,29 @@
 #include "FLOAT.h"
 #include <stdint.h>
 #include <assert.h>
+#include <stdio.h>
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-  assert(0);
-  return 0;
+  //assert(0);
+  //printf("------a * b-----\n");
+  //printf("a = 0x%x\n", a);
+  //printf("b = 0x%x\n", b);
+  //printf("a*b = 0x%x\n", a*b);
+  //printf("a*b/2^16 = 0x%x\n", a*b/(2^16));
+  //printf("a/2^8 * b/2^8 = 0x%x\n", (a >> 8) * (b >> 8));
+  FLOAT result = (a >> 8) * (b >> 8);
+  //printf("a*b = 0x%x\n", result);
+  //assert(0);
+  return result;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  assert(0);
-  return 0;
+  //printf("a = 0x%x\n", a);
+  //printf("b = 0x%x\n", b);
+  FLOAT result = (a / b << 16);
+  //printf("a/b = 0x%x\n", result);
+  //assert(0);
+  return result;
 }
 
 FLOAT f2F(float a) {
@@ -22,14 +36,76 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
+  union {
+    struct {
+      uint32_t f :23;
+      uint32_t e :8;
+      uint32_t s :1;
+    };
+    float val;
+    uint32_t i;
+  } f;
 
-  assert(0);
-  return 0;
+  union {
+    struct {
+      uint32_t f :23;
+      uint32_t e :9;
+    };
+    int32_t val;
+  } i;
+
+  union {
+    struct {
+      uint32_t f :16;
+      uint32_t i :15;
+      uint32_t s :1;
+    };
+    FLOAT val;
+  } F;
+
+  f.val = a;
+  i.val = 0;
+  F.val = 0;
+  printf("--------f to F--------\n");
+  printf("float = 0x%x\n", f.i);
+  printf("f.f = 0x%x\n", f.f);
+  printf("f.e = 0x%x\n", f.e);
+  printf("f.s = 0x%x\n", f.s);
+  i.f = f.f;
+  //printf("i.f = 0x%x\n", i.f);
+  i.e = 1;
+  int offset = f.e - 127;
+  //printf("offset = %d\n", offset);
+  if (offset > 0) {
+    if (offset <= 9) {
+      i.val = i.val << offset;
+      F.i = i.e;
+      F.f = i.f >> 7;
+    }
+    else {
+      i.val = i.val << 9;
+      F.i = i.e;
+      F.f = i.f >> 7;
+      F.val = F.val << (offset - 9);
+    }
+  }
+  else {
+    i.val = i.val >> (-offset);
+    F.i = i.e;
+    F.f = i.f >> 7;
+  }
+  F.s = f.s;
+  printf("FLOAT = 0x%x\n", F.val);
+
+  //assert(0);
+  return F.val;
 }
 
 FLOAT Fabs(FLOAT a) {
-  assert(0);
-  return 0;
+  FLOAT result = 0 - a;
+  //printf("a = 0x%x\n", a);
+  //printf("abs(a) = 0x%x\n", result);
+  return result;
 }
 
 /* Functions below are already implemented */

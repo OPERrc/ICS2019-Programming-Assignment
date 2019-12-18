@@ -26,21 +26,21 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  proc_time = 0;
-  fg_pcb = 1;
+  /*proc_time = 0;
+  fg_pcb = 3;
   context_uload(&pcb[0], "/bin/hello");
   context_uload(&pcb[1], "/bin/litenes-am");
-  context_uload(&pcb[2], "/bin/slider-am");
+  context_uload(&pcb[2], "/bin/typing-am");
   context_uload(&pcb[3], "/bin/pal");
   //context_kload(&pcb[1], (void *)hello_fun);
   //switch_boot_pcb();
-  switch_boot_pcb();
+  switch_boot_pcb();*/
 
   Log("Initializing processes...");
 
   // load program here
 
-  //naive_uload(NULL, "/bin/init");
+  naive_uload(NULL, "/bin/pal");
 }
 
 _Context* schedule(_Context *prev) {
