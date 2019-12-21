@@ -74,27 +74,25 @@ int _protect(_AddressSpace *as) {
   return 0;
 }
 
-void _clear(uint32_t *p) {
-  for (int i = 0; i < NR_PTE; i++)
-    p[i] = 0;
-}
-
 void _unprotect(_AddressSpace *as) {
   PDE *updir = as->ptr;
   printf("updir = 0x%x\n", updir);
   for (int i = 0; i < NR_PDE; i++) {
-    printf("i = 0x%x, updir = 0x%x, updir[i] = 0x%x\n", i, updir + i, updir[i]);
-    if ((updir[i] & PTE_P) == 1) {
+    if ((updir[i] & PTE_A) != 0 && (updir[i] & PTE_U) != 0) {
+      printf("i = 0x%x, updir = 0x%x, updir[i] = 0x%x\n", i, updir + i, updir[i]);
       PTE *uptabs = (PTE *)(updir[i] & ~0xfff);
       for (int j = 0; j < NR_PTE; j++) {
-        if ((uptabs[j] & PTE_P) == 1) {
+        if ((uptabs[j] & PTE_A) != 0 && (uptabs[j] & PTE_U) != 0) {
           //printf("freed p_mem = 0x%x\n", uptabs[j]);
           pgfree_usr((void *)(uptabs[j] & ~0xfff));
+          uptabs[j] = uptabs[j] & ~PTE_A;
           //uptabs[j] = 0;
         }
       }
       //printf("freed pte = 0x%x\n", uptabs);
       pgfree_usr((void *)uptabs);
+      updir[i] = updir[i] & ~PTE_A;
+      printf("i = 0x%x, updir = 0x%x, updir[i] = 0x%x\n", i, updir + i, updir[i]);
       //_clear((uint32_t *)uptabs);
       //updir[i] = 0;
     }
@@ -139,14 +137,14 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   PDE *updir = (PDE *)as->ptr;
   //printf("updir = 0x%x\n", updir);
   //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
-  if ((updir[v_addr.dir] & PTE_P) == 0)
-    updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1)) | 0x001;
+  if ((updir[v_addr.dir] & PTE_P) == 0 || (updir[v_addr.dir] & PTE_A) == 0)
+    updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1)) | PTE_P | PTE_A | PTE_U;
   //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
   PTE *uptabs = (PDE *)(updir[v_addr.dir] & ~0xfff);
   //printf("uptabs = 0x%x\n", uptabs);
   //printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
-  if ((uptabs[v_addr.page] & PTE_P) == 0)
-    uptabs[v_addr.page] = (uint32_t)pa | 0x001;
+  if ((uptabs[v_addr.page] & PTE_P) == 0 || (uptabs[v_addr.page] & PTE_A) == 0)
+    uptabs[v_addr.page] = (uint32_t)pa | PTE_P | PTE_A | PTE_U;
   //printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
@@ -157,6 +155,8 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   // assert(0);
   return 0;
 }
+
+void Context_display(_Context *c);
 
 _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, void *args) {
   _Context *new = ustack.end - 0x100 - sizeof(_Context);

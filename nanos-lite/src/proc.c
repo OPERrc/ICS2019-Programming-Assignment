@@ -28,11 +28,10 @@ void hello_fun(void *arg) {
 void init_proc() {
   proc_time = 0;
   fg_pcb = 1;
-  context_uload(&pcb[0], "/bin/init");
-  //context_uload(&pcb[1], "/bin/litenes-am");
-  //context_uload(&pcb[1], "/bin/init");
-  //context_uload(&pcb[2], "/bin/slider-am");
-  //context_uload(&pcb[3], "/bin/pal");
+  context_uload(&pcb[0], "/bin/hello");
+  context_uload(&pcb[1], "/bin/litenes-am");
+  context_uload(&pcb[2], "/bin/slider-am");
+  context_uload(&pcb[3], "/bin/pal");
   //context_kload(&pcb[1], (void *)hello_fun);
   //switch_boot_pcb();
   switch_boot_pcb();
@@ -46,9 +45,9 @@ void init_proc() {
 
 _Context* schedule(_Context *prev) {
   current->cp = prev;
-  current = &pcb[0];
+  //current = &pcb[1];
   proc_time = (proc_time + 1) % TIME_CHANGE;
-  //current = (proc_time == 0 ? &pcb[0] : &pcb[fg_pcb]);
+  current = (proc_time == 0 ? &pcb[0] : &pcb[fg_pcb]);
   //printf("current->cp = 0x%x\n", current->cp);
   //assert(0);
   return current->cp;
