@@ -26,7 +26,7 @@ paddr_t page_translate(vaddr_t addr) {
 
   linear_addr.addr = addr;
   //printf("------------------\n");
-  printf("linear_addr = 0x%x\n", linear_addr.addr);
+  //printf("linear_addr = 0x%x\n", linear_addr.addr);
   //printf("dir = 0x%x\n", linear_addr.dir);
   //printf("page = 0x%x\n", linear_addr.page);
   //printf("offset = 0x%x\n", linear_addr.offset);
