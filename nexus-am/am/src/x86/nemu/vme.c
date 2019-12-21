@@ -156,6 +156,8 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   return 0;
 }
 
+void Context_display(_Context *c);
+
 _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, void *args) {
   _Context *new = ustack.end - 0x100 - sizeof(_Context);
   new->eip = (uintptr_t)entry;
@@ -163,7 +165,7 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   new->as = as;
   new->eflags = 0x200;
   //void Context_display(_Context *c);
-  //Context_display(new);
+  Context_display(new);
   //printf("as->ptr = 0x%x\n", new->as->ptr);
   //printf("--------------------------------\n");
   //printf("in vme.c: _ucontext:\n");
