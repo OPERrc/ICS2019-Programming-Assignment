@@ -128,18 +128,18 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   } v_addr;
   v_addr.val = (uint32_t)va;
   
-  //printf("------------------\n");
-  //printf("va = 0x%x\n", v_addr.val);
+  printf("------------------\n");
+  printf("va = 0x%x\n", v_addr.val);
   //printf("pa = 0x%x\n", pa);
   //printf("va.dir = 0x%x\n", v_addr.dir);
   //printf("va.page = 0x%x\n", v_addr.page);
   //printf("va.offset = 0x%x\n", v_addr.offset);
   PDE *updir = (PDE *)as->ptr;
   //printf("updir = 0x%x\n", updir);
-  printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
+  //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
   if ((updir[v_addr.dir] & PTE_P) == 0 || (updir[v_addr.dir] & PTE_A) == 0)
     updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1)) | PTE_P | PTE_A | PTE_U;
-  printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
+  //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
   PTE *uptabs = (PDE *)(updir[v_addr.dir] & ~0xfff);
   //printf("uptabs = 0x%x\n", uptabs);
   printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
