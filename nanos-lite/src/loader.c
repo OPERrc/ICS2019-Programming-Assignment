@@ -139,7 +139,7 @@ void context_kload(PCB *pcb, void *entry) {
 
 void context_uload(PCB *pcb, const char *filename) {
   _protect(&pcb->as);
-  printf("pcb->as.ptr = 0x%x\n", pcb->as.ptr);
+  //printf("pcb->as.ptr = 0x%x\n", pcb->as.ptr);
   uintptr_t entry = loader(pcb, filename);
 
   Log("process \"%s\" successfully loaded, entry = %x\n", filename, entry);
