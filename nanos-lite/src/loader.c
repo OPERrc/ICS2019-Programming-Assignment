@@ -141,7 +141,7 @@ void context_uload(PCB *pcb, const char *filename) {
   _protect(&pcb->as);
   uintptr_t entry = loader(pcb, filename);
 
-  Log("process \"%s\" successfully loaded\n", filename);
+  Log("process \"%s\" successfully loaded, entry = %x\n", filename, entry);
 
   _Area stack;
   stack.start = pcb->stack;
