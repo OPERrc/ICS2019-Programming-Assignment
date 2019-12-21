@@ -145,8 +145,8 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   PTE *uptabs = (PDE *)(updir[v_addr.dir] & ~0xfff);
   //printf("uptabs = 0x%x\n", uptabs);
   //printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
-  if ((uptabs[v_addr.page] & PTE_P) == 0)
-    uptabs[v_addr.page] = (uint32_t)pa | 0x001;
+  if ((uptabs[v_addr.page] & PTE_P) == 0 || (uptabs[v_addr.page] & PTE_A) == 0)
+    uptabs[v_addr.page] = (uint32_t)pa | PTE_P | PTE_A;
   //printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
