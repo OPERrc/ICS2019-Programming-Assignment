@@ -31,8 +31,8 @@ void init_proc() {
   context_uload(&pcb[0], "/bin/hello");
   //context_uload(&pcb[1], "/bin/litenes-am");
   context_uload(&pcb[1], "/bin/dummy");
-  context_uload(&pcb[2], "/bin/slider-am");
-  context_uload(&pcb[3], "/bin/pal");
+  //context_uload(&pcb[2], "/bin/slider-am");
+  //context_uload(&pcb[3], "/bin/pal");
   //context_kload(&pcb[1], (void *)hello_fun);
   //switch_boot_pcb();
   switch_boot_pcb();
