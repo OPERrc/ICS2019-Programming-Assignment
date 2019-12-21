@@ -46,8 +46,8 @@ void init_proc() {
 
 _Context* schedule(_Context *prev) {
   current->cp = prev;
-  //current = &pcb[1];
-  proc_time = (proc_time + 1) % TIME_CHANGE;
+  current = &pcb[1];
+  //proc_time = (proc_time + 1) % TIME_CHANGE;
   current = (proc_time == 0 ? &pcb[0] : &pcb[fg_pcb]);
   //printf("current->cp = 0x%x\n", current->cp);
   //assert(0);
