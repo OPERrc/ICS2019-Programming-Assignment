@@ -143,10 +143,10 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
     updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1)) | PTE_P | PTE_U | PTE_A;
   else if ((updir[v_addr.dir] & PTE_A) == 0)
     updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1)) | PTE_P | PTE_U | PTE_A;
-  printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
+  //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
   PTE *uptabs = (PDE *)(updir[v_addr.dir] & ~0xfff);
-  //printf("uptabs = 0x%x\n", uptabs);
-  //printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
+  printf("uptabs = 0x%x\n", uptabs);
+  printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
   if ((uptabs[v_addr.page] & PTE_P) == 0)
     uptabs[v_addr.page] = (uint32_t)pa | PTE_P | PTE_U | PTE_A;
   else if ((uptabs[v_addr.page] & PTE_A) == 0)
