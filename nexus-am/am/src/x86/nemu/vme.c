@@ -64,7 +64,7 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
 
 int _protect(_AddressSpace *as) {
   PDE *updir = (PDE*)(pgalloc_usr(1));
-  as->ptr = (void *)((uint32_t)updir | PTE_A | PTE_U);
+  as->ptr = updir;
   // map kernel space
   for (int i = 0; i < NR_PDE; i ++) {
     updir[i] = kpdirs[i];
@@ -140,18 +140,14 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   //printf("updir = 0x%x\n", updir);
   //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
   if ((updir[v_addr.dir] & PTE_P) == 0)
-    updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1)) | PTE_P | PTE_U | PTE_A;
-  if ((updir[v_addr.dir] & PTE_A) == 0)
-    updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1)) | PTE_P | PTE_U | PTE_A;
+    updir[v_addr.dir] = (uint32_t)(pgalloc_usr(1)) | 0x001;
   //printf("updir[v_addr.dir] = 0x%x\n", updir[v_addr.dir]);
   PTE *uptabs = (PDE *)(updir[v_addr.dir] & ~0xfff);
   //printf("uptabs = 0x%x\n", uptabs);
   //printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
   if ((uptabs[v_addr.page] & PTE_P) == 0)
-    uptabs[v_addr.page] = (uint32_t)pa | PTE_P | PTE_U | PTE_A;
-  if ((uptabs[v_addr.page] & PTE_A) == 0)
-    uptabs[v_addr.page] = (uint32_t)pa | PTE_P | PTE_U | PTE_A;
-  printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
+    uptabs[v_addr.page] = (uint32_t)pa | 0x001;
+  //printf("uptabs[v_addr.page] = 0x%x\n", uptabs[v_addr.page]);
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
   //*(PDE *)(as->ptr + v_addr.dir * 4) = ;
   //PTE *p_addr = (PTE *)(pa - v_addr.offset);
