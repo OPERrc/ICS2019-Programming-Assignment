@@ -25,6 +25,7 @@ void sys_execve(_Context *c, const char *fname) {
   //assert(0);
   //_vme_init(new_page, free_page);
   context_uload(current, fname);
+  assert(0);
   _yield();
   //c->GPRx = -1;
 }
