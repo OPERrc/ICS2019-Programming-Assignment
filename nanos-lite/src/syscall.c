@@ -26,7 +26,7 @@ void sys_execve(_Context *c, const char *fname) {
   //_vme_init(new_page, free_page);
   context_uload(current, fname);
   void switch_boot_pcb();
-  switch_boot_pcb();
+  //switch_boot_pcb();
   _yield();
   panic("Should not reach here!");
   //c->GPRx = -1;
