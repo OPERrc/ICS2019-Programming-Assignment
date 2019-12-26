@@ -26,14 +26,17 @@ struct MenuItem {
   {"Litenes (Super Mario Bros)", "/bin/litenes", "/share/games/nes/mario.nes"},
   {"Litenes (Yie Ar Kung Fu)", "/bin/litenes", "/share/games/nes/kungfu.nes"},
   {"PAL - Xian Jian Qi Xia Zhuan", "/bin/pal", NULL},
+  {"Litenes - AM (Super Mario Bros)", "/bin/litenes-am", NULL},
+  {"Typing - AM", "/bin/typing-am", NULL},
+  {"Slider - AM", "/bin/slider-am", NULL},
+  {"Microbench - AM", "/bin/microbench-am", NULL},
+  {"Dhrystone - AM", "/bin/dhrystone-am", NULL},
+  {"Coremark - AM", "/bin/coremark-am", NULL},
   {"bmptest", "/bin/bmptest", NULL},
   {"dummy", "/bin/dummy", NULL},
   {"events", "/bin/events", NULL},
   {"hello", "/bin/hello", NULL},
   {"text", "/bin/text", NULL},
-  {"Litenes - AM (Super Mario Bros)", "/bin/litenes-am", NULL},
-  {"Typing - AM", "/bin/typing-am", NULL},
-  {"Slider - AM", "/bin/slider-am", NULL},
 };
 
 #define nitems (sizeof(items) / sizeof(items[0]))
