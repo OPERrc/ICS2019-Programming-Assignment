@@ -22,11 +22,12 @@ void sys_execve(_Context *c, const char *fname) {
   // printf("filename = %s\n", (char *)c->GPR2);
   //kill(current);
   _unprotect(&current->as);
+  current->max_brk = 0;
   //assert(0);
   //_vme_init(new_page, free_page);
   context_uload(current, fname);
   void switch_boot_pcb();
-  //switch_boot_pcb();
+  switch_boot_pcb();
   _yield();
   panic("Should not reach here!");
   //c->GPRx = -1;
