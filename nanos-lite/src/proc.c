@@ -1,7 +1,7 @@
 #include "proc.h"
 
 #define MAX_NR_PROC 4
-#define TIME_CHANGE 200
+#define TIME_CHANGE 300
 
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
@@ -31,8 +31,8 @@ void init_proc() {
   fg_pcb = 1;
   context_uload(&pcb[0], "/bin/hello");
   context_uload(&pcb[1], "/bin/init");
-  context_uload(&pcb[2], "/bin/slider-am");
-  context_uload(&pcb[3], "/bin/pal");
+  context_uload(&pcb[2], "/bin/init");
+  context_uload(&pcb[3], "/bin/init");
   //context_kload(&pcb[1], (void *)hello_fun);
   //switch_boot_pcb();
   switch_boot_pcb();
