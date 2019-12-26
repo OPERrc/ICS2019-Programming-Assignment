@@ -1,7 +1,7 @@
 #include "proc.h"
 
 #define MAX_NR_PROC 4
-#define TIME_CHANGE 50
+#define TIME_CHANGE 500
 
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
