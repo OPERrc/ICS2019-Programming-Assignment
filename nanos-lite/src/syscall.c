@@ -12,6 +12,7 @@ void context_uload(PCB *pcb, const char *filename);
 void _unprotect(_AddressSpace *as);
 int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*));
 void free_page(void *p);
+void switch_boot_pcb();
 
 void sys_yield(_Context *c) {
   _yield();
@@ -26,7 +27,6 @@ void sys_execve(_Context *c, const char *fname) {
   //assert(0);
   //_vme_init(new_page, free_page);
   context_uload(current, fname);
-  void switch_boot_pcb();
   switch_boot_pcb();
   _yield();
   panic("Should not reach here!");
